@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:layout_margin="16dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/travisScott" />
+            android:src="@drawable/travis_scott" />
 
         <LinearLayout
             android:layout_width="match_parent"
