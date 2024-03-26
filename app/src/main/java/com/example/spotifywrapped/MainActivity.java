@@ -18,6 +18,8 @@ import com.example.spotifywrapped.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String REDIRECT_URI = "spotifyapk://auth";
+
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -62,5 +64,21 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // We will start writing our code here.
+    }
+
+    private void connected() {
+        // Then we will write some more code here.
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Aaand we will finish off here.
     }
 }
