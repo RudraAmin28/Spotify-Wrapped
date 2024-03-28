@@ -27,10 +27,14 @@ import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         profileBtn.setOnClickListener((v) -> {
-            onGetUserProfileClicked();
+            onGetAlbumData();
         });
 
 
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
      * Get user profile
      * This method will get the user profile using the token
      */
-    public void onGetUserProfileClicked() {
+    public void onGetArtistData() {
         if (mAccessToken == null) {
             Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
@@ -179,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a request to get the user profile
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me")
+                .url("https://api.spotify.com/v1/me/top/artists?time_range=long_term")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -196,9 +200,102 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
+                //Top 5 artists, Top 5 songs, top genres, Top albums
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
-                    setTextAsync(jsonObject.toString(3), profileTextView);
+                    JSONArray items = jsonObject.getJSONArray("items");
+
+                    //TOP 5 ARTISTS
+                    String[] topFiveArtists = new String[5];
+                    for (int i = 0; i < 5; i++) {
+                        topFiveArtists[i] = items.getJSONObject(i).getString("name");
+                    }
+
+                    //TOP ARTIST IMAGE URL
+                    String topArtistImageString = items.getJSONObject(0).getJSONArray("images").getJSONObject(1).getString("url");
+
+
+                    setTextAsync(topArtistImageString, profileTextView);
+                } catch (JSONException e) {
+                    Log.d("JSON", "Failed to parse data: " + e);
+                    Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+
+    public void onGetAlbumData() {
+        if (mAccessToken == null) {
+            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Create a request to get the user profile
+        final Request request = new Request.Builder()
+                .url("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+                .addHeader("Authorization", "Bearer " + mAccessToken)
+                .build();
+
+        cancelCall();
+        mCall = mOkHttpClient.newCall(request);
+
+        mCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("HTTP", "Failed to fetch data: " + e);
+                Toast.makeText(MainActivity.this, "Failed to fetch data, watch Logcat for more details",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                //Top 5 artists, Top 5 songs, total minutes, top genres, Top albums
+                try {
+                    final JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONArray items = jsonObject.getJSONArray("items");
+
+
+                    //TOP 5 TRACKS
+                    String[] topTracks = new String[5];
+                    for (int i = 0; i < 5; i++) {
+                        topTracks[i] = items.getJSONObject(i).getString("name");
+                    }
+
+                    HashMap<String, Integer> albumCounts = new HashMap<>();
+
+                    for (int i = 0; i < items.length(); i++) {
+                        String albumName = items.getJSONObject(i).getJSONObject("album").getString("name");
+                        albumCounts.put(albumName, albumCounts.getOrDefault(items.getJSONObject(i).getJSONObject("album").getString("name"), 0) + 1);
+                    }
+
+                    ArrayList<ArrayList<String>> buckets = new ArrayList<>();
+                    for (int i = 0; i < 50; i++) {
+                        buckets.add(new ArrayList<>());
+                    }
+
+                    for (String key : albumCounts.keySet()) {
+                        int count = albumCounts.get(key);
+                        buckets.get(count).add(key);
+                    }
+
+                    //TOP 5 ALBUMS
+                    ArrayList<String> topAlbums = new ArrayList<>();
+
+                    int currInd = 49;
+                    while (currInd >= 0 && topAlbums.size() != 5) {
+                        if (buckets.get(currInd) != null) {
+                            topAlbums.addAll(buckets.get(currInd));
+                        }
+                        currInd--;
+                    }
+
+
+                    setTextAsync(topTracks[0], profileTextView);
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                     Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
