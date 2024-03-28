@@ -112,14 +112,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         profileBtn.setOnClickListener((v) -> {
-            onGetArtistData();
+            //onGetArtistData();
             onGetAlbumData();
         });
-
-
-
-
-
 
     }
 
