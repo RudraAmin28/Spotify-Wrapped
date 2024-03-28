@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         profileBtn.setOnClickListener((v) -> {
-            //onGetArtistData();
+            onGetArtistData();
             onGetAlbumData();
         });
 
@@ -202,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                //Top 5 artists, Top 5 songs, top 3 genres, Top albums
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONArray items = jsonObject.getJSONArray("items");
@@ -250,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
                         currInd--;
                     }
                     topGenres = new ArrayList<>(topGenres.subList(0, Math.min(5, topGenres.size())));
+                    SpotifyArtist finalArtistData = new SpotifyArtist(topFiveArtists, topArtistImageString, topGenres);
+
 
 
 
@@ -291,7 +292,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                //Top 5 artists [DONE], Top 5 songs [DONE], top genres, Top albums [DONE]
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONArray items = jsonObject.getJSONArray("items");
@@ -326,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //TOP 5 ALBUMS and the link to image of the first one
                     ArrayList<String> topAlbums = new ArrayList<>();
-                    String FirstAlbumImage = "";
+                    String firstAlbumImage = "";
 
                     int currInd = 49;
                     while (currInd >= 0 && topAlbums.size() != 5) {
@@ -339,16 +339,16 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < items.length(); i++) {
                         String albumName = items.getJSONObject(i).getJSONObject("album").getString("name");
                         if (albumName.equals(topAlbums.get(0))) {
-                            FirstAlbumImage = items.getJSONObject(i).getJSONObject("album").getJSONArray("images").getJSONObject(1).getString("url");
+                            firstAlbumImage = items.getJSONObject(i).getJSONObject("album").getJSONArray("images").getJSONObject(1).getString("url");
                         }
                     }
 
                     topAlbums = new ArrayList<>(topAlbums.subList(0, Math.min(5, topAlbums.size())));
 
-                    for (int i=0;i<topAlbums.size(); i++) {
+                    for (int i=0; i < topAlbums.size(); i++) {
                         System.out.println(topAlbums.get(i));
                     }
-
+                    SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage);
 
                     setTextAsync(topTracks[0], profileTextView);
                 } catch (JSONException e) {
