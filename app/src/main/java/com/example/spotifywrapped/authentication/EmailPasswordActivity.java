@@ -26,6 +26,7 @@ public class EmailPasswordActivity extends Activity {
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        System.out.println(1);
         // [END initialize_auth]
     }
 
@@ -41,7 +42,7 @@ public class EmailPasswordActivity extends Activity {
     }
     // [END on_start_check_user]
 
-    private void createAccount(String email, String password) {
+    public void createAccount(FirebaseAuth mAuth, String email, String password) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -54,17 +55,17 @@ public class EmailPasswordActivity extends Activity {
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+//                            updateUI(null);
                         }
                     }
                 });
         // [END create_user_with_email]
     }
 
-    private void signIn(String email, String password) {
+    public void signIn(String email, String password) {
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -87,7 +88,7 @@ public class EmailPasswordActivity extends Activity {
         // [END sign_in_with_email]
     }
 
-    private void sendEmailVerification() {
+    public void sendEmailVerification() {
         // Send verification email
         // [START send_email_verification]
         final FirebaseUser user = mAuth.getCurrentUser();
