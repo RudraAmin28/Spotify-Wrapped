@@ -46,6 +46,7 @@ public class LoginFragment extends Fragment {
         final EditText editTextEmail = binding.editTextEmail;
         final EditText editTextPassword = binding.editTextPassword;
         Button buttonSignUp = binding.buttonSignUp;
+        Button buttonLogin = binding.buttonLogin;
 
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +66,15 @@ public class LoginFragment extends Fragment {
                 } else {
                     errorMessage.setText("Cannot enter a blank email or password!");
                 }
+            }
+        });
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = editTextEmail.getText().toString().trim();
+                String password = editTextPassword.getText().toString().trim();
+                emailPasswordActivity.signIn(email, password);
             }
         });
 
