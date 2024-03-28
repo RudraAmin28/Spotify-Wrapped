@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         profileBtn.setOnClickListener((v) -> {
+            //onGetArtistData();
             onGetAlbumData();
         });
 
@@ -201,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                //Top 5 artists, Top 5 songs, top genres, Top albums
+                //Top 5 artists, Top 5 songs, top 3 genres, Top albums
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONArray items = jsonObject.getJSONArray("items");
@@ -214,6 +215,42 @@ public class MainActivity extends AppCompatActivity {
 
                     //TOP ARTIST IMAGE URL
                     String topArtistImageString = items.getJSONObject(0).getJSONArray("images").getJSONObject(1).getString("url");
+
+
+
+                    HashMap<String, Integer> genreCounts = new HashMap<>();
+
+                    for (int i = 0; i < items.length(); i++) {
+                        JSONArray genres = items.getJSONObject(i).getJSONArray("genres");
+                        for (int j = 0; j < genres.length(); j++) {
+                            genreCounts.put(genres.getString(j), genreCounts.getOrDefault(genres.getString(j), 0) + 1);
+                        }
+                    }
+
+
+                    ArrayList<ArrayList<String>> buckets = new ArrayList<>();
+                    for (int i = 0; i < 100; i++) {
+                        buckets.add(new ArrayList<>());
+                    }
+
+                    for (String key : genreCounts.keySet()) {
+                        int count = genreCounts.get(key);
+                        buckets.get(count).add(key);
+                    }
+
+                    //TOP 5 ALBUMS and the link to image of the first one
+                    ArrayList<String> topGenres = new ArrayList<>();
+//                    String FirstAlbumImage = "";
+
+                    int currInd = 99;
+                    while (currInd >= 0 && topGenres.size() != 5) {
+                        if (buckets.get(currInd) != null) {
+                            topGenres.addAll(buckets.get(currInd));
+                        }
+                        currInd--;
+                    }
+                    topGenres = new ArrayList<>(topGenres.subList(0, Math.min(5, topGenres.size())));
+
 
 
                     setTextAsync(topArtistImageString, profileTextView);
@@ -254,17 +291,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                //Top 5 artists, Top 5 songs, total minutes, top genres, Top albums
+                //Top 5 artists [DONE], Top 5 songs [DONE], top genres, Top albums [DONE]
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONArray items = jsonObject.getJSONArray("items");
 
 
-                    //TOP 5 TRACKS
+                    //TOP 5 TRACKS and image link of the first one
                     String[] topTracks = new String[5];
+                    String firstTrackImage = items.getJSONObject(0).getJSONObject("album").getJSONArray("images").getJSONObject(1).getString("url");
+
                     for (int i = 0; i < 5; i++) {
                         topTracks[i] = items.getJSONObject(i).getString("name");
                     }
+
+
 
                     HashMap<String, Integer> albumCounts = new HashMap<>();
 
@@ -283,8 +324,9 @@ public class MainActivity extends AppCompatActivity {
                         buckets.get(count).add(key);
                     }
 
-                    //TOP 5 ALBUMS
+                    //TOP 5 ALBUMS and the link to image of the first one
                     ArrayList<String> topAlbums = new ArrayList<>();
+                    String FirstAlbumImage = "";
 
                     int currInd = 49;
                     while (currInd >= 0 && topAlbums.size() != 5) {
@@ -292,6 +334,19 @@ public class MainActivity extends AppCompatActivity {
                             topAlbums.addAll(buckets.get(currInd));
                         }
                         currInd--;
+                    }
+
+                    for (int i = 0; i < items.length(); i++) {
+                        String albumName = items.getJSONObject(i).getJSONObject("album").getString("name");
+                        if (albumName.equals(topAlbums.get(0))) {
+                            FirstAlbumImage = items.getJSONObject(i).getJSONObject("album").getJSONArray("images").getJSONObject(1).getString("url");
+                        }
+                    }
+
+                    topAlbums = new ArrayList<>(topAlbums.subList(0, Math.min(5, topAlbums.size())));
+
+                    for (int i=0;i<topAlbums.size(); i++) {
+                        System.out.println(topAlbums.get(i));
                     }
 
 
