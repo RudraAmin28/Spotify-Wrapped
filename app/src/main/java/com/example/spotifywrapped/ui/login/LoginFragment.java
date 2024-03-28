@@ -2,6 +2,7 @@ package com.example.spotifywrapped.ui.login;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,7 +52,19 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
-                emailPasswordActivity.createAccount(mAuth, email, password);
+
+                TextView errorMessage = root.findViewById(R.id.textViewEmailPasswordError);
+                if (!email.isEmpty() && !password.isEmpty()) {
+                    if (email.contains("@") && email.contains(".")) {
+                        errorMessage.setText("");
+                        emailPasswordActivity.createAccount(mAuth, email, password);
+                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_wrappedFragment);
+                    } else {
+                        errorMessage.setText("Invalid email address");
+                    }
+                } else {
+                    errorMessage.setText("Cannot enter a blank email or password!");
+                }
             }
         });
 
