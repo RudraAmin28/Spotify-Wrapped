@@ -2,6 +2,8 @@ package com.example.spotifywrapped;
 
 import android.content.Intent;
 import android.net.Uri;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -21,6 +26,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spotifywrapped.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 import com.spotify.sdk.android.auth.AuthorizationClient;
@@ -399,5 +407,110 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         cancelCall();
         super.onDestroy();
+    }
+
+    public void getUserProfile() {
+        // [START get_user_profile]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getIdToken() instead.
+            String uid = user.getUid();
+        }
+        // [END get_user_profile]
+    }
+
+    public void updateProfile() {
+        // [START update_profile]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName("Jane Q. User")
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User profile updated.");
+                        }
+                    }
+                });
+        // [END update_profile]
+    }
+
+    public void updateEmail() {
+        // [START update_email]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.verifyBeforeUpdateEmail("user@example.com")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User email address updated.");
+                        }
+                    }
+                });
+        // [END update_email]
+    }
+
+    public void updatePassword() {
+        // [START update_password]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String newPassword = "SOME-SECURE-PASSWORD";
+
+        user.updatePassword(newPassword)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User password updated.");
+                        }
+                    }
+                });
+        // [END update_password]
+    }
+
+    public void sendEmailVerification() {
+        // [START send_email_verification]
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                        }
+                    }
+                });
+        // [END send_email_verification]
+    }
+
+    public void deleteUser() {
+        // [START delete_user]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User account deleted.");
+                        }
+                    }
+                });
+        // [END delete_user]
     }
 }
