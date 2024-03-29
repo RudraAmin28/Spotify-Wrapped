@@ -1,7 +1,7 @@
 package com.example.spotifywrapped;
 
 public class SpotifyWrapData {
-    private SpotifyArtist artistData;
-    private SpotifyTrack trackData;
+    public SpotifyArtist artistData;
+    public SpotifyTrack trackData;
 
 }

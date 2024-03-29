@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
     private String mAccessToken, mAccessCode;
     private Call mCall;
+    private SpotifyWrapData finalSpotifyData = new SpotifyWrapData();
 
     private TextView tokenTextView, codeTextView, profileTextView;
 
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
         Button codeBtn = (Button) findViewById(R.id.code_btn);
         Button profileBtn = (Button) findViewById(R.id.profile_btn);
+        Button profileBtn2 = (Button) findViewById(R.id.profile_btn2);
 
         // Set the click listeners for the buttons
 
@@ -120,8 +122,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         profileBtn.setOnClickListener((v) -> {
-            //onGetArtistData();
             onGetAlbumData();
+        });
+        profileBtn2.setOnClickListener((v) -> {
+            onGetArtistData();
         });
 
     }
@@ -253,8 +257,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     topGenres = new ArrayList<>(topGenres.subList(0, Math.min(5, topGenres.size())));
                     SpotifyArtist finalArtistData = new SpotifyArtist(topFiveArtists, topArtistImageString, topGenres);
-
-
+                    finalSpotifyData.artistData = finalArtistData;
 
 
                     setTextAsync(topArtistImageString, profileTextView);
@@ -352,6 +355,7 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println(topAlbums.get(i));
                     }
                     SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage);
+                    finalSpotifyData.trackData = finalTrackData;
 
                     setTextAsync(topTracks[0], profileTextView);
                 } catch (JSONException e) {
