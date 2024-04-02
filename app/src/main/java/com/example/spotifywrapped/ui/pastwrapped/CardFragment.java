@@ -30,8 +30,6 @@ public class CardFragment extends Fragment {
 
         binding = FragmentCardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        //final TextView textView = binding.currentYear;
-        //cardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
