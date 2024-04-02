@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,8 +14,9 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.databinding.FragmentCardBinding;
+import com.example.spotifywrapped.R;
+import com.example.spotifywrapped.ui.wrapped.WrappedFragment;
 
 public class CardFragment extends Fragment {
     private FragmentCardBinding binding;
@@ -30,6 +29,7 @@ public class CardFragment extends Fragment {
 
         binding = FragmentCardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
         return root;
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
