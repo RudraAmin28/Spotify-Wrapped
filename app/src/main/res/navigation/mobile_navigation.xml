@@ -10,21 +10,27 @@
         android:name="com.example.spotifywrapped.ui.login.LoginFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_login" />
+        <action
+            android:id="@+id/action_loginFragment_to_wrappedFragment"
+            app:destination="@id/nav_wrapped"
+            app:popUpTo="@+id/nav_login"
+            app:popUpToInclusive="true" />
 
     <fragment
         android:id="@+id/nav_wrapped"
         android:name="com.example.spotifywrapped.ui.wrapped.WrappedFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_wrapped" />
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.spotifywrapped.ui.settings.SettingsFragment"
         android:label="@string/settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_wrapped" />
+
     <fragment
         android:id="@+id/nav_pastwrapped"
         android:name="com.example.spotifywrapped.ui.pastwrapped.CardFragment"
-        android:label="@string/menu_card"
+        android:label="@string/pastwrapped"
         tools:layout="@layout/fragment_card" />
 </navigation>
