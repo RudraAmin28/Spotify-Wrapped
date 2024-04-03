@@ -74,7 +74,15 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
-                emailPasswordActivity.signIn(email, password);
+                boolean signedIn = emailPasswordActivity.signIn(mAuth, email, password);
+
+                TextView errorMessage = root.findViewById(R.id.textViewEmailPasswordError);
+                if (signedIn) {
+                    errorMessage.setText("");
+                    Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_wrappedFragment);
+                } else {
+                    errorMessage.setText("Invalid login");
+                }
             }
         });
 
