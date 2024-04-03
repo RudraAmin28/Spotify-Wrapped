@@ -63,8 +63,7 @@ public class EmailPasswordActivity extends Activity {
         // [END create_user_with_email]
     }
 
-    public boolean signIn(FirebaseAuth mAuth, String email, String password) {
-        boolean[] signedIn = new boolean[1];
+    public void signIn(FirebaseAuth mAuth, String email, String password) {
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -74,18 +73,14 @@ public class EmailPasswordActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            signedIn[0] = true;
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
 //                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
 //                                    Toast.LENGTH_SHORT).show();
-                            signedIn[0] = false;
-
                         }
                     }
                 });
-        return signedIn[0];
         // [END sign_in_with_email]
     }
 
