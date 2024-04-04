@@ -36,7 +36,10 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -170,7 +173,25 @@ public class MainActivity extends AppCompatActivity {
                             Log.w(TAG, "Error adding document", e);
                         }
                     });
+
+
+            CollectionReference dataCollectionRef = usersCollectionRef.document(uid).collection("data");
+
+            dataCollectionRef.get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                }
+                            } else {
+                                Log.w(TAG, "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
         });
+
 
     }
 
@@ -560,5 +581,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         // [END delete_user]
+    }
+
+
+    public void getSpotifyData() {
+
     }
 }
