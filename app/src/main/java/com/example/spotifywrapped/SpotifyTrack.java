@@ -1,26 +1,27 @@
 package com.example.spotifywrapped;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpotifyTrack {
-    private String[] topTracks;
+    private ArrayList<String> topTracks;
     private String topTrackImage;
 
     private ArrayList<String> topAlbums;
     private String topAlbumImage = "";
 
-    public SpotifyTrack(String[] topTracks, String topTrackImage, ArrayList<String> topAlbums, String topAlbumImage) {
+    public SpotifyTrack(ArrayList<String> topTracks, String topTrackImage, ArrayList<String> topAlbums, String topAlbumImage) {
         this.topTracks = topTracks;
         this.topTrackImage = topTrackImage;
         this.topAlbums = topAlbums;
         this.topAlbumImage = topAlbumImage;
     }
 
-    public String[] getTopTracks() {
+    public ArrayList<String> getTopTracks() {
         return topTracks;
     }
 
-    public void setTopTracks(String[] topTracks) {
+    public void setTopTracks(ArrayList<String> topTracks) {
         this.topTracks = topTracks;
     }
 
