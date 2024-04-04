@@ -73,7 +73,9 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString().trim();
+                System.out.println("Email: " + email);
                 String password = editTextPassword.getText().toString().trim();
+                System.out.println("Password: " + password);
                 emailPasswordActivity.signIn(email, password);
             }
         });
