@@ -74,6 +74,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
+
                 TextView errorMessage = root.findViewById(R.id.textViewEmailPasswordError);
 
                 mAuth.signInWithEmailAndPassword(email, password)
