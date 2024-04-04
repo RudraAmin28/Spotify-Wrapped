@@ -78,6 +78,7 @@ public class EmailPasswordActivity extends Activity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
 //                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
 //                                    Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
