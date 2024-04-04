@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spotifywrapped.firestore.FireStoreActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    FireStoreActivity FireStoreActivity = new FireStoreActivity();
 
     public static final String CLIENT_ID = "af97d706ecbd46009cb779d7cf1e25da";
     public static final int AUTH_TOKEN_REQUEST_CODE = 0;
@@ -142,54 +145,10 @@ public class MainActivity extends AppCompatActivity {
 
         createwrapButton2.setOnClickListener((v) -> {
 
-            Map<String, Object> singleWrapped = new HashMap<>();
-            singleWrapped.put("Top Tracks", finalSpotifyData.trackData.getTopTracks());
-            singleWrapped.put("Top Track Image", finalSpotifyData.trackData.getTopTrackImage());
-            singleWrapped.put("Top Albums", finalSpotifyData.trackData.getTopAlbums());
-            singleWrapped.put("Top Album Image", finalSpotifyData.trackData.getTopAlbumImage());
-            singleWrapped.put("Top Five Artists", finalSpotifyData.artistData.getTopFiveArtists());
-            singleWrapped.put("Top Artist Image", finalSpotifyData.artistData.getTopArtistImageString());
-            singleWrapped.put("Top Genres", finalSpotifyData.artistData.getTopGenres());
-
-            CollectionReference usersCollectionRef = db.collection("users");
-            String uid = "DEFAULT";
-            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            }
+            FireStoreActivity.saveSpotifyWrap(finalSpotifyData);
 
 
-
-            usersCollectionRef.document(uid).collection("data")
-                    .add(singleWrapped)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error adding document", e);
-                        }
-                    });
-
-
-            CollectionReference dataCollectionRef = usersCollectionRef.document(uid).collection("data");
-
-            dataCollectionRef.get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d(TAG, document.getId() + " => " + document.getData());
-                                }
-                            } else {
-                                Log.w(TAG, "Error getting documents.", task.getException());
-                            }
-                        }
-                    });
+            FireStoreActivity.fetchSpotifyWraps();
         });
 
 
@@ -321,6 +280,25 @@ public class MainActivity extends AppCompatActivity {
                         currInd--;
                     }
                     topGenres = new ArrayList<>(topGenres.subList(0, Math.min(5, topGenres.size())));
+
+                    for (int i = 0; i < 5; i++) {
+                        StringBuilder titleCase = new StringBuilder(topGenres.get(i).length());
+                        boolean nextTitleCase = true;
+
+                        for (char c : topGenres.get(i).toCharArray()) {
+                            if (Character.isSpaceChar(c)) {
+                                nextTitleCase = true;
+                            } else if (nextTitleCase) {
+                                c = Character.toTitleCase(c);
+                                nextTitleCase = false;
+                            }
+
+                            titleCase.append(c);
+                        }
+
+                        topGenres.set(i, titleCase.toString());
+                    }
+
                     SpotifyArtist finalArtistData = new SpotifyArtist(topFiveArtists, topArtistImageString, topGenres);
                     finalSpotifyData.artistData = finalArtistData;
 
