@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +33,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -43,6 +47,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -55,6 +60,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public static final String CLIENT_ID = "af97d706ecbd46009cb779d7cf1e25da";
     public static final int AUTH_TOKEN_REQUEST_CODE = 0;
@@ -110,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         Button codeBtn = (Button) findViewById(R.id.code_btn);
         Button profileBtn = (Button) findViewById(R.id.profile_btn);
         Button profileBtn2 = (Button) findViewById(R.id.profile_btn2);
+        Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
 
         // Set the click listeners for the buttons
 
@@ -126,6 +133,34 @@ public class MainActivity extends AppCompatActivity {
         });
         profileBtn2.setOnClickListener((v) -> {
             onGetArtistData();
+        });
+
+        createwrapButton2.setOnClickListener((v) -> {
+
+            Map<String, Object> singleWrapped = new HashMap<>();
+            singleWrapped.put("Top Tracks", finalSpotifyData.trackData.getTopTracks());
+            singleWrapped.put("Top Track Image", finalSpotifyData.trackData.getTopTrackImage());
+            singleWrapped.put("Top Albums", finalSpotifyData.trackData.getTopAlbums());
+            singleWrapped.put("Top Album Image", finalSpotifyData.trackData.getTopAlbumImage());
+            singleWrapped.put("Top Five Artists", finalSpotifyData.artistData.getTopFiveArtists());
+            singleWrapped.put("Top Artist Image", finalSpotifyData.artistData.getTopArtistImageString());
+            singleWrapped.put("Top Genres", finalSpotifyData.artistData.getTopGenres());
+
+
+            db.collection("users")
+                    .add(singleWrapped)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
         });
 
     }
@@ -214,9 +249,9 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray items = jsonObject.getJSONArray("items");
 
                     //TOP 5 ARTISTS
-                    String[] topFiveArtists = new String[5];
+                    ArrayList<String> topFiveArtists = new ArrayList<>();
                     for (int i = 0; i < 5; i++) {
-                        topFiveArtists[i] = items.getJSONObject(i).getString("name");
+                        topFiveArtists.add(items.getJSONObject(i).getString("name"));
                     }
 
                     //TOP ARTIST IMAGE URL
@@ -304,11 +339,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                     //TOP 5 TRACKS and image link of the first one
-                    String[] topTracks = new String[5];
+                    ArrayList<String> topTracks = new ArrayList<>();
                     String firstTrackImage = items.getJSONObject(0).getJSONObject("album").getJSONArray("images").getJSONObject(1).getString("url");
 
                     for (int i = 0; i < 5; i++) {
-                        topTracks[i] = items.getJSONObject(i).getString("name");
+                        topTracks.add(items.getJSONObject(i).getString("name"));
                     }
 
 
@@ -357,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
                     SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage);
                     finalSpotifyData.trackData = finalTrackData;
 
-                    setTextAsync(topTracks[0], profileTextView);
+                    setTextAsync(topTracks.get(0), profileTextView);
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                     Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
