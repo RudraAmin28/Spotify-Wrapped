@@ -3,22 +3,22 @@ package com.example.spotifywrapped;
 import java.util.ArrayList;
 
 public class SpotifyArtist {
-    private String[] topFiveArtists;
+    private ArrayList<String> topFiveArtists;
     private String topArtistImageString;
     private ArrayList<String> topGenres;
 
-    public SpotifyArtist(String[] topFiveArtists, String topArtistImageString, ArrayList<String> topGenres) {
+    public SpotifyArtist(ArrayList<String> topFiveArtists, String topArtistImageString, ArrayList<String> topGenres) {
         this.topFiveArtists = topFiveArtists;
         this.topArtistImageString = topArtistImageString;
         this.topGenres = topGenres;
     }
 
 
-    public String[] getTopFiveArtists() {
+    public ArrayList<String> getTopFiveArtists() {
         return topFiveArtists;
     }
 
-    public void setTopFiveArtists(String[] topFiveArtists) {
+    public void setTopFiveArtists(ArrayList<String> topFiveArtists) {
         this.topFiveArtists = topFiveArtists;
     }
 

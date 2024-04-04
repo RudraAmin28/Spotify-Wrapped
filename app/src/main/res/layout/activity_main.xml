@@ -74,6 +74,14 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:text="Get User Profile" />
+            <Button
+                android:id="@+id/createwrapButton2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="Generate Wrap" />
         </LinearLayout>
     </LinearLayout>
 
