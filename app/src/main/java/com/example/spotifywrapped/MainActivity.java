@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,6 +34,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.spotify.sdk.android.auth.AuthorizationClient;
@@ -146,8 +148,15 @@ public class MainActivity extends AppCompatActivity {
             singleWrapped.put("Top Artist Image", finalSpotifyData.artistData.getTopArtistImageString());
             singleWrapped.put("Top Genres", finalSpotifyData.artistData.getTopGenres());
 
+            CollectionReference usersCollectionRef = db.collection("users");
+            String uid = "DEFAULT";
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            }
 
-            db.collection("users")
+
+
+            usersCollectionRef.document(uid).collection("data")
                     .add(singleWrapped)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
