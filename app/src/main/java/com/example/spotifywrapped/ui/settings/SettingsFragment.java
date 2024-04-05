@@ -14,8 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.spotifywrapped.MainActivity;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.databinding.FragmentSettingsBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SettingsFragment extends Fragment {
 
@@ -67,7 +70,7 @@ public class SettingsFragment extends Fragment {
         View popupView = getLayoutInflater().inflate(R.layout.update_login_info_popup, null);
 
         // Initialize UI elements from the popup layout
-        editTextUsername = popupView.findViewById(R.id.editTextUsername);
+        editTextUsername = popupView.findViewById(R.id.editTextEmail);
         editTextPassword = popupView.findViewById(R.id.editTextPassword);
         buttonUpdate = popupView.findViewById(R.id.buttonUpdate);
 
@@ -88,11 +91,12 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Handle update button click here
-                // Example: String newUsername = editTextUsername.getText().toString();
-                // Example: String newPassword = editTextPassword.getText().toString();
-                // Example: updateLoginInfo(newUsername, newPassword);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String newEmail = editTextUsername.getText().toString();
+                String newPassword = editTextPassword.getText().toString();
+                MainActivity.updateEmail(user, newEmail);
+                MainActivity.updatePassword(user, newPassword);
 
-                // Dismiss the update login info popup window after updating
                 updateLoginPopup.dismiss();
             }
         });
