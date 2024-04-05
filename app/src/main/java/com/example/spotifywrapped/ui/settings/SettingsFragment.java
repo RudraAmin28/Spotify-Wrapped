@@ -126,13 +126,18 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Handle delete button click here
-                // Example: deleteAccount();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    MainActivity.deleteUser();
+                    FirebaseAuth.getInstance().signOut();
+                }
 
                 // Dismiss the delete account popup window after deleting
                 deleteAccountPopup.dismiss();
             }
         });
     }
+
 
     @Override
     public void onDestroyView() {

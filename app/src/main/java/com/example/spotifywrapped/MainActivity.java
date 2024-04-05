@@ -526,7 +526,7 @@ public class MainActivity extends AppCompatActivity {
         // [END send_email_verification]
     }
 
-    public void deleteUser() {
+    public static void deleteUser() {
         // [START delete_user]
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
