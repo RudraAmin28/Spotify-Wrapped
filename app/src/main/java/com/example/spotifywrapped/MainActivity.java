@@ -475,31 +475,13 @@ public class MainActivity extends AppCompatActivity {
         // [END get_user_profile]
     }
 
-    public void updateProfile() {
-        // [START update_profile]
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName("Jane Q. User")
-                .build();
-
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User profile updated.");
-                        }
-                    }
-                });
-        // [END update_profile]
-    }
-
-    public void updateEmail() {
+    public static void updateEmail(FirebaseUser user, String email) {
         // [START update_email]
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        user.verifyBeforeUpdateEmail("user@example.com")
+        assert user != null;
+        System.out.println(user);
+        System.out.println(user.getEmail());
+        System.out.println(email);
+        user.verifyBeforeUpdateEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -508,15 +490,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+        System.out.println(user.getEmail());
         // [END update_email]
     }
 
-    public void updatePassword() {
+    public static void updatePassword(FirebaseUser user, String password) {
         // [START update_password]
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String newPassword = "SOME-SECURE-PASSWORD";
-
-        user.updatePassword(newPassword)
+        assert user != null;
+        user.updatePassword(password)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -545,7 +526,7 @@ public class MainActivity extends AppCompatActivity {
         // [END send_email_verification]
     }
 
-    public void deleteUser() {
+    public static void deleteUser() {
         // [START delete_user]
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
