@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.spotifywrapped.MainActivity;
 import com.example.spotifywrapped.R;
@@ -130,6 +131,7 @@ public class SettingsFragment extends Fragment {
                 if (user != null) {
                     MainActivity.deleteUser();
                     FirebaseAuth.getInstance().signOut();
+                    Navigation.findNavController(requireView()).navigate(R.id.nav_login);
                 }
 
                 // Dismiss the delete account popup window after deleting
