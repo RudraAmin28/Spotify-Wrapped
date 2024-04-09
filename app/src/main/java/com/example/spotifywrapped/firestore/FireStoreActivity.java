@@ -84,6 +84,7 @@ public class FireStoreActivity {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Map<String, Object> results = document.getData();
                                 SpotifyWrapData curr = new SpotifyWrapData();
+                                curr.date = (String) results.get("Date");
                                 SpotifyArtist artist = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
                                 curr.artistData = artist;
                                 SpotifyTrack currTrack = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
