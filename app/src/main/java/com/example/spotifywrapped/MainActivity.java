@@ -106,51 +106,48 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
 
-                R.id.nav_login, R.id.nav_wrapped, R.id.nav_settings)
+                R.id.nav_login, R.id.nav_wrapped, R.id.nav_settings, R.id.nav_pastwrapped)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
-
-
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
         codeTextView = (TextView) findViewById(R.id.code_text_view);
         profileTextView = (TextView) findViewById(R.id.response_text_view);
 
         // Initialize the buttons
-        Button tokenBtn = (Button) findViewById(R.id.token_btn);
-        Button codeBtn = (Button) findViewById(R.id.code_btn);
-        Button profileBtn = (Button) findViewById(R.id.profile_btn);
-        Button profileBtn2 = (Button) findViewById(R.id.profile_btn2);
-        Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
+//        Button tokenBtn = (Button) findViewById(R.id.token_btn);
+//        Button codeBtn = (Button) findViewById(R.id.code_btn);
+//        Button profileBtn = (Button) findViewById(R.id.profile_btn);
+//        Button profileBtn2 = (Button) findViewById(R.id.profile_btn2);
+//        Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
 
         // Set the click listeners for the buttons
 
-        tokenBtn.setOnClickListener((v) -> {
-            getToken();
-        });
-
-        codeBtn.setOnClickListener((v) -> {
-            getCode();
-        });
-
-        profileBtn.setOnClickListener((v) -> {
-            onGetAlbumData();
-        });
-        profileBtn2.setOnClickListener((v) -> {
-            onGetArtistData();
-        });
-
-        createwrapButton2.setOnClickListener((v) -> {
-
-            FireStoreActivity.saveSpotifyWrap(finalSpotifyData);
-
-
-            FireStoreActivity.fetchSpotifyWraps();
-        });
+//        tokenBtn.setOnClickListener((v) -> {
+//            getToken();
+//        });
+//
+//        codeBtn.setOnClickListener((v) -> {
+//            getCode();
+//        });
+//
+//        profileBtn.setOnClickListener((v) -> {
+//            onGetAlbumData();
+//        });
+//        profileBtn2.setOnClickListener((v) -> {
+//            onGetArtistData();
+//        });
+//
+//        createwrapButton2.setOnClickListener((v) -> {
+//
+//            FireStoreActivity.saveSpotifyWrap(finalSpotifyData);
+//
+//
+//            FireStoreActivity.fetchSpotifyWraps();
+//        });
 
 
     }

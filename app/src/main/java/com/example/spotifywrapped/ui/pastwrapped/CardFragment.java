@@ -1,5 +1,7 @@
 package com.example.spotifywrapped.ui.pastwrapped;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +39,8 @@ public class CardFragment extends Fragment {
         view.findViewById(R.id.currentYearCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                findNavController(CardFragment.this).popBackStack();
+                findNavController(CardFragment.this).navigate(R.id.nav_wrapped);
             }
         });
     }
