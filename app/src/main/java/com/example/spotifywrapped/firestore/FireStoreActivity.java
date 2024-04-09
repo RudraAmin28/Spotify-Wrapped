@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.spotifywrapped.SpotifyArtist;
+import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrapData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,11 +18,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FireStoreActivity {
+
+    public static ArrayList<SpotifyWrapData> spotifyWraps = new ArrayList<>();
 
     private static final String TAG = "FireStoreActivity";
 
@@ -66,15 +71,23 @@ public class FireStoreActivity {
     }
 
     public static void fetchSpotifyWraps() {
+        spotifyWraps.clear();
         CollectionReference dataCollectionRef = usersCollectionRef.document(uid).collection("data");
 
         dataCollectionRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
+                                Map<String, Object> results = document.getData();
+                                SpotifyWrapData curr = new SpotifyWrapData();
+                                SpotifyArtist artist = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
+                                curr.artistData = artist;
+                                SpotifyTrack currTrack = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
+                                spotifyWraps.add(curr);
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
