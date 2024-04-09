@@ -1,5 +1,7 @@
 package com.example.spotifywrapped.ui.pastwrapped;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.databinding.FragmentCardBinding;
+import com.example.spotifywrapped.ui.wrapped.WrappedFragment;
 
 public class CardFragment extends Fragment {
     private FragmentCardBinding binding;
@@ -27,7 +30,6 @@ public class CardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         CardViewModel cardViewModel =
                 new ViewModelProvider(this).get(CardViewModel.class);
-
         binding = FragmentCardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         return root;
@@ -37,7 +39,8 @@ public class CardFragment extends Fragment {
         view.findViewById(R.id.currentYearCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                findNavController(CardFragment.this).popBackStack();
+                findNavController(CardFragment.this).navigate(R.id.nav_wrapped);
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.spotifywrapped.ui.wrapped;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.spotifywrapped.databinding.FragmentWrappedBinding;
+import com.example.spotifywrapped.ui.pastwrapped.CardFragment;
 
 public class WrappedFragment extends Fragment {
 
@@ -24,8 +27,8 @@ public class WrappedFragment extends Fragment {
         binding = FragmentWrappedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        wrappedViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textSlideshow;
+//        wrappedViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

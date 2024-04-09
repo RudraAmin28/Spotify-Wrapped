@@ -20,17 +20,23 @@
         android:id="@+id/nav_wrapped"
         android:name="com.example.spotifywrapped.ui.wrapped.WrappedFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_wrapped" />
+    <action
+        android:id="@+id/action_wrapped_to_pastWrapped"
+        app:destination="@+id/nav_pastwrapped" />
 
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.spotifywrapped.ui.settings.SettingsFragment"
         android:label="@string/settings"
-        tools:layout="@layout/fragment_wrapped" />
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/nav_pastwrapped"
         android:name="com.example.spotifywrapped.ui.pastwrapped.CardFragment"
         android:label="@string/pastwrapped"
         tools:layout="@layout/fragment_card" />
+    <action
+        android:id="@+id/action_pastWrapped_to_wrapped"
+        app:destination="@+id/nav_wrapped" />
 </navigation>
