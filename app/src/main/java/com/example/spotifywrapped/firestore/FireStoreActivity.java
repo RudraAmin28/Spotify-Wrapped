@@ -1,8 +1,5 @@
 package com.example.spotifywrapped.firestore;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
-import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -19,20 +16,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Calendar;
 
+public class FireStoreActivity {
 
-public class FireStoreActivity extends Activity {
+    private static final String TAG = "FireStoreActivity";
 
-    static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    static CollectionReference usersCollectionRef = db.collection("users");
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static CollectionReference usersCollectionRef = db.collection("users");
 
-    static String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "DEFAULT";
+    private static String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "DEFAULT";
 
-
-    public static void saveSpotifyWrap(SpotifyWrapData finalSpotifyData) {
+    public static void saveSpotifyWrap(SpotifyWrapData finalSpotifyData, final Runnable callback) {
         Map<String, Object> singleWrapped = new HashMap<>();
         singleWrapped.put("Top Tracks", finalSpotifyData.trackData.getTopTracks());
         singleWrapped.put("Top Track Image", finalSpotifyData.trackData.getTopTrackImage());
@@ -41,7 +38,6 @@ public class FireStoreActivity extends Activity {
         singleWrapped.put("Top Five Artists", finalSpotifyData.artistData.getTopFiveArtists());
         singleWrapped.put("Top Artist Image", finalSpotifyData.artistData.getTopArtistImageString());
         singleWrapped.put("Top Genres", finalSpotifyData.artistData.getTopGenres());
-
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -52,16 +48,13 @@ public class FireStoreActivity extends Activity {
         String currentDate = month + "-" + dayOfMonth + "-" + year;
         singleWrapped.put("Date", currentDate);
 
-
-
-
-
         usersCollectionRef.document(uid).collection("data")
                 .add(singleWrapped)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        callback.run();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -71,8 +64,6 @@ public class FireStoreActivity extends Activity {
                     }
                 });
     }
-
-
 
     public static void fetchSpotifyWraps() {
         CollectionReference dataCollectionRef = usersCollectionRef.document(uid).collection("data");
@@ -91,6 +82,4 @@ public class FireStoreActivity extends Activity {
                     }
                 });
     }
-
-
 }

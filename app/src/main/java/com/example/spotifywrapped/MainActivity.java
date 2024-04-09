@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
         codeTextView = (TextView) findViewById(R.id.code_text_view);
         profileTextView = (TextView) findViewById(R.id.response_text_view);
@@ -122,8 +121,6 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the buttons
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
         Button codeBtn = (Button) findViewById(R.id.code_btn);
-        Button profileBtn = (Button) findViewById(R.id.profile_btn);
-        Button profileBtn2 = (Button) findViewById(R.id.profile_btn2);
         Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
 
         // Set the click listeners for the buttons
@@ -136,20 +133,16 @@ public class MainActivity extends AppCompatActivity {
             getCode();
         });
 
-        profileBtn.setOnClickListener((v) -> {
-            onGetAlbumData();
-        });
-        profileBtn2.setOnClickListener((v) -> {
-            onGetArtistData();
-        });
-
         createwrapButton2.setOnClickListener((v) -> {
-
-            FireStoreActivity.saveSpotifyWrap(finalSpotifyData);
-
-
-            FireStoreActivity.fetchSpotifyWraps();
+            onGetArtistData(() -> {
+                onGetAlbumData(() -> {
+                    FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
+                        FireStoreActivity.fetchSpotifyWraps();
+                    });
+                });
+            });
         });
+
 
 
     }
@@ -203,11 +196,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Get user profile
-     * This method will get the user profile using the token
-     */
-    public void onGetArtistData() {
+
+    public void onGetArtistData(final Runnable callback) {
         if (mAccessToken == null) {
             Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
@@ -304,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     setTextAsync(topArtistImageString, profileTextView);
+                    callback.run();
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                     Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
@@ -315,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void onGetAlbumData() {
+    public void onGetAlbumData(final Runnable callback) {
         if (mAccessToken == null) {
             Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
@@ -401,6 +392,7 @@ public class MainActivity extends AppCompatActivity {
                     finalSpotifyData.trackData = finalTrackData;
 
                     setTextAsync(topTracks.get(0), profileTextView);
+                    callback.run();
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                     Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
@@ -540,10 +532,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         // [END delete_user]
-    }
-
-
-    public void getSpotifyData() {
-
     }
 }
