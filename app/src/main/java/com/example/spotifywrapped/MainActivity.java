@@ -131,34 +131,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        tokenTextView = (TextView) findViewById(R.id.token_text_view);
-        codeTextView = (TextView) findViewById(R.id.code_text_view);
-        profileTextView = (TextView) findViewById(R.id.response_text_view);
+//        tokenTextView = (TextView) findViewById(R.id.token_text_view);
+//        codeTextView = (TextView) findViewById(R.id.code_text_view);
+//        profileTextView = (TextView) findViewById(R.id.response_text_view);
 
         // Initialize the buttons
-        Button tokenBtn = (Button) findViewById(R.id.token_btn);
-        Button codeBtn = (Button) findViewById(R.id.code_btn);
-        Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
+//        Button tokenBtn = (Button) findViewById(R.id.token_btn);
+//        Button codeBtn = (Button) findViewById(R.id.code_btn);
+//        Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
 
         // Set the click listeners for the buttons
 
-        tokenBtn.setOnClickListener((v) -> {
-            getToken();
-        });
-
-        codeBtn.setOnClickListener((v) -> {
-            getCode();
-        });
-
-        createwrapButton2.setOnClickListener((v) -> {
-            onGetArtistData(() -> {
-                onGetAlbumData(() -> {
-                    FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
-                        FireStoreActivity.fetchSpotifyWraps();
-                    });
-                });
-            });
-        });
+//        tokenBtn.setOnClickListener((v) -> {
+//            getToken();
+//        });
+//
+//        codeBtn.setOnClickListener((v) -> {
+//            getCode();
+//        });
+//
+//        createwrapButton2.setOnClickListener((v) -> {
+//            onGetArtistData(() -> {
+//                onGetAlbumData(() -> {
+//                    FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
+//                        FireStoreActivity.fetchSpotifyWraps();
+//                    });
+//                });
+//            });
+//        });
     }
 
 
