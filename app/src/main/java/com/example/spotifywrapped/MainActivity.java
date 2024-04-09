@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spotifywrapped.R;
+
 import com.example.spotifywrapped.firestore.FireStoreActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -112,6 +115,20 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        // Set up navigation drawer item click listener
+        navigationView.setNavigationItemSelectedListener(item -> {
+            // Handle navigation item clicks here
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_login) {
+                navController.navigate(R.id.nav_login); // Navigate to the desired destination
+            } else if (itemId == R.id.nav_wrapped) {
+                navController.navigate(R.id.nav_wrapped); // Navigate to the desired destination
+            } else if (itemId == R.id.nav_settings) {
+                navController.navigate(R.id.nav_settings); // Navigate to the desired destination
+            }
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        });
 
 
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
