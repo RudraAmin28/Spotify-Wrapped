@@ -23,13 +23,16 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SettingsFragment extends Fragment {
 
-    PopupWindow updateLoginPopup;
-    EditText editTextUsername;
-    EditText editTextPassword;
-    Button buttonUpdate;
+    private PopupWindow updateLoginPopup;
+    private EditText editTextUsername;
+    private EditText editTextPassword;
+    private Button buttonUpdate;
 
-    PopupWindow deleteAccountPopup;
-    Button buttonDeleteAccount;
+    private PopupWindow deleteAccountPopup;
+    private Button buttonDeleteAccount;
+
+    private PopupWindow signOutPopup;
+    private Button buttonSignOutConfirm;
 
     private FragmentSettingsBinding binding;
 
@@ -60,6 +63,17 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showDeleteAccountPopup();
+            }
+        });
+
+        // Find the entry view for signing out
+        RelativeLayout signOutEntry = root.findViewById(R.id.entrySignOut);
+
+        // Set OnClickListener to open the sign out popup
+        signOutEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSignOutPopup();
             }
         });
 
@@ -140,6 +154,48 @@ public class SettingsFragment extends Fragment {
         });
     }
 
+    private void showSignOutPopup() {
+        // Inflate the sign out popup layout
+        View popupView = getLayoutInflater().inflate(R.layout.signout_popup, null);
+
+        // Initialize views from the popup layout
+        buttonSignOutConfirm = popupView.findViewById(R.id.buttonSignOutConfirm);
+        Button buttonCancel = popupView.findViewById(R.id.buttonCancel);
+
+        // Create the sign out popup window
+        signOutPopup = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+        // Set background to dismiss the popup when clicked outside of it
+        signOutPopup.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+
+        // Set animation style for the popup
+        signOutPopup.setAnimationStyle(android.R.style.Animation_Dialog);
+
+        // Show the popup window at the center of the screen
+        signOutPopup.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+
+        // Set OnClickListener for the sign out confirm button
+        buttonSignOutConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle sign out button click here
+                FirebaseAuth.getInstance().signOut();
+                Navigation.findNavController(requireView()).navigate(R.id.nav_login);
+
+                // Dismiss the sign out popup window after signing out
+                signOutPopup.dismiss();
+            }
+        });
+
+        // Set OnClickListener for the cancel button
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the sign out popup window if canceled
+                signOutPopup.dismiss();
+            }
+        });
+    }
 
     @Override
     public void onDestroyView() {
