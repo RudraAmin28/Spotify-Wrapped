@@ -154,9 +154,10 @@ public class MainActivity extends AppCompatActivity {
             onGetArtistData(() -> {
                 onGetAlbumData(() -> {
                     FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
-                        FireStoreActivity.fetchSpotifyWraps();
-                        Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
-                        startActivity(intent);
+                        FireStoreActivity.fetchSpotifyWraps(() -> {
+                            Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
+                            startActivity(intent);
+                        });
                     });
                 });
             });

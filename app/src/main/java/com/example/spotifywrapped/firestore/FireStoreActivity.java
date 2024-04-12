@@ -70,7 +70,7 @@ public class FireStoreActivity {
                 });
     }
 
-    public static void fetchSpotifyWraps() {
+    public static void fetchSpotifyWraps(final Runnable callback) {
         spotifyWraps.clear();
         CollectionReference dataCollectionRef = usersCollectionRef.document(uid).collection("data");
 
@@ -83,12 +83,13 @@ public class FireStoreActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Map<String, Object> results = document.getData();
+
                                 SpotifyWrapData curr = new SpotifyWrapData();
                                 curr.date = (String) results.get("Date");
-                                SpotifyArtist artist = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
-                                curr.artistData = artist;
-                                SpotifyTrack currTrack = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
+                                curr.artistData = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
+                                curr.trackData = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
                                 spotifyWraps.add(curr);
+                                callback.run();
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
