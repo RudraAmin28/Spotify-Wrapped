@@ -52,7 +52,7 @@ import okhttp3.Response;
 
 import com.example.spotifywrapped.ui.login.LoginFragment;
 
-public class MainActivity extends AppCompatActivity implements SpotifyAuthCallback {
+public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements SpotifyAuthCallba
     private TextView tokenTextView, codeTextView, profileTextView;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private LoginFragment loginFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +76,13 @@ public class MainActivity extends AppCompatActivity implements SpotifyAuthCallba
 //        System.out.println(0);
 
 //        System.out.println(this + " 1");
+        LoginFragment loginFragment = LoginFragment.newInstance(this);
+        System.out.println(this + " 2");
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
 
-        System.out.println(loginFragment + " 2");
-//        loginFragment.setAuthCallback(this);
 
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -170,11 +169,11 @@ public class MainActivity extends AppCompatActivity implements SpotifyAuthCallba
         AuthorizationClient.openLoginActivity(MainActivity.this, AUTH_TOKEN_REQUEST_CODE, request);
     }
 
-    public void setLoginFragment(LoginFragment lf) {
-        this.loginFragment = lf;
-    }
+//    public void setLoginFragment(LoginFragment lf) {
+//        this.loginFragment = lf;
+//    }
 
-    public void onAuthSuccess() {
+    public void onLoginSuccess() {
         getToken();
     }
 

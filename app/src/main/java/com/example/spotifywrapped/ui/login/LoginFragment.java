@@ -16,28 +16,36 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.spotifywrapped.MainActivity;
 import com.example.spotifywrapped.R;
-import com.example.spotifywrapped.SpotifyAuthCallback;
 import com.example.spotifywrapped.authentication.EmailPasswordActivity;
 import com.example.spotifywrapped.databinding.FragmentLoginBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;
     private FirebaseAuth mAuth;
     private EmailPasswordActivity emailPasswordActivity;
-    private SpotifyAuthCallback spotifyAuthCallback;
+//    private SpotifyAuthCallback spotifyAuthCallback;
     public static TextView errorMessage;
-
+    private static OnLoginSuccessListener loginSuccessListener;
 //    public LoginFragment(SpotifyAuthCallback spotifyAuthCallback) {
 //        this.spotifyAuthCallback = spotifyAuthCallback;
 //    }
+
+    public interface OnLoginSuccessListener {
+        void onLoginSuccess();
+    }
+    public static LoginFragment newInstance(OnLoginSuccessListener listener) {
+        LoginFragment fragment = new LoginFragment();
+        LoginFragment.setLoginSuccessListener(listener);
+        return fragment;
+    }
+
+    public static void setLoginSuccessListener(OnLoginSuccessListener listener) {
+        loginSuccessListener = listener;
+        Log.d(TAG, "Successfully set listener");
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LoginViewModel loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
@@ -48,7 +56,7 @@ public class LoginFragment extends Fragment {
 //        mainActivity.setLoginFragment(this);
 //        setAuthCallback(mainActivity);
 //        System.out.println(spotifyAuthCallback + " 2");
-        System.out.println(this + " 1");
+        System.out.println(loginSuccessListener + " 1");
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -72,7 +80,7 @@ public class LoginFragment extends Fragment {
                         errorMessage.setText("");
                         emailPasswordActivity.createAccount(mAuth, email, password);
                         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_wrappedFragment);
-//                        spotifyAuthCallback.onAuthSuccess();
+                        loginSuccessListener.onLoginSuccess();
                     } else {
                         errorMessage.setText("Invalid email address");
                     }
@@ -93,7 +101,7 @@ public class LoginFragment extends Fragment {
                 emailPasswordActivity.signIn(mAuth, email, password, () -> {
                     Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_wrappedFragment);
 //                    System.out.println(spotifyAuthCallback);
-//                    spotifyAuthCallback.onAuthSuccess();
+                    loginSuccessListener.onLoginSuccess();
                 });
 
 //                mAuth.signInWithEmailAndPassword(email, password)
@@ -117,14 +125,14 @@ public class LoginFragment extends Fragment {
         return root;
     }
 
-    public void setAuthCallback(SpotifyAuthCallback spotifyAuthCallback) {
-        this.spotifyAuthCallback = spotifyAuthCallback;
-//        System.out.println(this.spotifyAuthCallback + " 3");
-    }
+//    public void setAuthCallback(SpotifyAuthCallback spotifyAuthCallback) {
+//        this.spotifyAuthCallback = spotifyAuthCallback;
+////        System.out.println(this.spotifyAuthCallback + " 3");
+//    }
 
-    public LoginFragment getThis() {
-        return this;
-    }
+//    public LoginFragment getThis() {
+//        return this;
+//    }
 
     @Override
     public void onDestroyView() {
