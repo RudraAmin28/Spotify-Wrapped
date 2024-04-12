@@ -30,6 +30,8 @@
                 <data android:host="auth" android:scheme="spotifyapk"/>
             </intent-filter>
         </activity>
+        <activity android:name=".SpotifyWrappedStoryActivity" />
+
     </application>
 
 </manifest>
