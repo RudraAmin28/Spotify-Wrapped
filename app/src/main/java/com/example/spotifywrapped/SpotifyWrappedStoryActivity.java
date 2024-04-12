@@ -1,7 +1,9 @@
 package com.example.spotifywrapped;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,9 +47,17 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
         // Set click listeners for next and previous buttons
         Button buttonPrevious = findViewById(R.id.button_prev);
         Button buttonNext = findViewById(R.id.button_next);
+        ImageButton btnClose = findViewById(R.id.btnClose);
 
         buttonPrevious.setOnClickListener(view -> showPreviousPage());
         buttonNext.setOnClickListener(view -> showNextPage());
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Finish the activity to go back to the previous fragment
+                finish();
+            }
+        });
     }
 
 //    private void hideAllTextViews(TextView[] textViews) {
