@@ -414,6 +414,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void spotifySignOut() {
+        String url = "https://accounts.spotify.com";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            // Start the activity if there's an app available
+            startActivity(intent);
+        } else {
+            // Handle the case where no app can handle the intent
+            Toast.makeText(MainActivity.this, "No app available to handle this action", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     /**
      * Creates a UI thread to update a TextView in the background
      * Reduces UI latency and makes the system perform more consistently
