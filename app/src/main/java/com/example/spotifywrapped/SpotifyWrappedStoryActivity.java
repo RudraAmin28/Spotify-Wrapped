@@ -19,12 +19,14 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
     private ImageView wrappedImage;
     private TextView title;
     private int currPage;
+    private int position;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spotify_wrapped_story);
         int currPage = 1;
+        position = getIntent().getIntExtra("POSITION", -1);
 
         // Initialize TextViews for artists, songs, and albums
         wrappedTextViews = new TextView[]{
@@ -69,7 +71,13 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
     private void updatePage(int newPageNum) {
         ArrayList<String> newData;
         int wrapsListSize = FireStoreActivity.spotifyWraps.size();
-        SpotifyWrapData wrapData = FireStoreActivity.spotifyWraps.get(wrapsListSize - 1);
+
+        SpotifyWrapData wrapData;
+        if (position == -1) {
+            wrapData = FireStoreActivity.spotifyWraps.get(wrapsListSize - 1);
+        } else {
+            wrapData = FireStoreActivity.spotifyWraps.get(position);
+        }
 
         switch (newPageNum) {
             case 1:
@@ -102,7 +110,7 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
                 break;
             case 4:
                 title.setText(R.string.top_5_genres);
-                Picasso.get().load(wrapData.artistData.getTopArtistImageString()).into(wrappedImage);
+                Picasso.get().load("https://atlas-content-cdn.pixelsquid.com/stock-images/symbol-music-note-gold-musical-Q99QKV3-600.jpg").into(wrappedImage);
 
                 newData = wrapData.artistData.getTopGenres();
                 for (int i = 0; i < newData.size(); i++) {

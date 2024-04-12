@@ -16,10 +16,17 @@ import java.util.ArrayList;
 
 public class WrappedAdapter extends RecyclerView.Adapter<WrappedAdapter.WrappedViewHolder> {
     private ArrayList<SpotifyWrapData> spotifyDataArrayList;
+    private OnItemClickListener mListener; // Define interface
 
-    public WrappedAdapter(ArrayList<SpotifyWrapData> spotifyDataArrayList) {
+    // Interface for item click listener
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    // Constructor to accept listener
+    public WrappedAdapter(ArrayList<SpotifyWrapData> spotifyDataArrayList, OnItemClickListener listener) {
         this.spotifyDataArrayList = spotifyDataArrayList;
-        Log.d("hjkhjkgiu", ""+spotifyDataArrayList.size());
+        this.mListener = listener;
     }
 
     @NonNull
@@ -46,6 +53,16 @@ public class WrappedAdapter extends RecyclerView.Adapter<WrappedAdapter.WrappedV
         public WrappedViewHolder(@NonNull View itemView) {
             super(itemView);
             dateTextView = itemView.findViewById(R.id.wrapped_date);
+
+            // Set click listener to item view
+            itemView.setOnClickListener(v -> {
+                if (mListener != null) {
+                    int position = getAbsoluteAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        mListener.onItemClick(position);
+                    }
+                }
+            });
         }
 
         public void bind(SpotifyWrapData spotifyWrapData) {
