@@ -22,4 +22,5 @@
     <string name="top_5_songs">TOP 5 SONGS</string>
     <string name="top_5_albums">TOP 5 ALBUMS</string>
     <string name="top_5_genres">TOP 5 GENRES</string>
+    <string name="delete">Delete</string>
 </resources>

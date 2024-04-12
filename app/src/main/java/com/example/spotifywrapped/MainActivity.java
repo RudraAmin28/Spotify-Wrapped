@@ -545,4 +545,9 @@ public class MainActivity extends AppCompatActivity {
                 });
         // [END delete_user]
     }
+
+
+    public void getSpotifyData() {
+
+    }
 }
