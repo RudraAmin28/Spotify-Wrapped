@@ -139,9 +139,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        tokenTextView = (TextView) findViewById(R.id.token_text_view);
-        codeTextView = (TextView) findViewById(R.id.code_text_view);
-        profileTextView = (TextView) findViewById(R.id.response_text_view);
 
         // Initialize the buttons
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
@@ -314,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
                     finalSpotifyData.artistData = finalArtistData;
 
 
-                    setTextAsync(topArtistImageString, profileTextView);
                     callback.run();
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
@@ -417,7 +413,6 @@ public class MainActivity extends AppCompatActivity {
                     SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage, topTrackURLs);
                     finalSpotifyData.trackData = finalTrackData;
 
-                    setTextAsync(topTracks.get(0), profileTextView);
                     callback.run();
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
@@ -435,9 +430,6 @@ public class MainActivity extends AppCompatActivity {
      * @param text the text to set
      * @param textView TextView object to update
      */
-    private void setTextAsync(final String text, TextView textView) {
-        runOnUiThread(() -> textView.setText(text));
-    }
 
     /**
      * Get authentication request
@@ -593,8 +585,7 @@ public class MainActivity extends AppCompatActivity {
     private void connected() {
         // Then we will write some more code here.
         // Play a playlist
-        mSpotifyAppRemote.getPlayerApi().play("spotify:track:1pnDvUuAEd6z8bKEsbAjk1"
-        );
+        mSpotifyAppRemote.getPlayerApi().play(FireStoreActivity.spotifyWraps.get(0).trackData.getTopTrackURLs().get(0));
     }
 
     @Override
