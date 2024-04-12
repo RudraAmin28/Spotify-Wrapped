@@ -73,21 +73,12 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
             spotifyWrapDataArrayList.clear();
             for (SpotifyWrapData data : FireStoreActivity.spotifyWraps) {
                 spotifyWrapDataArrayList.add(data);
-
-                recyclerView = root.findViewById(R.id.dashboard_recycler_view);
-                adapter = new WrappedAdapter(spotifyWrapDataArrayList, this);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(adapter);
             }
-            // Sort the spotifyWrapDataArrayList by date
-            Collections.sort(spotifyWrapDataArrayList, new Comparator<SpotifyWrapData>() {
-                @Override
-                public int compare(SpotifyWrapData o1, SpotifyWrapData o2) {
-                    // Assuming date is a String in the format "MM-dd-yyyy"
-                    return o1.date.compareTo(o2.date);
-                }
-            });
 
+            recyclerView = root.findViewById(R.id.dashboard_recycler_view);
+            adapter = new WrappedAdapter(spotifyWrapDataArrayList, this);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(adapter);
         });
 
 
@@ -97,6 +88,7 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
     public void onItemClick(int position) {
         // Open SpotifyWrappedStoryActivity with appropriate data
         Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
+        intent.putExtra("POSITION", position);
         // Pass data to intent if needed
         startActivity(intent);
     }
