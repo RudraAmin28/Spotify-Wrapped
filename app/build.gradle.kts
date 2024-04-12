@@ -56,4 +56,5 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-firestore")
     implementation ("androidx.recyclerview:recyclerview:1.2.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
 }
