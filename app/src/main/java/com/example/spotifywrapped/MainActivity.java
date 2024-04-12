@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spotifywrapped.R;
+
 import com.example.spotifywrapped.firestore.FireStoreActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -112,7 +115,20 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
+        // Set up navigation drawer item click listener
+        navigationView.setNavigationItemSelectedListener(item -> {
+            // Handle navigation item clicks here
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_login) {
+                navController.navigate(R.id.nav_login); // Navigate to the desired destination
+            } else if (itemId == R.id.nav_wrapped) {
+                navController.navigate(R.id.nav_wrapped); // Navigate to the desired destination
+            } else if (itemId == R.id.nav_settings) {
+                navController.navigate(R.id.nav_settings); // Navigate to the desired destination
+            }
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        });
 
 
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
@@ -122,8 +138,6 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the buttons
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
         Button codeBtn = (Button) findViewById(R.id.code_btn);
-        Button profileBtn = (Button) findViewById(R.id.profile_btn);
-        Button profileBtn2 = (Button) findViewById(R.id.profile_btn2);
         Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
 
         // Set the click listeners for the buttons
@@ -136,30 +150,21 @@ public class MainActivity extends AppCompatActivity {
             getCode();
         });
 
-        profileBtn.setOnClickListener((v) -> {
-            onGetAlbumData();
-        });
-        profileBtn2.setOnClickListener((v) -> {
-            onGetArtistData();
-        });
-
         createwrapButton2.setOnClickListener((v) -> {
-
-            FireStoreActivity.saveSpotifyWrap(finalSpotifyData);
-
-
-            FireStoreActivity.fetchSpotifyWraps();
+            onGetArtistData(() -> {
+                onGetAlbumData(() -> {
+                    FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
+                        FireStoreActivity.fetchSpotifyWraps(() -> {
+                            Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
+                            startActivity(intent);
+                        });
+                    });
+                });
+            });
         });
-
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -203,11 +208,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Get user profile
-     * This method will get the user profile using the token
-     */
-    public void onGetArtistData() {
+
+    public void onGetArtistData(final Runnable callback) {
         if (mAccessToken == null) {
             Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
@@ -215,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a request to get the user profile
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/artists?time_range=long_term")
+                .url("https://api.spotify.com/v1/me/top/artists?time_range=short_term")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -304,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     setTextAsync(topArtistImageString, profileTextView);
+                    callback.run();
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                     Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
@@ -315,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void onGetAlbumData() {
+    public void onGetAlbumData(final Runnable callback) {
         if (mAccessToken == null) {
             Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
@@ -323,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a request to get the user profile
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+                .url("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -401,6 +404,7 @@ public class MainActivity extends AppCompatActivity {
                     finalSpotifyData.trackData = finalTrackData;
 
                     setTextAsync(topTracks.get(0), profileTextView);
+                    callback.run();
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
                     Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
@@ -408,6 +412,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void spotifySignOut() {
+        String url = "https://accounts.spotify.com";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            // Start the activity if there's an app available
+            startActivity(intent);
+        } else {
+            // Handle the case where no app can handle the intent
+            Toast.makeText(MainActivity.this, "No app available to handle this action", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -475,31 +491,13 @@ public class MainActivity extends AppCompatActivity {
         // [END get_user_profile]
     }
 
-    public void updateProfile() {
-        // [START update_profile]
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName("Jane Q. User")
-                .build();
-
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User profile updated.");
-                        }
-                    }
-                });
-        // [END update_profile]
-    }
-
-    public void updateEmail() {
+    public static void updateEmail(FirebaseUser user, String email) {
         // [START update_email]
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        user.verifyBeforeUpdateEmail("user@example.com")
+        assert user != null;
+        System.out.println(user);
+        System.out.println(user.getEmail());
+        System.out.println(email);
+        user.verifyBeforeUpdateEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -508,15 +506,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+        System.out.println(user.getEmail());
         // [END update_email]
     }
 
-    public void updatePassword() {
+    public static void updatePassword(FirebaseUser user, String password) {
         // [START update_password]
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String newPassword = "SOME-SECURE-PASSWORD";
-
-        user.updatePassword(newPassword)
+        assert user != null;
+        user.updatePassword(password)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -545,7 +542,7 @@ public class MainActivity extends AppCompatActivity {
         // [END send_email_verification]
     }
 
-    public void deleteUser() {
+    public static void deleteUser() {
         // [START delete_user]
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

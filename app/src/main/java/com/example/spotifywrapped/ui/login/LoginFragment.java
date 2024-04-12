@@ -18,9 +18,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.example.spotifywrapped.MainActivity;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.authentication.EmailPasswordActivity;
 import com.example.spotifywrapped.databinding.FragmentLoginBinding;
+import com.example.spotifywrapped.firestore.FireStoreActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -74,7 +76,25 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
-                emailPasswordActivity.signIn(email, password);
+
+                TextView errorMessage = root.findViewById(R.id.textViewEmailPasswordError);
+
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInWithEmail:success");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_wrappedFragment);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    errorMessage.setText("Invalid login");
+                                }
+                            }
+                        });
             }
         });
 

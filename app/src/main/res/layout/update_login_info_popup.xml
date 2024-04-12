@@ -16,10 +16,10 @@
 
     <!-- Username field -->
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="New Username"
+        android:hint="New Email"
         android:inputType="text"/>
 
     <!-- Password field -->

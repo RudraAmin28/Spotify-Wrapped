@@ -23,16 +23,17 @@
             android:background="@null"
             android:src="@drawable/baseline_close_24" />
         <TextView
+            android:id="@+id/wrappedTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TOP 5 ARTISTS"
+            android:text="@string/top_5_artists"
             android:textColor="@color/white"
             android:gravity="center_vertical|center_horizontal"
             android:textSize="30dp"
             android:textStyle="bold"/>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/wrappedImageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -44,9 +45,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-        android:orientation="vertical">
+            android:orientation="vertical">
 
         <TextView
+            android:id="@+id/wrappedStoryTextView1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -57,6 +59,7 @@
             android:gravity="center_vertical|center_horizontal"/>
 
         <TextView
+            android:id="@+id/wrappedStoryTextView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -66,6 +69,7 @@
             android:gravity="center_vertical|center_horizontal"/>
 
         <TextView
+            android:id="@+id/wrappedStoryTextView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -75,6 +79,7 @@
             android:gravity="center_vertical|center_horizontal"/>
 
         <TextView
+            android:id="@+id/wrappedStoryTextView4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -84,6 +89,7 @@
             android:gravity="center_vertical|center_horizontal"/>
 
         <TextView
+            android:id="@+id/wrappedStoryTextView5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -92,20 +98,33 @@
             android:textColor="@color/white"
             android:gravity="center_vertical|center_horizontal"/>
 
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_prev"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Previous"/>
+
+                <!-- Add margin to create space -->
+                <Button
+                    android:id="@+id/button_next"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Next"
+                    android:layout_marginStart="8dp"/> <!-- Adjust the margin as needed -->
+
+            </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
-
-    <TextView
-        android:id="@+id/pageIndicatorTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:text="1/5"
-        android:textAlignment="center"
-        android:textColor="#808080"
-        android:textSize="14dp"
-        android:layout_marginBottom="8dp"/>
     </RelativeLayout>

@@ -1,12 +1,11 @@
 package com.example.spotifywrapped.firestore;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
-import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.spotifywrapped.SpotifyArtist;
+import com.example.spotifywrapped.SpotifyTrack;
 import com.example.spotifywrapped.SpotifyWrapData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,20 +18,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Calendar;
 
+public class FireStoreActivity {
 
-public class FireStoreActivity extends Activity {
+    public static ArrayList<SpotifyWrapData> spotifyWraps = new ArrayList<>();
 
-    static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    static CollectionReference usersCollectionRef = db.collection("users");
+    private static final String TAG = "FireStoreActivity";
 
-    static String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "DEFAULT";
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static CollectionReference usersCollectionRef = db.collection("users");
 
+    private static String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "DEFAULT";
 
-    public static void saveSpotifyWrap(SpotifyWrapData finalSpotifyData) {
+    public static void saveSpotifyWrap(SpotifyWrapData finalSpotifyData, final Runnable callback) {
         Map<String, Object> singleWrapped = new HashMap<>();
         singleWrapped.put("Top Tracks", finalSpotifyData.trackData.getTopTracks());
         singleWrapped.put("Top Track Image", finalSpotifyData.trackData.getTopTrackImage());
@@ -41,7 +43,6 @@ public class FireStoreActivity extends Activity {
         singleWrapped.put("Top Five Artists", finalSpotifyData.artistData.getTopFiveArtists());
         singleWrapped.put("Top Artist Image", finalSpotifyData.artistData.getTopArtistImageString());
         singleWrapped.put("Top Genres", finalSpotifyData.artistData.getTopGenres());
-
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -52,16 +53,13 @@ public class FireStoreActivity extends Activity {
         String currentDate = month + "-" + dayOfMonth + "-" + year;
         singleWrapped.put("Date", currentDate);
 
-
-
-
-
         usersCollectionRef.document(uid).collection("data")
                 .add(singleWrapped)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        callback.run();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -72,18 +70,26 @@ public class FireStoreActivity extends Activity {
                 });
     }
 
-
-
-    public static void fetchSpotifyWraps() {
+    public static void fetchSpotifyWraps(final Runnable callback) {
+        spotifyWraps.clear();
         CollectionReference dataCollectionRef = usersCollectionRef.document(uid).collection("data");
 
         dataCollectionRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
+                                Map<String, Object> results = document.getData();
+
+                                SpotifyWrapData curr = new SpotifyWrapData();
+                                curr.date = (String) results.get("Date");
+                                curr.artistData = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
+                                curr.trackData = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
+                                spotifyWraps.add(curr);
+                                callback.run();
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -91,6 +97,4 @@ public class FireStoreActivity extends Activity {
                     }
                 });
     }
-
-
 }
