@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +51,8 @@ public class FireStoreActivity {
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
         // Print or use the current date
-        String currentDate = month + "-" + dayOfMonth + "-" + year;
+        String currentDate = (month < 10 ? "0" + month : month) + "-" +
+                (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth) + "-" + year;
         singleWrapped.put("Date", currentDate);
 
         usersCollectionRef.document(uid).collection("data")
@@ -89,6 +91,15 @@ public class FireStoreActivity {
                                 curr.artistData = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
                                 curr.trackData = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
                                 spotifyWraps.add(curr);
+                                // Sort the spotifyWraps by date
+                                spotifyWraps.sort(new Comparator<SpotifyWrapData>() {
+                                    @Override
+                                    public int compare(SpotifyWrapData o1, SpotifyWrapData o2) {
+                                        // Assuming date is a String in the format "MM-dd-yyyy"
+                                        return o2.date.compareTo(o1.date);
+                                    }
+                                });
+
                             }
                             callback.run();
                         } else {

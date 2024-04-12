@@ -1,7 +1,9 @@
 package com.example.spotifywrapped;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +21,14 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
     private ImageView wrappedImage;
     private TextView title;
     private int currPage;
+    private int position;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spotify_wrapped_story);
         int currPage = 1;
+        position = getIntent().getIntExtra("POSITION", -1);
 
         // Initialize TextViews for artists, songs, and albums
         wrappedTextViews = new TextView[]{
@@ -43,9 +47,17 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
         // Set click listeners for next and previous buttons
         Button buttonPrevious = findViewById(R.id.button_prev);
         Button buttonNext = findViewById(R.id.button_next);
+        ImageButton btnClose = findViewById(R.id.btnClose);
 
         buttonPrevious.setOnClickListener(view -> showPreviousPage());
         buttonNext.setOnClickListener(view -> showNextPage());
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Finish the activity to go back to the previous fragment
+                finish();
+            }
+        });
     }
 
 //    private void hideAllTextViews(TextView[] textViews) {
@@ -67,9 +79,16 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
     }
 
     private void updatePage(int newPageNum) {
+        System.out.println(position);
         ArrayList<String> newData;
         int wrapsListSize = FireStoreActivity.spotifyWraps.size();
-        SpotifyWrapData wrapData = FireStoreActivity.spotifyWraps.get(wrapsListSize - 1);
+
+        SpotifyWrapData wrapData;
+        if (position == -1) {
+            wrapData = FireStoreActivity.spotifyWraps.get(wrapsListSize - 1);
+        } else {
+            wrapData = FireStoreActivity.spotifyWraps.get(position);
+        }
 
         switch (newPageNum) {
             case 1:
@@ -102,7 +121,7 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
                 break;
             case 4:
                 title.setText(R.string.top_5_genres);
-                Picasso.get().load(wrapData.artistData.getTopArtistImageString()).into(wrappedImage);
+                Picasso.get().load("https://atlas-content-cdn.pixelsquid.com/stock-images/symbol-music-note-gold-musical-Q99QKV3-600.jpg").into(wrappedImage);
 
                 newData = wrapData.artistData.getTopGenres();
                 for (int i = 0; i < newData.size(); i++) {

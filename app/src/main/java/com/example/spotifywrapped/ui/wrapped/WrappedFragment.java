@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,10 +22,12 @@ import com.example.spotifywrapped.databinding.FragmentWrappedBinding;
 import com.example.spotifywrapped.firestore.FireStoreActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WrappedFragment extends Fragment {
+public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemClickListener {
     private ArrayList<SpotifyWrapData> spotifyWrapDataArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
     private WrappedAdapter adapter;
@@ -65,16 +68,29 @@ public class WrappedFragment extends Fragment {
 //        spotifyWrapDataArrayList.add(data);
 
 
-        for (SpotifyWrapData data : FireStoreActivity.spotifyWraps) {
-            spotifyWrapDataArrayList.add(data);
-        }
 
-        recyclerView = root.findViewById(R.id.dashboard_recycler_view);
-        adapter = new WrappedAdapter(spotifyWrapDataArrayList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        FireStoreActivity.fetchSpotifyWraps(() -> {
+            spotifyWrapDataArrayList.clear();
+            for (SpotifyWrapData data : FireStoreActivity.spotifyWraps) {
+                spotifyWrapDataArrayList.add(data);
+            }
+
+            recyclerView = root.findViewById(R.id.dashboard_recycler_view);
+            adapter = new WrappedAdapter(spotifyWrapDataArrayList, this);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(adapter);
+        });
+
 
         return root;
+    }
+
+    public void onItemClick(int position) {
+        // Open SpotifyWrappedStoryActivity with appropriate data
+        Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
+        intent.putExtra("POSITION", position);
+        // Pass data to intent if needed
+        startActivity(intent);
     }
 
     @Override
