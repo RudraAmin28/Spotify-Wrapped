@@ -40,12 +40,6 @@
             android:layout_margin="8dp"
             tools:text="Code:" />
 
-        <Button
-            android:id="@+id/code_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Request Code" />
 
         <TextView
             android:id="@+id/response_text_view"

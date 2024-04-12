@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the buttons
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
-        Button codeBtn = (Button) findViewById(R.id.code_btn);
         Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
 
         // Set the click listeners for the buttons
@@ -151,9 +150,7 @@ public class MainActivity extends AppCompatActivity {
             getToken();
         });
 
-        codeBtn.setOnClickListener((v) -> {
-            mSpotifyAppRemote.getPlayerApi().pause();
-        });
+
 
         createwrapButton2.setOnClickListener((v) -> {
             onGetArtistData(() -> {
