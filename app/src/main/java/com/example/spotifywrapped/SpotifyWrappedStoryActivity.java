@@ -79,6 +79,7 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
     }
 
     private void updatePage(int newPageNum) {
+        System.out.println(position);
         ArrayList<String> newData;
         int wrapsListSize = FireStoreActivity.spotifyWraps.size();
 
