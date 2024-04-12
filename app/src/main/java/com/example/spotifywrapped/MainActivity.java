@@ -7,22 +7,16 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.spotifywrapped.R;
-
 import com.example.spotifywrapped.firestore.FireStoreActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -35,15 +29,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.spotifywrapped.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -54,9 +42,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -64,9 +50,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import com.example.spotifywrapped.ui.login.LoginFragment;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SpotifyAuthCallback {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -80,19 +66,25 @@ public class MainActivity extends AppCompatActivity {
     private String mAccessToken, mAccessCode;
     private Call mCall;
     private SpotifyWrapData finalSpotifyData = new SpotifyWrapData();
-
     private TextView tokenTextView, codeTextView, profileTextView;
-
-
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private LoginFragment loginFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        System.out.println(0);
+
+//        System.out.println(this + " 1");
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        System.out.println(loginFragment + " 2");
+//        loginFragment.setAuthCallback(this);
+
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -176,6 +168,14 @@ public class MainActivity extends AppCompatActivity {
     public void getToken() {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN);
         AuthorizationClient.openLoginActivity(MainActivity.this, AUTH_TOKEN_REQUEST_CODE, request);
+    }
+
+    public void setLoginFragment(LoginFragment lf) {
+        this.loginFragment = lf;
+    }
+
+    public void onAuthSuccess() {
+        getToken();
     }
 
     /**
@@ -556,10 +556,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         // [END delete_user]
-    }
-
-
-    public void getSpotifyData() {
-
     }
 }

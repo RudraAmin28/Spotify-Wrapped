@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spotifywrapped.MainActivity;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.SpotifyWrapData;
 import com.example.spotifywrapped.SpotifyWrappedStoryActivity;
@@ -31,13 +32,13 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
     private ArrayList<SpotifyWrapData> spotifyWrapDataArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
     private WrappedAdapter adapter;
-
     private FragmentWrappedBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         WrappedViewModel wrappedViewModel =
                 new ViewModelProvider(this).get(WrappedViewModel.class);
+
 
 //        Timer timer = new Timer();
 //        timer.schedule(new TimerTask() {
@@ -50,15 +51,23 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
         binding = FragmentWrappedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        Button generateButton = root.findViewById(R.id.button_generate);
-//        generateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Navigate to Spotify_wrapped_story.xml
-//                Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        Button generateButton = root.findViewById(R.id.button_generate);
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SpotifyWrapData finalSpotifyData = new SpotifyWrapData();
+                finalSpotifyData.onGetArtistData(() -> {
+                    finalSpotifyData.onGetAlbumData(() -> {
+                        FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
+                            FireStoreActivity.fetchSpotifyWraps(() -> {
+                                Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
+                                startActivity(intent);
+                            });
+                        });
+                    });
+                });
+            }
+        });
 
 
 //        SpotifyWrapData data = new SpotifyWrapData();
