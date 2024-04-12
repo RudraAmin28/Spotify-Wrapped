@@ -593,7 +593,8 @@ public class MainActivity extends AppCompatActivity {
     private void connected() {
         // Then we will write some more code here.
         // Play a playlist
-        mSpotifyAppRemote.getPlayerApi().play("spotify:album:18NOKLkZETa4sWwLMIm0UZ");
+        mSpotifyAppRemote.getPlayerApi().play("spotify:track:1pnDvUuAEd6z8bKEsbAjk1"
+        );
     }
 
     @Override
