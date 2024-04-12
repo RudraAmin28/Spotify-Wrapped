@@ -4,10 +4,10 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/baseline_exit_to_app_24"
-            android:title="@string/sign_out" />
+<!--        <item-->
+<!--            android:id="@+id/nav_login"-->
+<!--            android:icon="@drawable/baseline_exit_to_app_24"-->
+<!--            android:title="@string/sign_out" />-->
         <item
 
             android:id="@+id/nav_wrapped"
