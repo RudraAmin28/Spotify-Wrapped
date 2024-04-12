@@ -51,7 +51,8 @@ public class FireStoreActivity {
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
         // Print or use the current date
-        String currentDate = month + "-" + dayOfMonth + "-" + year;
+        String currentDate = (month < 10 ? "0" + month : month) + "-" +
+                (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth) + "-" + year;
         singleWrapped.put("Date", currentDate);
 
         usersCollectionRef.document(uid).collection("data")
@@ -95,7 +96,7 @@ public class FireStoreActivity {
                                     @Override
                                     public int compare(SpotifyWrapData o1, SpotifyWrapData o2) {
                                         // Assuming date is a String in the format "MM-dd-yyyy"
-                                        return o1.date.compareTo(o2.date);
+                                        return o2.date.compareTo(o1.date);
                                     }
                                 });
                                 callback.run();
