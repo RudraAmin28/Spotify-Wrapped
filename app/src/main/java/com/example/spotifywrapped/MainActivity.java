@@ -367,6 +367,11 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
+                    ArrayList<String> topTrackURLs = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        topTrackURLs.add(items.getJSONObject(i).getString("uri"));
+                    }
+
 
                     HashMap<String, Integer> albumCounts = new HashMap<>();
 
@@ -409,7 +414,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i=0; i < topAlbums.size(); i++) {
                         System.out.println(topAlbums.get(i));
                     }
-                    SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage);
+                    SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage, topTrackURLs);
                     finalSpotifyData.trackData = finalTrackData;
 
                     setTextAsync(topTracks.get(0), profileTextView);
