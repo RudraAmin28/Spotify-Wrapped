@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Spotify Wrapped"
 include(":app")
+include(":mylibrary")
+include(":mylibrary")

@@ -64,12 +64,21 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
+
+import com.spotify.protocol.client.Subscription;
+import com.spotify.protocol.types.PlayerState;
+import com.spotify.protocol.types.Track;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private SpotifyAppRemote mSpotifyAppRemote;
+
 
     FireStoreActivity FireStoreActivity = new FireStoreActivity();
 
@@ -130,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
         codeTextView = (TextView) findViewById(R.id.code_text_view);
         profileTextView = (TextView) findViewById(R.id.response_text_view);
@@ -147,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         codeBtn.setOnClickListener((v) -> {
-            getCode();
+            mSpotifyAppRemote.getPlayerApi().pause();
         });
 
         createwrapButton2.setOnClickListener((v) -> {
@@ -157,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         FireStoreActivity.fetchSpotifyWraps(() -> {
                             Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
                             startActivity(intent);
+                            connected();
                         });
                     });
                 });
@@ -414,18 +423,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void spotifySignOut() {
-        String url = "https://accounts.spotify.com";
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            // Start the activity if there's an app available
-            startActivity(intent);
-        } else {
-            // Handle the case where no app can handle the intent
-            Toast.makeText(MainActivity.this, "No app available to handle this action", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     /**
      * Creates a UI thread to update a TextView in the background
      * Reduces UI latency and makes the system perform more consistently
@@ -446,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
     private AuthorizationRequest getAuthenticationRequest(AuthorizationResponse.Type type) {
         return new AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
                 .setShowDialog(false)
-                .setScopes(new String[] { "user-read-email user-top-read" }) // <--- Change the scope of your requested token here
+                .setScopes(new String[] { "user-read-email user-top-read app-remote-control" }) // <--- Change the scope of your requested token here
                 .setCampaign("Spotify Wrapped")
                 .build();
     }
@@ -559,7 +556,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void getSpotifyData() {
+    protected void onStart() {
+        super.onStart();
+        ConnectionParams connectionParams =
+                new ConnectionParams.Builder(CLIENT_ID)
+                        .setRedirectUri(REDIRECT_URI)
+                        .showAuthView(true)
+                        .build();
 
+        SpotifyAppRemote.connect(this, connectionParams,
+                new Connector.ConnectionListener() {
+
+                    @Override
+                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                        mSpotifyAppRemote = spotifyAppRemote;
+                        Log.d("MainActivity", "Connected! Yay!");
+
+                        // Now you can start interacting with App Remote
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        Log.e("MainActivity", throwable.getMessage(), throwable);
+
+                        // Something went wrong when attempting to connect! Handle errors here
+                    }
+                });
+        // We will start writing our code here.
+    }
+
+    private void connected() {
+        // Then we will write some more code here.
+        // Play a playlist
+        mSpotifyAppRemote.getPlayerApi().play("spotify:album:18NOKLkZETa4sWwLMIm0UZ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
     }
 }
+
+
