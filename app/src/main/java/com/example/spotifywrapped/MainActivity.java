@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 
 
         // Initialize the buttons
-        Button tokenBtn = findViewById(R.id.token_btn);
-        Button createwrapButton2 = findViewById(R.id.createwrapButton2);
+//        Button tokenBtn = findViewById(R.id.token_btn);
+//        Button createwrapButton2 = findViewById(R.id.createwrapButton2);
 
         // Set the click listeners for the buttons
 
@@ -156,19 +156,19 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 
 
 
-        createwrapButton2.setOnClickListener((v) -> {
-            onGetArtistData(() -> {
-                onGetAlbumData(() -> {
-                    FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
-                        FireStoreActivity.fetchSpotifyWraps(() -> {
-                            Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
-                            startActivity(intent);
-//                            connected();
-                        });
-                    });
-                });
-            });
-        });
+//        createwrapButton2.setOnClickListener((v) -> {
+//            onGetArtistData(() -> {
+//                onGetAlbumData(() -> {
+//                    FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
+//                        FireStoreActivity.fetchSpotifyWraps(() -> {
+//                            Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
+//                            startActivity(intent);
+////                            connected();
+//                        });
+//                    });
+//                });
+//            });
+//        });
     }
 
 

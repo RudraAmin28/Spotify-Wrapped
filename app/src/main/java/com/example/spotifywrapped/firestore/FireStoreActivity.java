@@ -90,7 +90,7 @@ public class FireStoreActivity {
                                 curr.date = (String) results.get("Date");
                                 curr.artistData = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
                                 curr.trackData = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
-                                spotifyWraps.add(curr);
+                                spotifyWraps.add(0, curr);
                                 // Sort the spotifyWraps by date
                             }
                             spotifyWraps.sort(new Comparator<SpotifyWrapData>() {

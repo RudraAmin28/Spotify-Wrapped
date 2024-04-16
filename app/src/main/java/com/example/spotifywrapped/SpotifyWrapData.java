@@ -31,18 +31,38 @@ public class SpotifyWrapData {
         mAccessToken = token;
     }
 
-    public void onGetArtistData(final Runnable callback) {
+    public void onGetArtistData(int timeRange, final Runnable callback) {
         if (mAccessToken == null) {
-            System.out.println("unfortunate");
+            System.out.println("unfortunate1");
 //            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Create a request to get the user profile
-        final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/artists?time_range=short_term")
-                .addHeader("Authorization", "Bearer " + mAccessToken)
-                .build();
+        final Request request;
+        switch (timeRange) {
+            case 1:
+                request = new Request.Builder()
+                        .url("https://api.spotify.com/v1/me/top/artists?time_range=short_term")
+                        .addHeader("Authorization", "Bearer " + mAccessToken)
+                        .build();
+                break;
+            case 2:
+                request = new Request.Builder()
+                        .url("https://api.spotify.com/v1/me/top/artists?time_range=medium_term")
+                        .addHeader("Authorization", "Bearer " + mAccessToken)
+                        .build();
+                break;
+            case 3:
+                request = new Request.Builder()
+                        .url("https://api.spotify.com/v1/me/top/artists?time_range=long_term")
+                        .addHeader("Authorization", "Bearer " + mAccessToken)
+                        .build();
+                break;
+            default:
+                request = null;
+                break;
+        }
 
         cancelCall();
         mCall = mOkHttpClient.newCall(request);
@@ -137,21 +157,42 @@ public class SpotifyWrapData {
         });
     }
 
-    public void onGetAlbumData(final Runnable callback) {
+    public void onGetAlbumData(int timeRange, final Runnable callback) {
         if (mAccessToken == null) {
-//            System.out.println("unfortunate");
+            System.out.println("unfortunate2");
 //            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Create a request to get the user profile
-        final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-                .addHeader("Authorization", "Bearer " + mAccessToken)
-                .build();
+        final Request request;
+        switch (timeRange) {
+            case 1:
+                request = new Request.Builder()
+                        .url("https://api.spotify.com/v1/me/top/tracks?time_range=short_term")
+                        .addHeader("Authorization", "Bearer " + mAccessToken)
+                        .build();
+                break;
+            case 2:
+                request = new Request.Builder()
+                        .url("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term")
+                        .addHeader("Authorization", "Bearer " + mAccessToken)
+                        .build();
+                break;
+            case 3:
+                request = new Request.Builder()
+                        .url("https://api.spotify.com/v1/me/top/tracks?time_range=long_term")
+                        .addHeader("Authorization", "Bearer " + mAccessToken)
+                        .build();
+                break;
+            default:
+                request = null;
+                break;
+        }
 
         cancelCall();
         mCall = mOkHttpClient.newCall(request);
+//        System.out.println(mCall);
 
         mCall.enqueue(new Callback() {
             @Override
@@ -163,7 +204,7 @@ public class SpotifyWrapData {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                System.out.println("Response: " + response);
                 try {
                     final JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONArray items = jsonObject.getJSONArray("items");
@@ -177,7 +218,7 @@ public class SpotifyWrapData {
                         topTracks.add(items.getJSONObject(i).getString("name"));
                     }
 
-
+//                    System.out.println("Toptracks: " + topTracks.get(0));
 
                     HashMap<String, Integer> albumCounts = new HashMap<>();
 
