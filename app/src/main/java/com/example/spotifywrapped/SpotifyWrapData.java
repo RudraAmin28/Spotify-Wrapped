@@ -23,9 +23,13 @@ public class SpotifyWrapData {
     public SpotifyTrack trackData;
     public String date;
 
-    private String mAccessToken, mAccessCode;
+    private static String mAccessToken, mAccessCode;
     private Call mCall;
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
+
+    public static void setToken(String token) {
+        mAccessToken = token;
+    }
 
     public void onGetArtistData(final Runnable callback) {
         if (mAccessToken == null) {

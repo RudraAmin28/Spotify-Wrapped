@@ -92,15 +92,16 @@ public class FireStoreActivity {
                                 curr.trackData = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
                                 spotifyWraps.add(curr);
                                 // Sort the spotifyWraps by date
-                                spotifyWraps.sort(new Comparator<SpotifyWrapData>() {
-                                    @Override
-                                    public int compare(SpotifyWrapData o1, SpotifyWrapData o2) {
-                                        // Assuming date is a String in the format "MM-dd-yyyy"
-                                        return o2.date.compareTo(o1.date);
-                                    }
-                                });
-                                callback.run();
                             }
+                            spotifyWraps.sort(new Comparator<SpotifyWrapData>() {
+                                @Override
+                                public int compare(SpotifyWrapData o1, SpotifyWrapData o2) {
+                                    // Assuming date is a String in the format "MM-dd-yyyy"
+                                    return o2.date.compareTo(o1.date);
+                                }
+                            });
+
+                            callback.run();
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }

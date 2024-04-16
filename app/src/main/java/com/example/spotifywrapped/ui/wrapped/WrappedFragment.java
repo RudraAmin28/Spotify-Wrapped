@@ -39,7 +39,6 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
         WrappedViewModel wrappedViewModel =
                 new ViewModelProvider(this).get(WrappedViewModel.class);
 
-
 //        Timer timer = new Timer();
 //        timer.schedule(new TimerTask() {
 //            @Override

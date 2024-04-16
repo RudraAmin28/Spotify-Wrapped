@@ -85,7 +85,7 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
 
         SpotifyWrapData wrapData;
         if (position == -1) {
-            wrapData = FireStoreActivity.spotifyWraps.get(wrapsListSize - 1);
+            wrapData = FireStoreActivity.spotifyWraps.get(0);
         } else {
             wrapData = FireStoreActivity.spotifyWraps.get(position);
         }

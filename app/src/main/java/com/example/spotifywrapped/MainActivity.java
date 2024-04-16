@@ -7,16 +7,23 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spotifywrapped.R;
+
 import com.example.spotifywrapped.firestore.FireStoreActivity;
+import com.example.spotifywrapped.ui.login.LoginFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -29,9 +36,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.spotifywrapped.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -42,7 +55,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -50,12 +65,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import com.example.spotifywrapped.ui.login.LoginFragment;
+//import com.spotify.android.appremote.api.ConnectionParams;
+//import com.spotify.android.appremote.api.Connector;
+//import com.spotify.android.appremote.api.SpotifyAppRemote;
+
+//import com.spotify.protocol.client.Subscription;
+//import com.spotify.protocol.types.PlayerState;
+//import com.spotify.protocol.types.Track;
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+//    private SpotifyAppRemote mSpotifyAppRemote;
+
 
     FireStoreActivity FireStoreActivity = new FireStoreActivity();
 
@@ -66,24 +89,22 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
     private String mAccessToken, mAccessCode;
     private Call mCall;
     private SpotifyWrapData finalSpotifyData = new SpotifyWrapData();
+
     private TextView tokenTextView, codeTextView, profileTextView;
+
+
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        System.out.println(0);
-
-//        System.out.println(this + " 1");
-        LoginFragment loginFragment = LoginFragment.newInstance(this);
-        System.out.println(this + " 2");
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
+        LoginFragment lf = LoginFragment.newInstance(this);
+        LoginFragment.setLoginSuccessListener(this);
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
                         .setAction("Action", null).show();
             }
         });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -122,24 +144,17 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         });
 
 
-        tokenTextView = (TextView) findViewById(R.id.token_text_view);
-        codeTextView = (TextView) findViewById(R.id.code_text_view);
-        profileTextView = (TextView) findViewById(R.id.response_text_view);
-
         // Initialize the buttons
-        Button tokenBtn = (Button) findViewById(R.id.token_btn);
-        Button codeBtn = (Button) findViewById(R.id.code_btn);
-        Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
+        Button tokenBtn = findViewById(R.id.token_btn);
+        Button createwrapButton2 = findViewById(R.id.createwrapButton2);
 
         // Set the click listeners for the buttons
 
-        tokenBtn.setOnClickListener((v) -> {
-            getToken();
-        });
+//        tokenBtn.setOnClickListener((v) -> {
+//            getToken();
+//        });
 
-        codeBtn.setOnClickListener((v) -> {
-            getCode();
-        });
+
 
         createwrapButton2.setOnClickListener((v) -> {
             onGetArtistData(() -> {
@@ -148,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
                         FireStoreActivity.fetchSpotifyWraps(() -> {
                             Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
                             startActivity(intent);
+//                            connected();
                         });
                     });
                 });
@@ -167,11 +183,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
     public void getToken() {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN);
         AuthorizationClient.openLoginActivity(MainActivity.this, AUTH_TOKEN_REQUEST_CODE, request);
+//        callback.run();
     }
 
-//    public void setLoginFragment(LoginFragment lf) {
-//        this.loginFragment = lf;
-//    }
 
     public void onLoginSuccess() {
         getToken();
@@ -201,6 +215,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         // Check which request code is present (if any)
         if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             mAccessToken = response.getAccessToken();
+            System.out.println("TOKEN = " + mAccessToken);
+            SpotifyWrapData.setToken(mAccessToken);
 
         } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
             mAccessCode = response.getCode();
@@ -293,18 +309,14 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
                                 c = Character.toTitleCase(c);
                                 nextTitleCase = false;
                             }
-
                             titleCase.append(c);
                         }
 
                         topGenres.set(i, titleCase.toString());
                     }
 
-                    SpotifyArtist finalArtistData = new SpotifyArtist(topFiveArtists, topArtistImageString, topGenres);
-                    finalSpotifyData.artistData = finalArtistData;
+                    finalSpotifyData.artistData = new SpotifyArtist(topFiveArtists, topArtistImageString, topGenres);
 
-
-                    setTextAsync(topArtistImageString, profileTextView);
                     callback.run();
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
@@ -357,6 +369,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
                     }
 
 
+                    ArrayList<String> topTrackURLs = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        topTrackURLs.add(items.getJSONObject(i).getString("uri"));
+                    }
+
 
                     HashMap<String, Integer> albumCounts = new HashMap<>();
 
@@ -402,7 +419,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
                     SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage);
                     finalSpotifyData.trackData = finalTrackData;
 
-                    setTextAsync(topTracks.get(0), profileTextView);
                     callback.run();
                 } catch (JSONException e) {
                     Log.d("JSON", "Failed to parse data: " + e);
@@ -432,9 +448,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
      * @param text the text to set
      * @param textView TextView object to update
      */
-    private void setTextAsync(final String text, TextView textView) {
-        runOnUiThread(() -> textView.setText(text));
-    }
 
     /**
      * Get authentication request
@@ -444,8 +457,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
      */
     private AuthorizationRequest getAuthenticationRequest(AuthorizationResponse.Type type) {
         return new AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
-                .setShowDialog(false)
-                .setScopes(new String[] { "user-read-email user-top-read" }) // <--- Change the scope of your requested token here
+                .setShowDialog(true)
+                .setScopes(new String[] { "user-read-email user-top-read app-remote-control" }) // <--- Change the scope of your requested token here
                 .setCampaign("Spotify Wrapped")
                 .build();
     }
@@ -556,4 +569,48 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
                 });
         // [END delete_user]
     }
+
+
+//    protected void onStart() {
+//        super.onStart();
+//        ConnectionParams connectionParams =
+//                new ConnectionParams.Builder(CLIENT_ID)
+//                        .setRedirectUri(REDIRECT_URI)
+//                        .showAuthView(true)
+//                        .build();
+//
+//        SpotifyAppRemote.connect(this, connectionParams,
+//                new Connector.ConnectionListener() {
+//
+//                    @Override
+//                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+//                        mSpotifyAppRemote = spotifyAppRemote;
+//                        Log.d("MainActivity", "Connected! Yay!");
+//
+//                        // Now you can start interacting with App Remote
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable throwable) {
+//                        Log.e("MainActivity", throwable.getMessage(), throwable);
+//
+//                        // Something went wrong when attempting to connect! Handle errors here
+//                    }
+//                });
+//        // We will start writing our code here.
+//    }
+
+//    private void connected() {
+//        // Then we will write some more code here.
+//        // Play a playlist
+//        mSpotifyAppRemote.getPlayerApi().play(FireStoreActivity.spotifyWraps.get(0).trackData.getTopTrackURLs().get(0));
+//    }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
+//    }
 }
+
+
