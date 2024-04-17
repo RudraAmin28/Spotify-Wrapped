@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/delete_account_popup.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/delete_account_popup.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/fragment_wrapped.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/fragment_wrapped.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/activity_main.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/app_bar_main.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/app_bar_main.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/spotify_wrapped_story.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/spotify_wrapped_story.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/fragment_settings.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/content_main.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/content_main.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/update_login_info_popup.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/update_login_info_popup.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/dashboard_card.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/dashboard_card.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/signout_popup.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/signout_popup.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/fragment_card.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/fragment_card.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/fragment_login.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/fragment_login.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-mergeDebugResources-57:/layout/nav_header_main.xml",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/nav_header_main.xml"
+    }
+]

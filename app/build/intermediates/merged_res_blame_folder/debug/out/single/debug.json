@@ -1,0 +1,194 @@
+[
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/navigation_mobile_navigation.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/navigation/mobile_navigation.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable-xhdpi_ic_chevron_right.png.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable-xhdpi/ic_chevron_right.png"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_baseline_close_24.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/baseline_close_24.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_signout_popup.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/signout_popup.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_content_main.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/content_main.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable-xxhdpi_ic_chevron_right.png.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable-xxhdpi/ic_chevron_right.png"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_fragment_login.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/fragment_login.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_baseline_app_settings_alt_24.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/baseline_app_settings_alt_24.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_side_nav_bar.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/side_nav_bar.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/font_metropolis.otf.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/font/metropolis.otf"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable-hdpi_ic_chevron_right.png.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable-hdpi/ic_chevron_right.png"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/font_lexend_deca.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/font/lexend_deca.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_ic_menu_gallery.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/ic_menu_gallery.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable-mdpi_ic_chevron_right.png.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable-mdpi/ic_chevron_right.png"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_border.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/border.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_travis_scott.jpeg.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/travis_scott.jpeg"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_ic_menu_slideshow.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/ic_menu_slideshow.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_fragment_settings.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_app_bar_main.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/app_bar_main.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/menu_activity_main_drawer.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/menu/activity_main_drawer.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_dashboard_card.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/dashboard_card.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/xml_backup_rules.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_fragment_wrapped.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/fragment_wrapped.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_baseline_exit_to_app_24.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/baseline_exit_to_app_24.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_fragment_card.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/fragment_card.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_gradient.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/gradient.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_nav_header_main.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/nav_header_main.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_update_login_info_popup.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/update_login_info_popup.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_spotify_wrapped_story.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/spotify_wrapped_story.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable-xxxhdpi_ic_chevron_right.png.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable-xxxhdpi/ic_chevron_right.png"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_delete_account_popup.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/delete_account_popup.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/layout_activity_main.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.spotifywrapped.app-merged_res-58:/drawable_ic_menu_camera.xml.flat",
+        "source": "com.example.spotifywrapped.app-main-60:/drawable/ic_menu_camera.xml"
+    }
+]

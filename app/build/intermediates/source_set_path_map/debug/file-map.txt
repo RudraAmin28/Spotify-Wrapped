@@ -1,0 +1,62 @@
+com.example.spotifywrapped.app-navigation-fragment-2.7.6-0 /Users/rudraamin/.gradle/caches/transforms-3/0880bfdd6284520e88d2f341571fb6d2/transformed/navigation-fragment-2.7.6/res
+com.example.spotifywrapped.app-fragment-1.6.2-1 /Users/rudraamin/.gradle/caches/transforms-3/088d3bcf81352efb915837595b2405d4/transformed/fragment-1.6.2/res
+com.example.spotifywrapped.app-fragment-ktx-1.6.2-2 /Users/rudraamin/.gradle/caches/transforms-3/0e7de3350d037036fe07e5f54d0ad0c8/transformed/fragment-ktx-1.6.2/res
+com.example.spotifywrapped.app-firebase-ui-auth-7.2.0-3 /Users/rudraamin/.gradle/caches/transforms-3/1a3564ec27849f555a5f3e23aba31267/transformed/firebase-ui-auth-7.2.0/res
+com.example.spotifywrapped.app-lifecycle-runtime-ktx-2.7.0-4 /Users/rudraamin/.gradle/caches/transforms-3/1b433a5d1d077a8537ff1aa893db2de8/transformed/lifecycle-runtime-ktx-2.7.0/res
+com.example.spotifywrapped.app-viewpager2-1.0.0-5 /Users/rudraamin/.gradle/caches/transforms-3/235bd59a478c6d5b2e159f30698c2b0d/transformed/viewpager2-1.0.0/res
+com.example.spotifywrapped.app-constraintlayout-2.1.4-6 /Users/rudraamin/.gradle/caches/transforms-3/241afb17a3857d8fe4aec61405a90878/transformed/constraintlayout-2.1.4/res
+com.example.spotifywrapped.app-play-services-base-18.0.1-7 /Users/rudraamin/.gradle/caches/transforms-3/29298c397e9c388c9969b3eca3175a91/transformed/play-services-base-18.0.1/res
+com.example.spotifywrapped.app-emoji2-views-helper-1.2.0-8 /Users/rudraamin/.gradle/caches/transforms-3/29b4287395cb14be85db8aba2aeed065/transformed/emoji2-views-helper-1.2.0/res
+com.example.spotifywrapped.app-ads-adservices-java-1.0.0-beta05-9 /Users/rudraamin/.gradle/caches/transforms-3/2a0757973fe83661dcdc055009aa2b1f/transformed/ads-adservices-java-1.0.0-beta05/res
+com.example.spotifywrapped.app-lifecycle-livedata-2.7.0-10 /Users/rudraamin/.gradle/caches/transforms-3/33d2453ff4133dbae5ef95a42790cad3/transformed/lifecycle-livedata-2.7.0/res
+com.example.spotifywrapped.app-transition-1.4.1-11 /Users/rudraamin/.gradle/caches/transforms-3/37ced38d8cc380c90af1b2fb2ed71fdc/transformed/transition-1.4.1/res
+com.example.spotifywrapped.app-savedstate-1.2.1-12 /Users/rudraamin/.gradle/caches/transforms-3/406324c25e26ee277c17b13b28011913/transformed/savedstate-1.2.1/res
+com.example.spotifywrapped.app-browser-1.5.0-13 /Users/rudraamin/.gradle/caches/transforms-3/518c8c56e0ee33d2afbe7f1b5af81ff7/transformed/browser-1.5.0/res
+com.example.spotifywrapped.app-lifecycle-process-2.7.0-14 /Users/rudraamin/.gradle/caches/transforms-3/51b0746f0389820e9dd982d42f616ded/transformed/lifecycle-process-2.7.0/res
+com.example.spotifywrapped.app-core-1.9.0-15 /Users/rudraamin/.gradle/caches/transforms-3/53bccc341858bb2a0ca40c69bceb7ca4/transformed/core-1.9.0/res
+com.example.spotifywrapped.app-drawerlayout-1.1.1-16 /Users/rudraamin/.gradle/caches/transforms-3/5f1e7dd2c040f96381fafae50372c419/transformed/drawerlayout-1.1.1/res
+com.example.spotifywrapped.app-play-services-basement-18.3.0-17 /Users/rudraamin/.gradle/caches/transforms-3/625870cdea382188e436d2254dc75adf/transformed/play-services-basement-18.3.0/res
+com.example.spotifywrapped.app-lifecycle-runtime-2.7.0-18 /Users/rudraamin/.gradle/caches/transforms-3/62e102d9e1d12cbf321100273b0c4cb7/transformed/lifecycle-runtime-2.7.0/res
+com.example.spotifywrapped.app-activity-1.8.0-19 /Users/rudraamin/.gradle/caches/transforms-3/68328e5a7eed79ba18cff9740362fe14/transformed/activity-1.8.0/res
+com.example.spotifywrapped.app-window-1.0.0-20 /Users/rudraamin/.gradle/caches/transforms-3/68bf542a164d870964b7e630bd5a7df9/transformed/window-1.0.0/res
+com.example.spotifywrapped.app-lifecycle-viewmodel-savedstate-2.7.0-21 /Users/rudraamin/.gradle/caches/transforms-3/6ab52364685573717cac025a421c508a/transformed/lifecycle-viewmodel-savedstate-2.7.0/res
+com.example.spotifywrapped.app-cardview-1.0.0-22 /Users/rudraamin/.gradle/caches/transforms-3/6ddf2f7a2399720537e1469beabeba83/transformed/cardview-1.0.0/res
+com.example.spotifywrapped.app-lifecycle-livedata-core-2.7.0-23 /Users/rudraamin/.gradle/caches/transforms-3/70fb9485e0966032a03bfdc32155b092/transformed/lifecycle-livedata-core-2.7.0/res
+com.example.spotifywrapped.app-auth-2.1.1-24 /Users/rudraamin/.gradle/caches/transforms-3/7dbaa76f7d280190641f1aaaa7cf3746/transformed/auth-2.1.1/res
+com.example.spotifywrapped.app-appcompat-1.6.1-25 /Users/rudraamin/.gradle/caches/transforms-3/8166a589a35a035bd9dd7b19086e549d/transformed/appcompat-1.6.1/res
+com.example.spotifywrapped.app-media-1.0.0-26 /Users/rudraamin/.gradle/caches/transforms-3/823bc37ba131240be56853aa8cc24a46/transformed/media-1.0.0/res
+com.example.spotifywrapped.app-lifecycle-livedata-ktx-2.7.0-27 /Users/rudraamin/.gradle/caches/transforms-3/9883b21da19dea8578f2c065245462a3/transformed/lifecycle-livedata-ktx-2.7.0/res
+com.example.spotifywrapped.app-lifecycle-viewmodel-2.7.0-28 /Users/rudraamin/.gradle/caches/transforms-3/99c6a4f5507c3a1f0b2de8dda368f28e/transformed/lifecycle-viewmodel-2.7.0/res
+com.example.spotifywrapped.app-recyclerview-1.2.0-29 /Users/rudraamin/.gradle/caches/transforms-3/a0658e92dad4f4aad3d78699ca287557/transformed/recyclerview-1.2.0/res
+com.example.spotifywrapped.app-lifecycle-livedata-core-ktx-2.7.0-30 /Users/rudraamin/.gradle/caches/transforms-3/a1cd7028f3b37738b155080a4520b237/transformed/lifecycle-livedata-core-ktx-2.7.0/res
+com.example.spotifywrapped.app-navigation-ui-2.7.6-31 /Users/rudraamin/.gradle/caches/transforms-3/a403a628dedb216ba77acc8fa430efc2/transformed/navigation-ui-2.7.6/res
+com.example.spotifywrapped.app-core-runtime-2.2.0-32 /Users/rudraamin/.gradle/caches/transforms-3/a70056a666f381d951c4d8e12ae8b90d/transformed/core-runtime-2.2.0/res
+com.example.spotifywrapped.app-navigation-runtime-2.7.6-33 /Users/rudraamin/.gradle/caches/transforms-3/b0b0a288227906dc9c62ba381475cc39/transformed/navigation-runtime-2.7.6/res
+com.example.spotifywrapped.app-annotation-experimental-1.3.0-34 /Users/rudraamin/.gradle/caches/transforms-3/b19cab1b114093b1a3581de502d5f012/transformed/annotation-experimental-1.3.0/res
+com.example.spotifywrapped.app-profileinstaller-1.3.0-35 /Users/rudraamin/.gradle/caches/transforms-3/b94f054b43040ba1922bf81a223aff59/transformed/profileinstaller-1.3.0/res
+com.example.spotifywrapped.app-lifecycle-viewmodel-ktx-2.7.0-36 /Users/rudraamin/.gradle/caches/transforms-3/bba3da48314b0b346da1eb8a3cfcb7d0/transformed/lifecycle-viewmodel-ktx-2.7.0/res
+com.example.spotifywrapped.app-savedstate-ktx-1.2.1-37 /Users/rudraamin/.gradle/caches/transforms-3/bbcbcd9caf7d4dbda423056f89fef840/transformed/savedstate-ktx-1.2.1/res
+com.example.spotifywrapped.app-emoji2-1.2.0-38 /Users/rudraamin/.gradle/caches/transforms-3/c297045516deb143ed04a69d0d1206df/transformed/emoji2-1.2.0/res
+com.example.spotifywrapped.app-activity-ktx-1.8.0-39 /Users/rudraamin/.gradle/caches/transforms-3/ca5cf25541c27e98bd0c8f7eeadb25e6/transformed/activity-ktx-1.8.0/res
+com.example.spotifywrapped.app-material-1.11.0-40 /Users/rudraamin/.gradle/caches/transforms-3/cc2d12b829148758ed6b3b42347dadc2/transformed/material-1.11.0/res
+com.example.spotifywrapped.app-appcompat-resources-1.6.1-41 /Users/rudraamin/.gradle/caches/transforms-3/d50aae0f7ba54d4cd8c9f5975edf17d6/transformed/appcompat-resources-1.6.1/res
+com.example.spotifywrapped.app-navigation-common-2.7.6-42 /Users/rudraamin/.gradle/caches/transforms-3/daac1854c84c5375df3c528508f3fa14/transformed/navigation-common-2.7.6/res
+com.example.spotifywrapped.app-ads-adservices-1.0.0-beta05-43 /Users/rudraamin/.gradle/caches/transforms-3/dbd831baaf527d576b54fc582237cfd2/transformed/ads-adservices-1.0.0-beta05/res
+com.example.spotifywrapped.app-firebase-common-20.4.3-44 /Users/rudraamin/.gradle/caches/transforms-3/dbf1b9788bb1bd92472d6206e50d14a7/transformed/firebase-common-20.4.3/res
+com.example.spotifywrapped.app-core-ktx-1.9.0-45 /Users/rudraamin/.gradle/caches/transforms-3/e4e85a8fa392e46078fae3b5985f95f8/transformed/core-ktx-1.9.0/res
+com.example.spotifywrapped.app-play-services-auth-19.0.0-46 /Users/rudraamin/.gradle/caches/transforms-3/e63b76227aa78c88ff830cf8331a0de9/transformed/play-services-auth-19.0.0/res
+com.example.spotifywrapped.app-library-1.6.1-47 /Users/rudraamin/.gradle/caches/transforms-3/e886bd335784efd6af648099dc81372d/transformed/library-1.6.1/res
+com.example.spotifywrapped.app-startup-runtime-1.1.1-48 /Users/rudraamin/.gradle/caches/transforms-3/f10e0418fa266e1b553190c501ffff34/transformed/startup-runtime-1.1.1/res
+com.example.spotifywrapped.app-coordinatorlayout-1.1.0-49 /Users/rudraamin/.gradle/caches/transforms-3/f1c329ca95475d1a1f65710e5c8e5a10/transformed/coordinatorlayout-1.1.0/res
+com.example.spotifywrapped.app-play-services-measurement-api-21.6.1-50 /Users/rudraamin/.gradle/caches/transforms-3/f27f1fc160f412bc642488eae72ee0e2/transformed/play-services-measurement-api-21.6.1/res
+com.example.spotifywrapped.app-slidingpanelayout-1.2.0-51 /Users/rudraamin/.gradle/caches/transforms-3/f51ed482baaa38a4d942924e6f00e4c4/transformed/slidingpanelayout-1.2.0/res
+com.example.spotifywrapped.app-lifecycle-service-2.7.0-52 /Users/rudraamin/.gradle/caches/transforms-3/f9dadd8e6ef0bb7f3fd2f94e885bca8f/transformed/lifecycle-service-2.7.0/res
+com.example.spotifywrapped.app-pngs-53 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/build/generated/res/pngs/debug
+com.example.spotifywrapped.app-res-54 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/build/generated/res/processDebugGoogleServices
+com.example.spotifywrapped.app-resValues-55 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/build/generated/res/resValues/debug
+com.example.spotifywrapped.app-packageDebugResources-56 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.example.spotifywrapped.app-packageDebugResources-57 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.example.spotifywrapped.app-merged_res-58 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/build/intermediates/merged_res/debug
+com.example.spotifywrapped.app-debug-59 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/debug/res
+com.example.spotifywrapped.app-main-60 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/res
+com.example.spotifywrapped.app-packaged_res-61 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/mylibrary/build/intermediates/packaged_res/debug
