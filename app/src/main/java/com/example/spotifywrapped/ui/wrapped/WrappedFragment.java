@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.example.spotifywrapped.SpotifyWrapData;
 import com.example.spotifywrapped.SpotifyWrappedStoryActivity;
 import com.example.spotifywrapped.databinding.FragmentWrappedBinding;
 import com.example.spotifywrapped.firestore.FireStoreActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +51,18 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
 
         binding = FragmentWrappedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        FireStoreActivity.fetchSpotifyWraps(() -> {
+            spotifyWrapDataArrayList.clear();
+            for (SpotifyWrapData data : FireStoreActivity.spotifyWraps) {
+                spotifyWrapDataArrayList.add(data);
+            }
+
+            recyclerView = root.findViewById(R.id.dashboard_recycler_view);
+            adapter = new WrappedAdapter(spotifyWrapDataArrayList, this);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(adapter);
+        });
 
         Button generateButtonShort = root.findViewById(R.id.button_generate_short);
         Button generateButtonMed = root.findViewById(R.id.button_generate_med);
@@ -104,26 +118,21 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
             }
         });
 
+        FloatingActionButton settingsFab = root.findViewById(R.id.settings_fab);
+        settingsFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to SettingsFragment
+                NavHostFragment.findNavController(WrappedFragment.this).navigate(R.id.action_wrappedFragment_to_settingsFragment);
+            }
+        });
+
 
 //        SpotifyWrapData data = new SpotifyWrapData();
 //        data.artistData = null;
 //        data.trackData = null;
 //        data.date = "01-01-2024";
 //        spotifyWrapDataArrayList.add(data);
-
-
-
-        FireStoreActivity.fetchSpotifyWraps(() -> {
-            spotifyWrapDataArrayList.clear();
-            for (SpotifyWrapData data : FireStoreActivity.spotifyWraps) {
-                spotifyWrapDataArrayList.add(data);
-            }
-
-            recyclerView = root.findViewById(R.id.dashboard_recycler_view);
-            adapter = new WrappedAdapter(spotifyWrapDataArrayList, this);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(adapter);
-        });
 
 
         return root;

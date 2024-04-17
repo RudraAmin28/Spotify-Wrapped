@@ -18,10 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.spotifywrapped.MainActivity;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.databinding.FragmentSettingsBinding;
+import com.example.spotifywrapped.ui.wrapped.WrappedFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -78,6 +81,16 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showSignOutPopup();
+            }
+        });
+
+        FloatingActionButton homeFab = root.findViewById(R.id.home_fab);
+        homeFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to SettingsFragment
+                NavHostFragment.findNavController(SettingsFragment.this)
+                        .navigate(R.id.action_settingsFragment_to_wrappedFragment);
             }
         });
 

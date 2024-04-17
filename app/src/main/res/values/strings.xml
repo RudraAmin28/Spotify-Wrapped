@@ -10,6 +10,7 @@
     <string name="menu_home">Login</string>
     <string name="menu_gallery">My Spotify Wraps</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="home">Home</string>
     <string name="email">Email</string>
     <string name="spotify_wrapped">Spotify Wrapped</string>
     <string name="password">Password</string>

@@ -56,7 +56,7 @@ public class LoginFragment extends Fragment {
 //        mainActivity.setLoginFragment(this);
 //        setAuthCallback(mainActivity);
 //        System.out.println(spotifyAuthCallback + " 2");
-        System.out.println(loginSuccessListener + " 1");
+//        System.out.println(loginSuccessListener + " 1");
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -107,7 +107,8 @@ public class LoginFragment extends Fragment {
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     loginSuccessListener.onLoginSuccess();
-                                    Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_wrappedFragment);
+                                    Navigation.findNavController(v)
+                                            .navigate(R.id.action_loginFragment_to_wrappedFragment);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
