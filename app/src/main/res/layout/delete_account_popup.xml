@@ -8,25 +8,25 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete Account"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="Delete Account"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="Are you sure you want to delete your account? This action cannot be undone."
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="16dp"/>
+        android:textColor="@color/white" />
 
     <!-- Delete button -->
     <Button
         android:id="@+id/buttonDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Delete" />
 
 </LinearLayout>
