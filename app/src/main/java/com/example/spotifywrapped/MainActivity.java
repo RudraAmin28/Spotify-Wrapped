@@ -77,7 +77,7 @@ import okhttp3.Response;
 //import com.spotify.protocol.types.PlayerState;
 //import com.spotify.protocol.types.Track;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener, WrappedFragment.OnMusicPlayerListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener, WrappedFragment.OnMusicPlayerListener, SpotifyWrappedStoryActivity.OnMusicPlayerListener {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     private SpotifyAppRemote mSpotifyAppRemote;
@@ -110,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 
         WrappedFragment wf = WrappedFragment.newInstance(this);
         WrappedFragment.setMusicPlayerListener(this);
+
+        SpotifyWrappedStoryActivity sf = SpotifyWrappedStoryActivity.newInstance(this);
+        SpotifyWrappedStoryActivity.setMusicPlayerListener(this);
 
         setSupportActionBar(binding.appBarMain.toolbar);
 //        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -201,8 +204,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         mSpotifyAppRemote.getPlayerApi().play(track);
     }
 
-    public void onMusicPause() {
+    public void onMusicPause(final Runnable callback) {
         mSpotifyAppRemote.getPlayerApi().pause();
+        callback.run();
     }
     /**
      * Get code from Spotify

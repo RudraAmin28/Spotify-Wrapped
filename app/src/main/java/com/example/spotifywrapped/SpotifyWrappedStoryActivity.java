@@ -1,6 +1,9 @@
 package com.example.spotifywrapped;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spotifywrapped.firestore.FireStoreActivity;
+import com.example.spotifywrapped.ui.wrapped.WrappedFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,11 +27,29 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
     private int currPage;
     private int position;
 
+    private static OnMusicPlayerListener musicPlayerListener;
+
+    public interface OnMusicPlayerListener {
+        void onMusicPlay(String track);
+        void onMusicPause(final Runnable callback);
+    }
+
+    public static SpotifyWrappedStoryActivity newInstance(OnMusicPlayerListener listener) {
+        SpotifyWrappedStoryActivity fragment = new SpotifyWrappedStoryActivity();
+        SpotifyWrappedStoryActivity.setMusicPlayerListener(listener);
+        return fragment;
+    }
+
+    public static void setMusicPlayerListener(OnMusicPlayerListener listener) {
+        musicPlayerListener = listener;
+        Log.d(TAG, "Successfully set listener");
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spotify_wrapped_story);
         int currPage = 1;
+        musicPlayerListener.onMusicPlay(FireStoreActivity.latest.trackData.getTopTrackURLs().get(currPage - 1));
         position = getIntent().getIntExtra("POSITION", -1);
 
         // Initialize TextViews for artists, songs, and albums
@@ -55,7 +77,11 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the activity to go back to the previous fragment
-                finish();
+                System.out.println("BEFORE PAUSE");
+                musicPlayerListener.onMusicPause(() -> {
+                    finish();
+                });
+                System.out.println("AFTER PAUSE");
             }
         });
     }
@@ -99,6 +125,8 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
                 Picasso.get().load(wrapData.artistData.getTopArtistImageString()).into(wrappedImage);
 
                 newData = wrapData.artistData.getTopFiveArtists();
+
+                musicPlayerListener.onMusicPlay(wrapData.trackData.getTopTrackURLs().get(0));
                 for (int i = 0; i < newData.size(); i++) {
                     wrappedTextViews[i].setText(newData.get(i));
                 }
@@ -110,6 +138,7 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
                 Picasso.get().load(wrapData.trackData.getTopTrackImage()).into(wrappedImage);
 
                 newData = wrapData.trackData.getTopTracks();
+                musicPlayerListener.onMusicPlay(wrapData.trackData.getTopTrackURLs().get(1));
                 for (int i = 0; i < newData.size(); i++) {
                     wrappedTextViews[i].setText(newData.get(i));
                 }
@@ -120,6 +149,7 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
                 Picasso.get().load(wrapData.trackData.getTopAlbumImage()).into(wrappedImage);
 
                 newData = wrapData.trackData.getTopAlbums();
+                musicPlayerListener.onMusicPlay(wrapData.trackData.getTopTrackURLs().get(2));
                 for (int i = 0; i < newData.size(); i++) {
                     wrappedTextViews[i].setText(newData.get(i));
                 }
@@ -130,6 +160,7 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
                 Picasso.get().load("https://atlas-content-cdn.pixelsquid.com/stock-images/symbol-music-note-gold-musical-Q99QKV3-600.jpg").into(wrappedImage);
 
                 newData = wrapData.artistData.getTopGenres();
+                musicPlayerListener.onMusicPlay(wrapData.trackData.getTopTrackURLs().get(3));
                 for (int i = 0; i < newData.size(); i++) {
                     wrappedTextViews[i].setText(newData.get(i));
                 }
