@@ -75,6 +75,7 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
                     finalSpotifyData.onGetAlbumData(1, () -> {
                         FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
                             FireStoreActivity.fetchSpotifyWraps(() -> {
+                                FireStoreActivity.latest = finalSpotifyData;
                                 Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
                                 startActivity(intent);
                             });
@@ -92,6 +93,7 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
                     finalSpotifyData.onGetAlbumData(2, () -> {
                         FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
                             FireStoreActivity.fetchSpotifyWraps(() -> {
+                                FireStoreActivity.latest = finalSpotifyData;
                                 Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
                                 startActivity(intent);
                             });
@@ -109,6 +111,7 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
                     finalSpotifyData.onGetAlbumData(3, () -> {
                         FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
                             FireStoreActivity.fetchSpotifyWraps(() -> {
+                                FireStoreActivity.latest = finalSpotifyData;
                                 Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
                                 startActivity(intent);
                             });

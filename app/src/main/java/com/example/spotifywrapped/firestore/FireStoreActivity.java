@@ -28,6 +28,8 @@ public class FireStoreActivity {
 
     public static ArrayList<SpotifyWrapData> spotifyWraps = new ArrayList<>();
 
+    public static SpotifyWrapData latest = null;
+
     private static final String TAG = "FireStoreActivity";
 
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
