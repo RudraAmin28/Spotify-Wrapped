@@ -10,13 +10,23 @@ public class SpotifyTrack {
     private ArrayList<String> topAlbums;
     private String topAlbumImage = "";
 
-    public SpotifyTrack(ArrayList<String> topTracks, String topTrackImage, ArrayList<String> topAlbums, String topAlbumImage) {
+    public SpotifyTrack(ArrayList<String> topTracks, String topTrackImage, ArrayList<String> topAlbums, String topAlbumImage, ArrayList<String> topTrackURLs) {
         this.topTracks = topTracks;
         this.topTrackImage = topTrackImage;
         this.topAlbums = topAlbums;
         this.topAlbumImage = topAlbumImage;
+        this.topTrackURLs = topTrackURLs;
     }
 
+    public ArrayList<String> getTopTrackURLs() {
+        return topTrackURLs;
+    }
+
+    public void setTopTrackURLs(ArrayList<String> topTrackURLs) {
+        this.topTrackURLs = topTrackURLs;
+    }
+
+    private ArrayList<String> topTrackURLs;
     public ArrayList<String> getTopTracks() {
         return topTracks;
     }
