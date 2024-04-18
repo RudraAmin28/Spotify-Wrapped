@@ -28,6 +28,8 @@ public class FireStoreActivity {
 
     public static ArrayList<SpotifyWrapData> spotifyWraps = new ArrayList<>();
 
+    public static HashMap<String, Integer> sortingRels = new HashMap<>();
+
     public static SpotifyWrapData latest = null;
 
     private static final String TAG = "FireStoreActivity";
@@ -95,15 +97,29 @@ public class FireStoreActivity {
                                 curr.artistData = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
                                 curr.trackData = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
                                 spotifyWraps.add(0, curr);
+                                sortingRels.put("1 Month", 3);
+                                sortingRels.put("6 Months", 2);
+                                sortingRels.put("1 Year", 1);
                                 // Sort the spotifyWraps by date
                             }
                             spotifyWraps.sort(new Comparator<SpotifyWrapData>() {
                                 @Override
                                 public int compare(SpotifyWrapData o1, SpotifyWrapData o2) {
-                                    // Assuming date is a String in the format "MM-dd-yyyy"
-                                    return o2.date.compareTo(o1.date);
+                                    // Compare dates first
+                                    int dateComparison = o2.date.compareTo(o1.date);
+
+                                    // If dates are equal, compare timestamps
+                                    if (dateComparison == 0) {
+
+
+                                        // Compare timestamps as strings
+                                        return sortingRels.get(o1.timeSpan) - sortingRels.get(o2.timeSpan);
+                                    }
+
+                                    return dateComparison;
                                 }
                             });
+
 
                             callback.run();
                         } else {
