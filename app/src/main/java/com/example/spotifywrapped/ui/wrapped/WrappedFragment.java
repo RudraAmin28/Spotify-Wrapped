@@ -59,12 +59,6 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume() called");
-        Log.d(TAG, "onResume() called 2");
-    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

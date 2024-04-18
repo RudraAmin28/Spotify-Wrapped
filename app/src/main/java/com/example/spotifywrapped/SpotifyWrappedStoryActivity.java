@@ -49,7 +49,6 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spotify_wrapped_story);
         int currPage = 1;
-        musicPlayerListener.onMusicPlay(FireStoreActivity.latest.trackData.getTopTrackURLs().get(currPage - 1));
         position = getIntent().getIntExtra("POSITION", -1);
 
         // Initialize TextViews for artists, songs, and albums
@@ -79,9 +78,10 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
                 // Finish the activity to go back to the previous fragment
                 System.out.println("BEFORE PAUSE");
                 musicPlayerListener.onMusicPause(() -> {
+                    // This code will be executed after the music is paused
                     finish();
+                    System.out.println("AFTER PAUSE");
                 });
-                System.out.println("AFTER PAUSE");
             }
         });
     }
