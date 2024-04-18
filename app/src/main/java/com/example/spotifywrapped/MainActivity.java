@@ -45,6 +45,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -76,6 +79,8 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
+    private SpotifyAppRemote mSpotifyAppRemote;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 //    private SpotifyAppRemote mSpotifyAppRemote;
 
@@ -156,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 
 
 
+
 //        createwrapButton2.setOnClickListener((v) -> {
 //            onGetArtistData(() -> {
 //                onGetAlbumData(() -> {
@@ -189,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 
     public void onLoginSuccess() {
         getToken();
+        connected();
     }
 
     /**
@@ -571,46 +578,46 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
     }
 
 
-//    protected void onStart() {
-//        super.onStart();
-//        ConnectionParams connectionParams =
-//                new ConnectionParams.Builder(CLIENT_ID)
-//                        .setRedirectUri(REDIRECT_URI)
-//                        .showAuthView(true)
-//                        .build();
-//
-//        SpotifyAppRemote.connect(this, connectionParams,
-//                new Connector.ConnectionListener() {
-//
-//                    @Override
-//                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-//                        mSpotifyAppRemote = spotifyAppRemote;
-//                        Log.d("MainActivity", "Connected! Yay!");
-//
-//                        // Now you can start interacting with App Remote
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable throwable) {
-//                        Log.e("MainActivity", throwable.getMessage(), throwable);
-//
-//                        // Something went wrong when attempting to connect! Handle errors here
-//                    }
-//                });
-//        // We will start writing our code here.
-//    }
+    protected void onStart() {
+        super.onStart();
+        ConnectionParams connectionParams =
+                new ConnectionParams.Builder(CLIENT_ID)
+                        .setRedirectUri(REDIRECT_URI)
+                        .showAuthView(true)
+                        .build();
 
-//    private void connected() {
-//        // Then we will write some more code here.
-//        // Play a playlist
-//        mSpotifyAppRemote.getPlayerApi().play(FireStoreActivity.spotifyWraps.get(0).trackData.getTopTrackURLs().get(0));
-//    }
+        SpotifyAppRemote.connect(this, connectionParams,
+                new Connector.ConnectionListener() {
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
-//    }
+                    @Override
+                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                        mSpotifyAppRemote = spotifyAppRemote;
+                        Log.d("MainActivity", "Connected! Yay!");
+
+                        // Now you can start interacting with App Remote
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        Log.e("MainActivity", throwable.getMessage(), throwable);
+
+                        // Something went wrong when attempting to connect! Handle errors here
+                    }
+                });
+        // We will start writing our code here.
+    }
+
+    private void connected() {
+        // Then we will write some more code here.
+        // Play a playlist
+        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
+    }
 }
 
 

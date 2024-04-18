@@ -18,11 +18,24 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
+
+import com.spotify.protocol.client.Subscription;
+import com.spotify.protocol.types.PlayerState;
+import com.spotify.protocol.types.Track;
+
+
 public class SpotifyWrapData {
     public SpotifyArtist artistData;
     public SpotifyTrack trackData;
     public String date;
     public String timeSpan;
+
+    private SpotifyAppRemote mSpotifyAppRemote;
+
 
     private static String mAccessToken, mAccessCode;
     private Call mCall;
@@ -286,4 +299,7 @@ public class SpotifyWrapData {
 //    private void setTextAsync(final String text, TextView textView) {
 //        runOnUiThread(() -> textView.setText(text));
 //    }
+
+
+
 }
