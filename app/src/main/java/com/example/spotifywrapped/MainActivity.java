@@ -16,6 +16,7 @@ import com.example.spotifywrapped.R;
 
 import com.example.spotifywrapped.firestore.FireStoreActivity;
 import com.example.spotifywrapped.ui.login.LoginFragment;
+import com.example.spotifywrapped.ui.wrapped.WrappedFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -76,15 +77,11 @@ import okhttp3.Response;
 //import com.spotify.protocol.types.PlayerState;
 //import com.spotify.protocol.types.Track;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener, WrappedFragment.OnMusicPlayerListener {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     private SpotifyAppRemote mSpotifyAppRemote;
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    private SpotifyAppRemote mSpotifyAppRemote;
-
-
     FireStoreActivity FireStoreActivity = new FireStoreActivity();
 
     public static final String CLIENT_ID = "af97d706ecbd46009cb779d7cf1e25da";
@@ -110,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 
         LoginFragment lf = LoginFragment.newInstance(this);
         LoginFragment.setLoginSuccessListener(this);
+
+        WrappedFragment wf = WrappedFragment.newInstance(this);
+        WrappedFragment.setMusicPlayerListener(this);
 
         setSupportActionBar(binding.appBarMain.toolbar);
 //        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -195,9 +195,15 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 
     public void onLoginSuccess() {
         getToken();
-        connected();
     }
 
+    public void onMusicPlay(String track) {
+        mSpotifyAppRemote.getPlayerApi().play(track);
+    }
+
+    public void onMusicPause() {
+        mSpotifyAppRemote.getPlayerApi().pause();
+    }
     /**
      * Get code from Spotify
      * This method will open the Spotify login activity and get the code
@@ -513,6 +519,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
     public static void updateEmail(FirebaseUser user, String email) {
         // [START update_email]
         assert user != null;
+
         System.out.println(user);
         System.out.println(user.getEmail());
         System.out.println(email);

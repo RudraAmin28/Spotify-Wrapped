@@ -1,7 +1,10 @@
 package com.example.spotifywrapped.ui.wrapped;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ import com.example.spotifywrapped.SpotifyWrapData;
 import com.example.spotifywrapped.SpotifyWrappedStoryActivity;
 import com.example.spotifywrapped.databinding.FragmentWrappedBinding;
 import com.example.spotifywrapped.firestore.FireStoreActivity;
+import com.example.spotifywrapped.ui.login.LoginFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -35,6 +39,24 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
     private RecyclerView recyclerView;
     private WrappedAdapter adapter;
     private FragmentWrappedBinding binding;
+
+    private static OnMusicPlayerListener musicPlayerListener;
+
+    public interface OnMusicPlayerListener {
+        void onMusicPlay(String track);
+        void onMusicPause();
+    }
+
+    public static WrappedFragment newInstance(OnMusicPlayerListener listener) {
+        WrappedFragment fragment = new WrappedFragment();
+        WrappedFragment.setMusicPlayerListener(listener);
+        return fragment;
+    }
+
+    public static void setMusicPlayerListener(OnMusicPlayerListener listener) {
+        musicPlayerListener = listener;
+        Log.d(TAG, "Successfully set listener");
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -77,6 +99,7 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
                             FireStoreActivity.fetchSpotifyWraps(() -> {
                                 adapter.updateData(FireStoreActivity.spotifyWraps);
                                 FireStoreActivity.latest = finalSpotifyData;
+                                musicPlayerListener.onMusicPlay(FireStoreActivity.latest.trackData.getTopTrackURLs().get(0));
                                 Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
                                 startActivity(intent);
                             });
@@ -96,6 +119,7 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
                             FireStoreActivity.fetchSpotifyWraps(() -> {
                                 adapter.updateData(FireStoreActivity.spotifyWraps);
                                 FireStoreActivity.latest = finalSpotifyData;
+                                musicPlayerListener.onMusicPlay(FireStoreActivity.latest.trackData.getTopTrackURLs().get(0));
                                 Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
                                 startActivity(intent);
                             });
@@ -115,6 +139,7 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
                             FireStoreActivity.fetchSpotifyWraps(() -> {
                                 adapter.updateData(FireStoreActivity.spotifyWraps);
                                 FireStoreActivity.latest = finalSpotifyData;
+                                musicPlayerListener.onMusicPlay(FireStoreActivity.latest.trackData.getTopTrackURLs().get(0));
                                 Intent intent = new Intent(getActivity(), SpotifyWrappedStoryActivity.class);
                                 startActivity(intent);
                             });
