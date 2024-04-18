@@ -416,7 +416,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
                     for (int i=0; i < topAlbums.size(); i++) {
                         System.out.println(topAlbums.get(i));
                     }
-                    SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage);
+                    SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage, topTrackURLs);
                     finalSpotifyData.trackData = finalTrackData;
 
                     callback.run();

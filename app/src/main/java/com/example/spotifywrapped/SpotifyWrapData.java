@@ -221,6 +221,11 @@ public class SpotifyWrapData {
                         topTracks.add(items.getJSONObject(i).getString("name"));
                     }
 
+                    ArrayList<String> topTrackURLs = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        topTrackURLs.add(items.getJSONObject(i).getString("uri"));
+                    }
+
 //                    System.out.println("Toptracks: " + topTracks.get(0));
 
                     HashMap<String, Integer> albumCounts = new HashMap<>();
@@ -264,7 +269,7 @@ public class SpotifyWrapData {
                     for (int i = 0; i < topAlbums.size(); i++) {
                         System.out.println(topAlbums.get(i));
                     }
-                    trackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage);
+                    trackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage, topTrackURLs);
 
 //                    setTextAsync(topTracks.get(0), profileTextView);
                     callback.run();
