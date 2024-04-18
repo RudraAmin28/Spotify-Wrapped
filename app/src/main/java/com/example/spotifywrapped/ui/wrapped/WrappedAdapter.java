@@ -47,6 +47,13 @@ public class WrappedAdapter extends RecyclerView.Adapter<WrappedAdapter.WrappedV
         return spotifyDataArrayList.size();
     }
 
+    // Method to update dataset
+    public void updateData(ArrayList<SpotifyWrapData> newData) {
+        spotifyDataArrayList.clear();
+        spotifyDataArrayList.addAll(newData);
+        notifyDataSetChanged();
+    }
+
     public class WrappedViewHolder extends RecyclerView.ViewHolder {
         private TextView dateTextView;
 
