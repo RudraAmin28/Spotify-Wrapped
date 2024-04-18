@@ -22,6 +22,7 @@ public class SpotifyWrapData {
     public SpotifyArtist artistData;
     public SpotifyTrack trackData;
     public String date;
+    public String timeSpan;
 
     private static String mAccessToken, mAccessCode;
     private Call mCall;
@@ -46,18 +47,21 @@ public class SpotifyWrapData {
                         .url("https://api.spotify.com/v1/me/top/artists?time_range=short_term")
                         .addHeader("Authorization", "Bearer " + mAccessToken)
                         .build();
+                timeSpan = "1 Month";
                 break;
             case 2:
                 request = new Request.Builder()
                         .url("https://api.spotify.com/v1/me/top/artists?time_range=medium_term")
                         .addHeader("Authorization", "Bearer " + mAccessToken)
                         .build();
+                timeSpan = "6 Months";
                 break;
             case 3:
                 request = new Request.Builder()
                         .url("https://api.spotify.com/v1/me/top/artists?time_range=long_term")
                         .addHeader("Authorization", "Bearer " + mAccessToken)
                         .build();
+                timeSpan = "1 Year";
                 break;
             default:
                 request = null;
@@ -159,7 +163,6 @@ public class SpotifyWrapData {
 
     public void onGetAlbumData(int timeRange, final Runnable callback) {
         if (mAccessToken == null) {
-            System.out.println("unfortunate2");
 //            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
         }

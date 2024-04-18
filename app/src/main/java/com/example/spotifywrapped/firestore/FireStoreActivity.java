@@ -44,6 +44,7 @@ public class FireStoreActivity {
         singleWrapped.put("Top Five Artists", finalSpotifyData.artistData.getTopFiveArtists());
         singleWrapped.put("Top Artist Image", finalSpotifyData.artistData.getTopArtistImageString());
         singleWrapped.put("Top Genres", finalSpotifyData.artistData.getTopGenres());
+        singleWrapped.put("Time Span", finalSpotifyData.timeSpan);
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -88,6 +89,7 @@ public class FireStoreActivity {
 
                                 SpotifyWrapData curr = new SpotifyWrapData();
                                 curr.date = (String) results.get("Date");
+                                curr.timeSpan = (String) results.get("Time Span");
                                 curr.artistData = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
                                 curr.trackData = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"));
                                 spotifyWraps.add(0, curr);
