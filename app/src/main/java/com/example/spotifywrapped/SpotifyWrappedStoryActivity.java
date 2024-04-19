@@ -31,7 +31,7 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
 
     public interface OnMusicPlayerListener {
         void onMusicPlay(String track);
-        void onMusicPause(final Runnable callback);
+//        void onMusicPause(final Runnable callback);
     }
 
     public static SpotifyWrappedStoryActivity newInstance(OnMusicPlayerListener listener) {
@@ -75,13 +75,14 @@ public class SpotifyWrappedStoryActivity extends AppCompatActivity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 // Finish the activity to go back to the previous fragment
-                System.out.println("BEFORE PAUSE");
-                musicPlayerListener.onMusicPause(() -> {
-                    // This code will be executed after the music is paused
-                    finish();
-                    System.out.println("AFTER PAUSE");
-                });
+//                System.out.println("BEFORE PAUSE");
+//                musicPlayerListener.onMusicPause(() -> {
+//                    // This code will be executed after the music is paused
+//                    finish();
+//                    System.out.println("AFTER PAUSE");
+//                });
             }
         });
     }

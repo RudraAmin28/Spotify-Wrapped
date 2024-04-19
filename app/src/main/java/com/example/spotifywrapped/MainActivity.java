@@ -77,7 +77,7 @@ import okhttp3.Response;
 //import com.spotify.protocol.types.PlayerState;
 //import com.spotify.protocol.types.Track;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener, WrappedFragment.OnMusicPlayerListener, SpotifyWrappedStoryActivity.OnMusicPlayerListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener, SpotifyWrappedStoryActivity.OnMusicPlayerListener {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     private SpotifyAppRemote mSpotifyAppRemote;
@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         LoginFragment lf = LoginFragment.newInstance(this);
         LoginFragment.setLoginSuccessListener(this);
 
-        WrappedFragment wf = WrappedFragment.newInstance(this);
-        WrappedFragment.setMusicPlayerListener(this);
+//        WrappedFragment wf = WrappedFragment.newInstance(this);
+//        WrappedFragment.setMusicPlayerListener(this);
 
         SpotifyWrappedStoryActivity sf = SpotifyWrappedStoryActivity.newInstance(this);
         SpotifyWrappedStoryActivity.setMusicPlayerListener(this);
@@ -204,10 +204,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         mSpotifyAppRemote.getPlayerApi().play(track);
     }
 
-    public void onMusicPause(final Runnable callback) {
-        mSpotifyAppRemote.getPlayerApi().pause();
-        callback.run();
-    }
+//    public void onMusicPause(final Runnable callback) {
+//        System.out.println("PAUSED");
+//        mSpotifyAppRemote.getPlayerApi().pause();
+//        callback.run();
+//    }
     /**
      * Get code from Spotify
      * This method will open the Spotify login activity and get the code
@@ -606,6 +607,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
                         Log.d("MainActivity", "Connected! Yay!");
 
                         // Now you can start interacting with App Remote
+                        mSpotifyAppRemote.getPlayerApi().pause();
                     }
 
                     @Override

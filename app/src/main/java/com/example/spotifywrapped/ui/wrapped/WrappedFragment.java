@@ -40,23 +40,23 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
     private WrappedAdapter adapter;
     private FragmentWrappedBinding binding;
 
-    private static OnMusicPlayerListener musicPlayerListener;
+//    private static OnMusicPlayerListener musicPlayerListener;
 
-    public interface OnMusicPlayerListener {
-        void onMusicPlay(String track);
-        void onMusicPause(final Runnable callback);
-    }
-
-    public static WrappedFragment newInstance(OnMusicPlayerListener listener) {
-        WrappedFragment fragment = new WrappedFragment();
-        WrappedFragment.setMusicPlayerListener(listener);
-        return fragment;
-    }
-
-    public static void setMusicPlayerListener(OnMusicPlayerListener listener) {
-        musicPlayerListener = listener;
-        Log.d(TAG, "Successfully set listener");
-    }
+//    public interface OnMusicPlayerListener {
+//        void onMusicPlay(String track);
+//        void onMusicPause(final Runnable callback);
+//    }
+//
+//    public static WrappedFragment newInstance(OnMusicPlayerListener listener) {
+//        WrappedFragment fragment = new WrappedFragment();
+//        WrappedFragment.setMusicPlayerListener(listener);
+//        return fragment;
+//    }
+//
+//    public static void setMusicPlayerListener(OnMusicPlayerListener listener) {
+//        musicPlayerListener = listener;
+//        Log.d(TAG, "Successfully set listener");
+//    }
 
 
 
