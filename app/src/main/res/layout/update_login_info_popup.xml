@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?attr/colorOnPrimary">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/update_message"
+        android:textSize="18sp"
+        android:textColor="?attr/textFillColor"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:text="Update Login Information"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:layout_marginBottom="16dp"/>
 
     <!-- Username field -->
     <EditText
@@ -20,38 +21,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="New Email"
-        android:inputType="text"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:background="@drawable/edit_text_border"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp" />
+        android:inputType="text"/>
 
     <!-- Password field -->
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:hint="New Password"
         android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:background="@drawable/edit_text_border"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"/>
+        android:layout_marginTop="8dp"/>
 
     <!-- Update button -->
     <Button
         android:id="@+id/buttonUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:text="Update"
         android:layout_marginTop="16dp"
-        android:text="Update" />
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

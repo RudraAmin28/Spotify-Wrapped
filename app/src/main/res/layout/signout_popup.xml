@@ -3,34 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?attr/colorOnPrimary">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/sign_out_message"
+        android:textSize="18sp"
         android:gravity="center"
-        android:paddingBottom="16dp"
-        android:text="Are you sure you want to sign out?"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textColor="?attr/textFillColor"
+        android:paddingBottom="16dp"/>
 
     <Button
         android:id="@+id/buttonSignOutConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:padding="12dp"
         android:text="Sign Out"
-        android:textColor="@android:color/white" />
+        android:backgroundTint="?attr/colorPrimary"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"/>
 
     <Button
         android:id="@+id/buttonCancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/darker_gray"
-        android:padding="12dp"
         android:text="Cancel"
-        android:textColor="@android:color/white" />
+        android:backgroundTint="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:padding="12dp"/>
 
 </LinearLayout>
