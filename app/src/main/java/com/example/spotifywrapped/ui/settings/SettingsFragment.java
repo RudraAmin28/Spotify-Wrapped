@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -37,9 +40,11 @@ public class SettingsFragment extends Fragment {
 
     private PopupWindow deleteAccountPopup;
     private Button buttonDeleteAccount;
+    private Switch darkModeSwitch;
 
     private PopupWindow signOutPopup;
     private Button buttonSignOutConfirm;
+    private static boolean isDarkMode;
 
     private FragmentSettingsBinding binding;
 
@@ -91,6 +96,24 @@ public class SettingsFragment extends Fragment {
                 // Navigate to SettingsFragment
                 NavHostFragment.findNavController(SettingsFragment.this)
                         .navigate(R.id.action_settingsFragment_to_wrappedFragment);
+            }
+        });
+
+        // Find the dark mode switch
+        darkModeSwitch = root.findViewById(R.id.darkModeSwitch);
+        darkModeSwitch.setChecked(isDarkMode);
+        // Set listener to toggle dark mode
+        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Apply dark mode theme when switch is checked, otherwise apply light mode theme
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    isDarkMode = true;
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    isDarkMode = false;
+                }
             }
         });
 

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/spotifyBlack">
+    android:background="?attr/colorOnPrimary">
 
     <!-- Entry 1: Update Login Info -->
     <RelativeLayout
         android:id="@+id/entryUpdateLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="?attr/colorOnPrimary"
         android:padding="16dp"
         android:layout_marginTop="16dp">
 
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="Update Login Information"
             android:textSize="18sp"
-            android:textColor="@color/white"/>
+            android:textColor="?attr/textFillColor" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="Delete Account"
             android:textSize="18sp"
-            android:textColor="@color/white"/>
+            android:textColor="?attr/textFillColor" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -58,6 +58,7 @@
 
     </RelativeLayout>
 
+    <!-- Entry 3: Sign Out -->
     <RelativeLayout
         android:id="@+id/entrySignOut"
         android:layout_width="match_parent"
@@ -73,7 +74,7 @@
             android:layout_height="wrap_content"
             android:text="Sign Out"
             android:textSize="18sp"
-            android:textColor="@color/white"/>
+            android:textColor="?attr/textFillColor"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -84,10 +85,38 @@
 
     </RelativeLayout>
 
+    <!-- Dark Mode Toggle -->
+    <RelativeLayout
+        android:id="@+id/entryToggleDarkMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="16dp"
+        android:layout_below="@id/entrySignOut"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/toggleDarkModeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dark Mode"
+            android:textSize="18sp"
+            android:textColor="?attr/textFillColor"/>
+
+        <Switch
+            android:id="@+id/darkModeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <!-- Floating Action Button -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/entrySignOut">
+        android:layout_below="@id/entryToggleDarkMode">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/home_fab"
@@ -95,12 +124,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:padding="8dp"
             android:contentDescription="@string/home"
+            android:padding="8dp"
+            app:backgroundTint="?attr/colorPrimary"
             app:fabCustomSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-<!--        app:srcCompat="@android:drawable/icon_home"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

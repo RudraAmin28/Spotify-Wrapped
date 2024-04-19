@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/spotifyBlack">
+    android:background="?attr/colorOnPrimary">
 
     <TextView
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:text="@string/generate"
         android:textSize="30dp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="?attr/textFillColor"
         android:layout_marginTop="20dp"/>
 
     <LinearLayout
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:backgroundTint="@color/spotifyGreen1"
+            android:backgroundTint="?attr/colorPrimary"
             android:text="@string/generate_short"
             android:font="@font/metropolis"
             android:textStyle="bold"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:backgroundTint="@color/spotifyGreen1"
+            android:backgroundTint="?attr/colorPrimary"
             android:text="@string/generate_med"
             android:font="@font/metropolis"
             android:textStyle="bold"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:backgroundTint="@color/spotifyGreen1"
+            android:backgroundTint="?attr/colorPrimary"
             android:text="@string/generate_long"
             android:font="@font/metropolis"
             android:textStyle="bold"
@@ -70,7 +70,7 @@
         android:text="@string/past_wraps"
         android:textSize="30dp"
         android:textStyle="bold"
-        android:textColor="@color/white"/>
+        android:textColor="?attr/textFillColor"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -94,7 +94,8 @@
             android:contentDescription="@string/settings"
             app:fabCustomSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:backgroundTint="?attr/colorPrimary"/>
 <!--        app:srcCompat="@android:drawable/icon_settings"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
