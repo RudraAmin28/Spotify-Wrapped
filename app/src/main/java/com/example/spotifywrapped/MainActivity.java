@@ -108,76 +108,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         LoginFragment lf = LoginFragment.newInstance(this);
         LoginFragment.setLoginSuccessListener(this);
 
-//        WrappedFragment wf = WrappedFragment.newInstance(this);
-//        WrappedFragment.setMusicPlayerListener(this);
-
         SpotifyWrappedStoryActivity sf = SpotifyWrappedStoryActivity.newInstance(this);
         SpotifyWrappedStoryActivity.setMusicPlayerListener(this);
 
-        setSupportActionBar(binding.appBarMain.toolbar);
-//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+//        setSupportActionBar(binding.appBarMain.toolbar);
 
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-
-                R.id.nav_login, R.id.nav_wrapped, R.id.nav_settings)
-                .setOpenableLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
-        // Set up navigation drawer item click listener
-        navigationView.setNavigationItemSelectedListener(item -> {
-            // Handle navigation item clicks here
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_login) {
-                navController.navigate(R.id.nav_login); // Navigate to the desired destination
-            } else if (itemId == R.id.nav_wrapped) {
-                navController.navigate(R.id.nav_wrapped); // Navigate to the desired destination
-            } else if (itemId == R.id.nav_settings) {
-                navController.navigate(R.id.nav_settings); // Navigate to the desired destination
-            }
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        });
-
-
-        // Initialize the buttons
-//        Button tokenBtn = findViewById(R.id.token_btn);
-//        Button createwrapButton2 = findViewById(R.id.createwrapButton2);
-
-        // Set the click listeners for the buttons
-
-//        tokenBtn.setOnClickListener((v) -> {
-//            getToken();
-//        });
-
-
-
-
-//        createwrapButton2.setOnClickListener((v) -> {
-//            onGetArtistData(() -> {
-//                onGetAlbumData(() -> {
-//                    FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
-//                        FireStoreActivity.fetchSpotifyWraps(() -> {
-//                            Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
-//                            startActivity(intent);
-////                            connected();
-//                        });
-//                    });
-//                });
-//            });
-//        });
     }
 
 
