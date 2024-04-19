@@ -219,10 +219,10 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Handle sign out button click here
-                FirebaseAuth.getInstance().signOut();
-                Navigation.findNavController(requireView()).navigate(R.id.nav_login);
-                spotifySignOut();
-
+                spotifySignOut(() -> {
+                    FirebaseAuth.getInstance().signOut();
+                    Navigation.findNavController(requireView()).navigate(R.id.nav_login);
+                });
                 // Dismiss the sign out popup window after signing out
                 signOutPopup.dismiss();
             }
@@ -238,13 +238,14 @@ public class SettingsFragment extends Fragment {
         });
     }
 
-    public void spotifySignOut() {
+    public void spotifySignOut(final Runnable callback) {
         String url = "https://accounts.spotify.com";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         PackageManager packageManager = requireActivity().getPackageManager();
         if (intent.resolveActivity(packageManager) != null) {
             // Start the activity if there's an app available
             startActivity(intent);
+            callback.run();
         } else {
             // Handle the case where no app can handle the intent
         }

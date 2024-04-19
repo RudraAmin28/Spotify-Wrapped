@@ -45,7 +45,7 @@ public class EmailPasswordActivity extends Activity {
     }
     // [END on_start_check_user]
 
-    public void createAccount(FirebaseAuth mAuth, String email, String password) {
+    public void createAccount(FirebaseAuth mAuth, String email, String password, final Runnable callback) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -55,6 +55,7 @@ public class EmailPasswordActivity extends Activity {
                             // Sign up success, update UI with the new user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            callback.run();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

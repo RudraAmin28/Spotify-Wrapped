@@ -78,9 +78,11 @@ public class LoginFragment extends Fragment {
                 if (!email.isEmpty() && !password.isEmpty()) {
                     if (email.contains("@") && email.contains(".")) {
                         errorMessage.setText("");
-                        emailPasswordActivity.createAccount(mAuth, email, password);
-                        loginSuccessListener.onLoginSuccess();
-                        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_wrappedFragment);
+                        emailPasswordActivity.createAccount(mAuth, email, password, () -> {
+                            loginSuccessListener.onLoginSuccess();
+                            Navigation.findNavController(v)
+                                    .navigate(R.id.action_loginFragment_to_wrappedFragment);
+                        });
                     } else {
                         errorMessage.setText("Invalid email address");
                     }
@@ -95,27 +97,33 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
+                emailPasswordActivity.signIn(mAuth, email, password, () -> {
+                    loginSuccessListener.onLoginSuccess();
+                    Navigation.findNavController(v)
+                            .navigate(R.id.action_loginFragment_to_wrappedFragment);
+
+                });
 
 //                TextView errorMessage = root.findViewById(R.id.textViewEmailPasswordError);
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    loginSuccessListener.onLoginSuccess();
-                                    Navigation.findNavController(v)
-                                            .navigate(R.id.action_loginFragment_to_wrappedFragment);
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    errorMessage.setText("Invalid login");
-                                }
-                            }
-                        });
+//                mAuth.signInWithEmailAndPassword(email, password)
+//                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if (task.isSuccessful()) {
+//                                    // Sign in success, update UI with the signed-in user's information
+//                                    Log.d(TAG, "signInWithEmail:success");
+//                                    FirebaseUser user = mAuth.getCurrentUser();
+//                                    loginSuccessListener.onLoginSuccess();
+//                                    Navigation.findNavController(v)
+//                                            .navigate(R.id.action_loginFragment_to_wrappedFragment);
+//                                } else {
+//                                    // If sign in fails, display a message to the user.
+//                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+//                                    errorMessage.setText("Invalid login");
+//                                }
+//                            }
+//                        });
             }
         });
 
