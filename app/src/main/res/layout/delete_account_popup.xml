@@ -3,22 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?attr/colorOnPrimary">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete Account"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/textFillColor"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you sure you want to delete your account? This action cannot be undone."
-        android:textColor="@android:color/black"
+        android:text="@string/delete_message"
+        android:textColor="?attr/textFillColor"
         android:layout_marginBottom="16dp"/>
 
     <!-- Delete button -->

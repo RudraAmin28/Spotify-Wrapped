@@ -28,4 +28,7 @@
     <string name="top_5_albums">TOP 5 ALBUMS</string>
     <string name="top_5_genres">TOP 5 GENRES</string>
     <string name="delete">Delete</string>
+    <string name="delete_message">Are you sure you want to delete your account? This action cannot be undone.</string>
+    <string name="sign_out_message">Are you sure you want to sign out?</string>
+    <string name="update_message">Update Login Information</string>
 </resources>
