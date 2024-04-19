@@ -90,12 +90,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:padding="8dp"
             android:contentDescription="@string/settings"
             app:fabCustomSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-<!--        app:srcCompat="@android:drawable/icon_settings"-->
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/settings_24px"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

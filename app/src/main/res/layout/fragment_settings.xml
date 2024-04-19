@@ -26,8 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/icon_right_arrow"
-            android:translationX="30dp" />
+            android:src="@drawable/baseline_chevron_right_24" />
 
     </RelativeLayout>
 
@@ -53,8 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/icon_right_arrow"
-            android:translationX="30dp" />
+            android:src="@drawable/baseline_chevron_right_24" />
 
     </RelativeLayout>
 
@@ -79,8 +77,8 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/icon_right_arrow"
-            android:translationX="30dp" />
+            android:src="@drawable/baseline_chevron_right_24"
+ />
 
     </RelativeLayout>
 
@@ -99,8 +97,8 @@
             android:contentDescription="@string/home"
             app:fabCustomSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-<!--        app:srcCompat="@android:drawable/icon_home"-->
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/home_24px"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
