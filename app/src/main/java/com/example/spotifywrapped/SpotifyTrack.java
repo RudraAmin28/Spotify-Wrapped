@@ -28,15 +28,6 @@ public class SpotifyTrack {
         this.topTrackURLs = topTrackURLs;
     }
 
-    public ArrayList<String> getTopTrackURLs() {
-        return topTrackURLs;
-    }
-
-    public void setTopTrackURLs(ArrayList<String> topTrackURLs) {
-        this.topTrackURLs = topTrackURLs;
-    }
-
-    private ArrayList<String> topTrackURLs;
     public ArrayList<String> getTopTracks() {
         return topTracks;
     }
