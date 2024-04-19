@@ -28,6 +28,10 @@ public class FireStoreActivity {
 
     public static ArrayList<SpotifyWrapData> spotifyWraps = new ArrayList<>();
 
+    public static HashMap<String, Integer> sortingRels = new HashMap<>();
+
+    public static SpotifyWrapData latest = null;
+
     private static final String TAG = "FireStoreActivity";
 
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -44,8 +48,8 @@ public class FireStoreActivity {
         singleWrapped.put("Top Five Artists", finalSpotifyData.artistData.getTopFiveArtists());
         singleWrapped.put("Top Artist Image", finalSpotifyData.artistData.getTopArtistImageString());
         singleWrapped.put("Top Genres", finalSpotifyData.artistData.getTopGenres());
+        singleWrapped.put("Time Span", finalSpotifyData.timeSpan);
         singleWrapped.put("Top Track URLs", finalSpotifyData.trackData.getTopTrackURLs());
-        System.out.println(finalSpotifyData.trackData.getTopTrackURLs().get(0));
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -90,20 +94,34 @@ public class FireStoreActivity {
 
                                 SpotifyWrapData curr = new SpotifyWrapData();
                                 curr.date = (String) results.get("Date");
+                                curr.timeSpan = (String) results.get("Time Span");
                                 curr.artistData = new SpotifyArtist((ArrayList<String>) results.get("Top Five Artists"), (String) results.get("Top Artist Image"), (ArrayList<String>) results.get("Top Genres"));
                                 curr.trackData = new SpotifyTrack((ArrayList<String>) results.get("Top Tracks"), (String) results.get("Top Track Image"), (ArrayList<String>) results.get("Top Albums"), (String) results.get("Top Album Image"), (ArrayList<String>) results.get("Top Track URLs"));
-                                spotifyWraps.add(curr);
-
+                                spotifyWraps.add(0, curr);
+                                sortingRels.put("1 Month", 3);
+                                sortingRels.put("6 Months", 2);
+                                sortingRels.put("1 Year", 1);
                                 // Sort the spotifyWraps by date
-                                spotifyWraps.sort(new Comparator<SpotifyWrapData>() {
-                                    @Override
-                                    public int compare(SpotifyWrapData o1, SpotifyWrapData o2) {
-                                        // Assuming date is a String in the format "MM-dd-yyyy"
-                                        return o2.date.compareTo(o1.date);
-                                    }
-                                });
-
                             }
+                            spotifyWraps.sort(new Comparator<SpotifyWrapData>() {
+                                @Override
+                                public int compare(SpotifyWrapData o1, SpotifyWrapData o2) {
+                                    // Compare dates first
+                                    int dateComparison = o2.date.compareTo(o1.date);
+
+                                    // If dates are equal, compare timestamps
+                                    if (dateComparison == 0) {
+
+
+                                        // Compare timestamps as strings
+                                        return sortingRels.get(o1.timeSpan) - sortingRels.get(o2.timeSpan);
+                                    }
+
+                                    return dateComparison;
+                                }
+                            });
+
+
                             callback.run();
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());

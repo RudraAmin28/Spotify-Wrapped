@@ -3,11 +3,13 @@ package com.example.spotifywrapped.authentication;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.spotifywrapped.firestore.FireStoreActivity;
+import com.example.spotifywrapped.ui.login.LoginFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -43,7 +45,7 @@ public class EmailPasswordActivity extends Activity {
     }
     // [END on_start_check_user]
 
-    public void createAccount(FirebaseAuth mAuth, String email, String password) {
+    public void createAccount(FirebaseAuth mAuth, String email, String password, final Runnable callback) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -53,6 +55,7 @@ public class EmailPasswordActivity extends Activity {
                             // Sign up success, update UI with the new user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            callback.run();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -64,7 +67,7 @@ public class EmailPasswordActivity extends Activity {
         // [END create_user_with_email]
     }
 
-    public void signIn(FirebaseAuth mAuth, String email, String password) {
+    public void signIn(FirebaseAuth mAuth, String email, String password, final Runnable callback) {
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -74,11 +77,13 @@ public class EmailPasswordActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            callback.run();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
 //                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
 //                                    Toast.LENGTH_SHORT).show();
+                            LoginFragment.errorMessage.setText("Invalid Login");
 
                         }
                     }

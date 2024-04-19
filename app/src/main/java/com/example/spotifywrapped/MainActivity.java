@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.spotifywrapped.R;
 
 import com.example.spotifywrapped.firestore.FireStoreActivity;
+import com.example.spotifywrapped.ui.login.LoginFragment;
+import com.example.spotifywrapped.ui.wrapped.WrappedFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,6 +46,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -64,20 +69,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import com.spotify.android.appremote.api.ConnectionParams;
-import com.spotify.android.appremote.api.Connector;
-import com.spotify.android.appremote.api.SpotifyAppRemote;
+//import com.spotify.android.appremote.api.ConnectionParams;
+//import com.spotify.android.appremote.api.Connector;
+//import com.spotify.android.appremote.api.SpotifyAppRemote;
 
-import com.spotify.protocol.client.Subscription;
-import com.spotify.protocol.types.PlayerState;
-import com.spotify.protocol.types.Track;
+//import com.spotify.protocol.client.Subscription;
+//import com.spotify.protocol.types.PlayerState;
+//import com.spotify.protocol.types.Track;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener, SpotifyWrappedStoryActivity.OnMusicPlayerListener {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private SpotifyAppRemote mSpotifyAppRemote;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+//    private SpotifyAppRemote mSpotifyAppRemote;
 
 
     FireStoreActivity FireStoreActivity = new FireStoreActivity();
@@ -103,68 +108,14 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
+        LoginFragment lf = LoginFragment.newInstance(this);
+        LoginFragment.setLoginSuccessListener(this);
 
-                R.id.nav_login, R.id.nav_wrapped, R.id.nav_settings)
-                .setOpenableLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        SpotifyWrappedStoryActivity sf = SpotifyWrappedStoryActivity.newInstance(this);
+        SpotifyWrappedStoryActivity.setMusicPlayerListener(this);
 
-        // Set up navigation drawer item click listener
-        navigationView.setNavigationItemSelectedListener(item -> {
-            // Handle navigation item clicks here
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_login) {
-                navController.navigate(R.id.nav_login); // Navigate to the desired destination
-            } else if (itemId == R.id.nav_wrapped) {
-                navController.navigate(R.id.nav_wrapped); // Navigate to the desired destination
-            } else if (itemId == R.id.nav_settings) {
-                navController.navigate(R.id.nav_settings); // Navigate to the desired destination
-            }
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        });
+//        setSupportActionBar(binding.appBarMain.toolbar);
 
-
-        // Initialize the buttons
-        Button tokenBtn = (Button) findViewById(R.id.token_btn);
-        Button createwrapButton2 = (Button) findViewById(R.id.createwrapButton2);
-
-        // Set the click listeners for the buttons
-
-        tokenBtn.setOnClickListener((v) -> {
-            getToken();
-        });
-
-
-
-        createwrapButton2.setOnClickListener((v) -> {
-            onGetArtistData(() -> {
-                onGetAlbumData(() -> {
-                    FireStoreActivity.saveSpotifyWrap(finalSpotifyData, () -> {
-                        FireStoreActivity.fetchSpotifyWraps(() -> {
-                            Intent intent = new Intent(MainActivity.this, SpotifyWrappedStoryActivity.class);
-                            startActivity(intent);
-                            connected();
-                        });
-                    });
-                });
-            });
-        });
     }
 
 
@@ -179,8 +130,23 @@ public class MainActivity extends AppCompatActivity {
     public void getToken() {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN);
         AuthorizationClient.openLoginActivity(MainActivity.this, AUTH_TOKEN_REQUEST_CODE, request);
+//        callback.run();
     }
 
+
+    public void onLoginSuccess() {
+        getToken();
+    }
+
+    public void onMusicPlay(String track) {
+        mSpotifyAppRemote.getPlayerApi().play(track);
+    }
+
+//    public void onMusicPause(final Runnable callback) {
+//        System.out.println("PAUSED");
+//        mSpotifyAppRemote.getPlayerApi().pause();
+//        callback.run();
+//    }
     /**
      * Get code from Spotify
      * This method will open the Spotify login activity and get the code
@@ -205,219 +171,12 @@ public class MainActivity extends AppCompatActivity {
         // Check which request code is present (if any)
         if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             mAccessToken = response.getAccessToken();
+            System.out.println("TOKEN = " + mAccessToken);
+            SpotifyWrapData.setToken(mAccessToken);
 
         } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
             mAccessCode = response.getCode();
         }
-    }
-
-
-    public void onGetArtistData(final Runnable callback) {
-        if (mAccessToken == null) {
-            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Create a request to get the user profile
-        final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/artists?time_range=short_term")
-                .addHeader("Authorization", "Bearer " + mAccessToken)
-                .build();
-
-        cancelCall();
-        mCall = mOkHttpClient.newCall(request);
-
-        mCall.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("HTTP", "Failed to fetch data: " + e);
-                Toast.makeText(MainActivity.this, "Failed to fetch data, watch Logcat for more details",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                try {
-                    final JSONObject jsonObject = new JSONObject(response.body().string());
-                    JSONArray items = jsonObject.getJSONArray("items");
-
-                    //TOP 5 ARTISTS
-                    ArrayList<String> topFiveArtists = new ArrayList<>();
-                    for (int i = 0; i < 5; i++) {
-                        topFiveArtists.add(items.getJSONObject(i).getString("name"));
-                    }
-
-                    //TOP ARTIST IMAGE URL
-                    String topArtistImageString = items.getJSONObject(0).getJSONArray("images").getJSONObject(1).getString("url");
-
-
-
-                    HashMap<String, Integer> genreCounts = new HashMap<>();
-
-                    for (int i = 0; i < items.length(); i++) {
-                        JSONArray genres = items.getJSONObject(i).getJSONArray("genres");
-                        for (int j = 0; j < genres.length(); j++) {
-                            genreCounts.put(genres.getString(j), genreCounts.getOrDefault(genres.getString(j), 0) + 1);
-                        }
-                    }
-
-
-                    ArrayList<ArrayList<String>> buckets = new ArrayList<>();
-                    for (int i = 0; i < 100; i++) {
-                        buckets.add(new ArrayList<>());
-                    }
-
-                    for (String key : genreCounts.keySet()) {
-                        int count = genreCounts.get(key);
-                        buckets.get(count).add(key);
-                    }
-
-                    //TOP 5 ALBUMS and the link to image of the first one
-                    ArrayList<String> topGenres = new ArrayList<>();
-//                    String FirstAlbumImage = "";
-
-                    int currInd = 99;
-                    while (currInd >= 0 && topGenres.size() != 5) {
-                        if (buckets.get(currInd) != null) {
-                            topGenres.addAll(buckets.get(currInd));
-                        }
-                        currInd--;
-                    }
-                    topGenres = new ArrayList<>(topGenres.subList(0, Math.min(5, topGenres.size())));
-
-                    for (int i = 0; i < 5; i++) {
-                        StringBuilder titleCase = new StringBuilder(topGenres.get(i).length());
-                        boolean nextTitleCase = true;
-
-                        for (char c : topGenres.get(i).toCharArray()) {
-                            if (Character.isSpaceChar(c)) {
-                                nextTitleCase = true;
-                            } else if (nextTitleCase) {
-                                c = Character.toTitleCase(c);
-                                nextTitleCase = false;
-                            }
-
-                            titleCase.append(c);
-                        }
-
-                        topGenres.set(i, titleCase.toString());
-                    }
-
-                    SpotifyArtist finalArtistData = new SpotifyArtist(topFiveArtists, topArtistImageString, topGenres);
-                    finalSpotifyData.artistData = finalArtistData;
-
-
-                    callback.run();
-                } catch (JSONException e) {
-                    Log.d("JSON", "Failed to parse data: " + e);
-                    Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-
-
-    public void onGetAlbumData(final Runnable callback) {
-        if (mAccessToken == null) {
-            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Create a request to get the user profile
-        final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-                .addHeader("Authorization", "Bearer " + mAccessToken)
-                .build();
-
-        cancelCall();
-        mCall = mOkHttpClient.newCall(request);
-
-        mCall.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("HTTP", "Failed to fetch data: " + e);
-                Toast.makeText(MainActivity.this, "Failed to fetch data, watch Logcat for more details",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                try {
-                    final JSONObject jsonObject = new JSONObject(response.body().string());
-                    JSONArray items = jsonObject.getJSONArray("items");
-
-
-                    //TOP 5 TRACKS and image link of the first one
-                    ArrayList<String> topTracks = new ArrayList<>();
-                    String firstTrackImage = items.getJSONObject(0).getJSONObject("album").getJSONArray("images").getJSONObject(1).getString("url");
-
-                    for (int i = 0; i < 5; i++) {
-                        topTracks.add(items.getJSONObject(i).getString("name"));
-                    }
-
-
-                    ArrayList<String> topTrackURLs = new ArrayList<>();
-                    for (int i = 0; i < 5; i++) {
-                        topTrackURLs.add(items.getJSONObject(i).getString("uri"));
-                    }
-
-
-                    HashMap<String, Integer> albumCounts = new HashMap<>();
-
-                    for (int i = 0; i < items.length(); i++) {
-                        String albumName = items.getJSONObject(i).getJSONObject("album").getString("name");
-                        albumCounts.put(albumName, albumCounts.getOrDefault(items.getJSONObject(i).getJSONObject("album").getString("name"), 0) + 1);
-                    }
-
-                    ArrayList<ArrayList<String>> buckets = new ArrayList<>();
-                    for (int i = 0; i < 50; i++) {
-                        buckets.add(new ArrayList<>());
-                    }
-
-                    for (String key : albumCounts.keySet()) {
-                        int count = albumCounts.get(key);
-                        buckets.get(count).add(key);
-                    }
-
-                    //TOP 5 ALBUMS and the link to image of the first one
-                    ArrayList<String> topAlbums = new ArrayList<>();
-                    String firstAlbumImage = "";
-
-                    int currInd = 49;
-                    while (currInd >= 0 && topAlbums.size() != 5) {
-                        if (buckets.get(currInd) != null) {
-                            topAlbums.addAll(buckets.get(currInd));
-                        }
-                        currInd--;
-                    }
-
-                    for (int i = 0; i < items.length(); i++) {
-                        String albumName = items.getJSONObject(i).getJSONObject("album").getString("name");
-                        if (albumName.equals(topAlbums.get(0))) {
-                            firstAlbumImage = items.getJSONObject(i).getJSONObject("album").getJSONArray("images").getJSONObject(1).getString("url");
-                        }
-                    }
-
-                    topAlbums = new ArrayList<>(topAlbums.subList(0, Math.min(5, topAlbums.size())));
-
-                    for (int i=0; i < topAlbums.size(); i++) {
-                        System.out.println(topAlbums.get(i));
-                    }
-                    SpotifyTrack finalTrackData = new SpotifyTrack(topTracks, firstTrackImage, topAlbums, firstAlbumImage, topTrackURLs);
-                    finalSpotifyData.trackData = finalTrackData;
-
-                    callback.run();
-                } catch (JSONException e) {
-                    Log.d("JSON", "Failed to parse data: " + e);
-                    Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     /**
@@ -436,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private AuthorizationRequest getAuthenticationRequest(AuthorizationResponse.Type type) {
         return new AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
-                .setShowDialog(false)
+                .setShowDialog(true)
                 .setScopes(new String[] { "user-read-email user-top-read app-remote-control" }) // <--- Change the scope of your requested token here
                 .setCampaign("Spotify Wrapped")
                 .build();
@@ -485,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
     public static void updateEmail(FirebaseUser user, String email) {
         // [START update_email]
         assert user != null;
+
         System.out.println(user);
         System.out.println(user.getEmail());
         System.out.println(email);
@@ -567,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("MainActivity", "Connected! Yay!");
 
                         // Now you can start interacting with App Remote
+                        mSpotifyAppRemote.getPlayerApi().pause();
                     }
 
                     @Override
@@ -582,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
     private void connected() {
         // Then we will write some more code here.
         // Play a playlist
-        mSpotifyAppRemote.getPlayerApi().play(FireStoreActivity.spotifyWraps.get(0).trackData.getTopTrackURLs().get(0));
+        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
     }
 
     @Override

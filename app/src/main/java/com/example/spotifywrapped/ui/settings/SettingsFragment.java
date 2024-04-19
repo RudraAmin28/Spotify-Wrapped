@@ -9,19 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.spotifywrapped.MainActivity;
 import com.example.spotifywrapped.R;
 import com.example.spotifywrapped.databinding.FragmentSettingsBinding;
+import com.example.spotifywrapped.ui.wrapped.WrappedFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,9 +40,11 @@ public class SettingsFragment extends Fragment {
 
     private PopupWindow deleteAccountPopup;
     private Button buttonDeleteAccount;
+    private Switch darkModeSwitch;
 
     private PopupWindow signOutPopup;
     private Button buttonSignOutConfirm;
+    private static boolean isDarkMode;
 
     private FragmentSettingsBinding binding;
 
@@ -78,6 +86,34 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showSignOutPopup();
+            }
+        });
+
+        FloatingActionButton homeFab = root.findViewById(R.id.home_fab);
+        homeFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to SettingsFragment
+                NavHostFragment.findNavController(SettingsFragment.this)
+                        .navigate(R.id.action_settingsFragment_to_wrappedFragment);
+            }
+        });
+
+        // Find the dark mode switch
+        darkModeSwitch = root.findViewById(R.id.darkModeSwitch);
+        darkModeSwitch.setChecked(isDarkMode);
+        // Set listener to toggle dark mode
+        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Apply dark mode theme when switch is checked, otherwise apply light mode theme
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    isDarkMode = true;
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    isDarkMode = false;
+                }
             }
         });
 
@@ -183,10 +219,10 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Handle sign out button click here
-                FirebaseAuth.getInstance().signOut();
-                Navigation.findNavController(requireView()).navigate(R.id.nav_login);
-                spotifySignOut();
-
+                spotifySignOut(() -> {
+                    FirebaseAuth.getInstance().signOut();
+                    Navigation.findNavController(requireView()).navigate(R.id.nav_login);
+                });
                 // Dismiss the sign out popup window after signing out
                 signOutPopup.dismiss();
             }
@@ -202,13 +238,14 @@ public class SettingsFragment extends Fragment {
         });
     }
 
-    public void spotifySignOut() {
+    public void spotifySignOut(final Runnable callback) {
         String url = "https://accounts.spotify.com";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         PackageManager packageManager = requireActivity().getPackageManager();
         if (intent.resolveActivity(packageManager) != null) {
             // Start the activity if there's an app available
             startActivity(intent);
+            callback.run();
         } else {
             // Handle the case where no app can handle the intent
         }

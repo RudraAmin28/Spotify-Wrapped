@@ -47,12 +47,21 @@ public class WrappedAdapter extends RecyclerView.Adapter<WrappedAdapter.WrappedV
         return spotifyDataArrayList.size();
     }
 
+    // Method to update dataset
+    public void updateData(ArrayList<SpotifyWrapData> newData) {
+        spotifyDataArrayList.clear();
+        spotifyDataArrayList.addAll(newData);
+        notifyDataSetChanged();
+    }
+
     public class WrappedViewHolder extends RecyclerView.ViewHolder {
         private TextView dateTextView;
+        private TextView timePeriodTextView;
 
         public WrappedViewHolder(@NonNull View itemView) {
             super(itemView);
             dateTextView = itemView.findViewById(R.id.wrapped_date);
+            timePeriodTextView = itemView.findViewById(R.id.wrapped_timespan);
 
             // Set click listener to item view
             itemView.setOnClickListener(v -> {
@@ -67,6 +76,7 @@ public class WrappedAdapter extends RecyclerView.Adapter<WrappedAdapter.WrappedV
 
         public void bind(SpotifyWrapData spotifyWrapData) {
             dateTextView.setText(spotifyWrapData.date);
+            timePeriodTextView.setText(spotifyWrapData.timeSpan);
         }
     }
 }
