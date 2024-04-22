@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="@color/spotifyGreen2"
+    app:cardBackgroundColor="?attr/colorSecondary"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
@@ -18,11 +18,21 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/wrapped_timespan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:font="@font/metropolis"
+            android:text="Time Period"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/wrapped_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:font="@font/metropolis"
-            android:text="Placerholder date"
+            android:text="Placeholder date"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />

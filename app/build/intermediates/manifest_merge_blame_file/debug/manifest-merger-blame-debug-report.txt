@@ -98,8 +98,8 @@
 53        android:supportsRtl="true"
 53-->/Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/AndroidManifest.xml:13:9-35
 54        android:testOnly="true"
-55        android:theme="@style/Theme.SpotifyWrapped" >
-55-->/Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/AndroidManifest.xml:14:9-52
+55        android:theme="@style/Theme.SpotifyWrapped.NoActionBar" >
+55-->/Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/AndroidManifest.xml:14:9-64
 56        <activity
 56-->/Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/AndroidManifest.xml:16:9-32:20
 57            android:name="com.example.spotifywrapped.MainActivity"

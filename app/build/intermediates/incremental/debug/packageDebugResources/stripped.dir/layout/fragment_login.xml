@@ -3,16 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <!-- Background Image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/app_background"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/semi_transparent_black" />
+
     <!-- Logo or App Name -->
     <TextView
         android:id="@+id/textViewAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/spotify_wrapped"
-        android:textSize="24sp"
+        android:text="@string/app_name"
+        android:textSize="48sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"/>
 
     <!-- Email EditText -->
     <EditText
@@ -21,10 +35,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewAppName"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="180dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="40dp"
         android:hint="@string/email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:background="@drawable/edit_text_border"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"/>
 
     <!-- Password EditText -->
     <EditText
@@ -33,10 +54,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextEmail"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:background="@drawable/edit_text_border"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"/>
 
     <!-- Error Message EditText if necessary -->
     <TextView
@@ -47,6 +75,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="12sp"
+        android:background="@drawable/edit_text_border"
         />
 
 

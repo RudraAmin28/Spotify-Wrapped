@@ -219,10 +219,13 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Handle sign out button click here
-                spotifySignOut(() -> {
-                    FirebaseAuth.getInstance().signOut();
-                    Navigation.findNavController(requireView()).navigate(R.id.nav_login);
-                });
+//                spotifySignOut(() -> {
+//                    FirebaseAuth.getInstance().signOut();
+//                    Navigation.findNavController(requireView()).navigate(R.id.nav_login);
+//                });
+
+                FirebaseAuth.getInstance().signOut();
+                Navigation.findNavController(requireView()).navigate(R.id.nav_login);
                 // Dismiss the sign out popup window after signing out
                 signOutPopup.dismiss();
             }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.spotifywrapped.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -21,16 +22,29 @@ public final class FragmentWrappedBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
-  public final Button buttonGenerate;
+  public final Button buttonGenerateLong;
+
+  @NonNull
+  public final Button buttonGenerateMed;
+
+  @NonNull
+  public final Button buttonGenerateShort;
 
   @NonNull
   public final RecyclerView dashboardRecyclerView;
 
-  private FragmentWrappedBinding(@NonNull LinearLayout rootView, @NonNull Button buttonGenerate,
-      @NonNull RecyclerView dashboardRecyclerView) {
+  @NonNull
+  public final FloatingActionButton settingsFab;
+
+  private FragmentWrappedBinding(@NonNull LinearLayout rootView, @NonNull Button buttonGenerateLong,
+      @NonNull Button buttonGenerateMed, @NonNull Button buttonGenerateShort,
+      @NonNull RecyclerView dashboardRecyclerView, @NonNull FloatingActionButton settingsFab) {
     this.rootView = rootView;
-    this.buttonGenerate = buttonGenerate;
+    this.buttonGenerateLong = buttonGenerateLong;
+    this.buttonGenerateMed = buttonGenerateMed;
+    this.buttonGenerateShort = buttonGenerateShort;
     this.dashboardRecyclerView = dashboardRecyclerView;
+    this.settingsFab = settingsFab;
   }
 
   @Override
@@ -60,9 +74,21 @@ public final class FragmentWrappedBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.button_generate;
-      Button buttonGenerate = ViewBindings.findChildViewById(rootView, id);
-      if (buttonGenerate == null) {
+      id = R.id.button_generate_long;
+      Button buttonGenerateLong = ViewBindings.findChildViewById(rootView, id);
+      if (buttonGenerateLong == null) {
+        break missingId;
+      }
+
+      id = R.id.button_generate_med;
+      Button buttonGenerateMed = ViewBindings.findChildViewById(rootView, id);
+      if (buttonGenerateMed == null) {
+        break missingId;
+      }
+
+      id = R.id.button_generate_short;
+      Button buttonGenerateShort = ViewBindings.findChildViewById(rootView, id);
+      if (buttonGenerateShort == null) {
         break missingId;
       }
 
@@ -72,8 +98,14 @@ public final class FragmentWrappedBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentWrappedBinding((LinearLayout) rootView, buttonGenerate,
-          dashboardRecyclerView);
+      id = R.id.settings_fab;
+      FloatingActionButton settingsFab = ViewBindings.findChildViewById(rootView, id);
+      if (settingsFab == null) {
+        break missingId;
+      }
+
+      return new FragmentWrappedBinding((LinearLayout) rootView, buttonGenerateLong,
+          buttonGenerateMed, buttonGenerateShort, dashboardRecyclerView, settingsFab);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

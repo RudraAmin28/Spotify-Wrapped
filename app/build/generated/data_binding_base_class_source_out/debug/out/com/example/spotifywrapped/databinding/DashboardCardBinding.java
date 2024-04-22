@@ -25,11 +25,15 @@ public final class DashboardCardBinding implements ViewBinding {
   @NonNull
   public final TextView wrappedDate;
 
+  @NonNull
+  public final TextView wrappedTimespan;
+
   private DashboardCardBinding(@NonNull CardView rootView, @NonNull CardView dashboardCard,
-      @NonNull TextView wrappedDate) {
+      @NonNull TextView wrappedDate, @NonNull TextView wrappedTimespan) {
     this.rootView = rootView;
     this.dashboardCard = dashboardCard;
     this.wrappedDate = wrappedDate;
+    this.wrappedTimespan = wrappedTimespan;
   }
 
   @Override
@@ -67,7 +71,14 @@ public final class DashboardCardBinding implements ViewBinding {
         break missingId;
       }
 
-      return new DashboardCardBinding((CardView) rootView, dashboardCard, wrappedDate);
+      id = R.id.wrapped_timespan;
+      TextView wrappedTimespan = ViewBindings.findChildViewById(rootView, id);
+      if (wrappedTimespan == null) {
+        break missingId;
+      }
+
+      return new DashboardCardBinding((CardView) rootView, dashboardCard, wrappedDate,
+          wrappedTimespan);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

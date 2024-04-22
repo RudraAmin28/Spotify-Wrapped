@@ -37,9 +37,12 @@ public class FireStoreActivity {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static CollectionReference usersCollectionRef = db.collection("users");
 
-    private static String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "DEFAULT";
+//    private static String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "DEFAULT";
+    private static String uid;
 
     public static void saveSpotifyWrap(SpotifyWrapData finalSpotifyData, final Runnable callback) {
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         Map<String, Object> singleWrapped = new HashMap<>();
         singleWrapped.put("Top Tracks", finalSpotifyData.trackData.getTopTracks());
         singleWrapped.put("Top Track Image", finalSpotifyData.trackData.getTopTrackImage());
@@ -79,6 +82,8 @@ public class FireStoreActivity {
     }
 
     public static void fetchSpotifyWraps(final Runnable callback) {
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         spotifyWraps.clear();
         CollectionReference dataCollectionRef = usersCollectionRef.document(uid).collection("data");
 

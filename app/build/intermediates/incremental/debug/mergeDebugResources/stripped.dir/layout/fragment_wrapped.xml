@@ -1,28 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/spotifyBlack">
+    android:background="?attr/colorOnPrimary">
 
-    <Button
-        android:id="@+id/button_generate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/spotifyGreen1"
-        android:text="@string/generate"
-        android:font="@font/metropolis"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dashboard_recycler_view"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="10sp"/>
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/generate"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="?attr/textFillColor"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <Button
+            android:id="@+id/button_generate_short"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/generate_short"
+            android:font="@font/metropolis"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="5dp" />
+
+        <Button
+            android:id="@+id/button_generate_med"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/generate_med"
+            android:font="@font/metropolis"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="5dp" />
+
+        <Button
+            android:id="@+id/button_generate_long"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/generate_long"
+            android:font="@font/metropolis"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="5dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/past_wraps"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="?attr/textFillColor"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dashboard_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/settings_fab" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/settings_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/settings"
+            app:fabCustomSize="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:backgroundTint="?attr/colorPrimary"
+            app:tint="?attr/colorOnPrimary"
+            android:src="@drawable/settings_24px"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

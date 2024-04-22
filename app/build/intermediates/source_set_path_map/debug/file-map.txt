@@ -59,4 +59,3 @@ com.example.spotifywrapped.app-packageDebugResources-57 /Users/rudraamin/Desktop
 com.example.spotifywrapped.app-merged_res-58 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/build/intermediates/merged_res/debug
 com.example.spotifywrapped.app-debug-59 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/debug/res
 com.example.spotifywrapped.app-main-60 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/res
-com.example.spotifywrapped.app-packaged_res-61 /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/mylibrary/build/intermediates/packaged_res/debug

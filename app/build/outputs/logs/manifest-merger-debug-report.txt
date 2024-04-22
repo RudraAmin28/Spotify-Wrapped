@@ -11,7 +11,6 @@ MERGED from [androidx.navigation:navigation-runtime:2.7.6] /Users/rudraamin/.gra
 MERGED from [androidx.navigation:navigation-fragment:2.7.6] /Users/rudraamin/.gradle/caches/transforms-3/0880bfdd6284520e88d2f341571fb6d2/transformed/navigation-fragment-2.7.6/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-ui:2.7.6] /Users/rudraamin/.gradle/caches/transforms-3/a403a628dedb216ba77acc8fa430efc2/transformed/navigation-ui-2.7.6/AndroidManifest.xml:17:1-22:12
 MERGED from [com.firebaseui:firebase-ui-auth:7.2.0] /Users/rudraamin/.gradle/caches/transforms-3/1a3564ec27849f555a5f3e23aba31267/transformed/firebase-ui-auth-7.2.0/AndroidManifest.xml:2:1-109:12
-MERGED from [:mylibrary] /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/mylibrary/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] /Users/rudraamin/.gradle/caches/transforms-3/cc2d12b829148758ed6b3b42347dadc2/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/rudraamin/.gradle/caches/transforms-3/241afb17a3857d8fe4aec61405a90878/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/rudraamin/.gradle/caches/transforms-3/d50aae0f7ba54d4cd8c9f5975edf17d6/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
@@ -234,7 +233,7 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/rudraamin/.gradle/ca
 	android:allowBackup
 		ADDED from /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/AndroidManifest.xml:7:9-35
 	android:theme
-		ADDED from /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/AndroidManifest.xml:14:9-52
+		ADDED from /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/AndroidManifest.xml:14:9-64
 	android:dataExtractionRules
 		ADDED from /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/app/src/main/AndroidManifest.xml:8:9-65
 activity#com.example.spotifywrapped.MainActivity
@@ -287,8 +286,6 @@ MERGED from [androidx.navigation:navigation-ui:2.7.6] /Users/rudraamin/.gradle/c
 MERGED from [androidx.navigation:navigation-ui:2.7.6] /Users/rudraamin/.gradle/caches/transforms-3/a403a628dedb216ba77acc8fa430efc2/transformed/navigation-ui-2.7.6/AndroidManifest.xml:20:5-44
 MERGED from [com.firebaseui:firebase-ui-auth:7.2.0] /Users/rudraamin/.gradle/caches/transforms-3/1a3564ec27849f555a5f3e23aba31267/transformed/firebase-ui-auth-7.2.0/AndroidManifest.xml:8:5-10:41
 MERGED from [com.firebaseui:firebase-ui-auth:7.2.0] /Users/rudraamin/.gradle/caches/transforms-3/1a3564ec27849f555a5f3e23aba31267/transformed/firebase-ui-auth-7.2.0/AndroidManifest.xml:8:5-10:41
-MERGED from [:mylibrary] /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/mylibrary/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:mylibrary] /Users/rudraamin/Desktop/App Development/Spotify-Wrapped/mylibrary/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.material:material:1.11.0] /Users/rudraamin/.gradle/caches/transforms-3/cc2d12b829148758ed6b3b42347dadc2/transformed/material-1.11.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.11.0] /Users/rudraamin/.gradle/caches/transforms-3/cc2d12b829148758ed6b3b42347dadc2/transformed/material-1.11.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/rudraamin/.gradle/caches/transforms-3/241afb17a3857d8fe4aec61405a90878/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41

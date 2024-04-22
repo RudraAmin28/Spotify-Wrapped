@@ -4,15 +4,12 @@ package com.example.spotifywrapped.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.spotifywrapped.R;
-import com.google.android.material.navigation.NavigationView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -25,40 +22,13 @@ public final class ActivityMainBinding implements ViewBinding {
   public final AppBarMainBinding appBarMain;
 
   @NonNull
-  public final TextView codeTextView;
-
-  @NonNull
-  public final Button createwrapButton2;
-
-  @NonNull
   public final DrawerLayout drawerLayout;
 
-  @NonNull
-  public final NavigationView navView;
-
-  @NonNull
-  public final TextView responseTextView;
-
-  @NonNull
-  public final Button tokenBtn;
-
-  @NonNull
-  public final TextView tokenTextView;
-
   private ActivityMainBinding(@NonNull DrawerLayout rootView, @NonNull AppBarMainBinding appBarMain,
-      @NonNull TextView codeTextView, @NonNull Button createwrapButton2,
-      @NonNull DrawerLayout drawerLayout, @NonNull NavigationView navView,
-      @NonNull TextView responseTextView, @NonNull Button tokenBtn,
-      @NonNull TextView tokenTextView) {
+      @NonNull DrawerLayout drawerLayout) {
     this.rootView = rootView;
     this.appBarMain = appBarMain;
-    this.codeTextView = codeTextView;
-    this.createwrapButton2 = createwrapButton2;
     this.drawerLayout = drawerLayout;
-    this.navView = navView;
-    this.responseTextView = responseTextView;
-    this.tokenBtn = tokenBtn;
-    this.tokenTextView = tokenTextView;
   }
 
   @Override
@@ -95,46 +65,9 @@ public final class ActivityMainBinding implements ViewBinding {
       }
       AppBarMainBinding binding_appBarMain = AppBarMainBinding.bind(appBarMain);
 
-      id = R.id.code_text_view;
-      TextView codeTextView = ViewBindings.findChildViewById(rootView, id);
-      if (codeTextView == null) {
-        break missingId;
-      }
-
-      id = R.id.createwrapButton2;
-      Button createwrapButton2 = ViewBindings.findChildViewById(rootView, id);
-      if (createwrapButton2 == null) {
-        break missingId;
-      }
-
       DrawerLayout drawerLayout = (DrawerLayout) rootView;
 
-      id = R.id.nav_view;
-      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
-      if (navView == null) {
-        break missingId;
-      }
-
-      id = R.id.response_text_view;
-      TextView responseTextView = ViewBindings.findChildViewById(rootView, id);
-      if (responseTextView == null) {
-        break missingId;
-      }
-
-      id = R.id.token_btn;
-      Button tokenBtn = ViewBindings.findChildViewById(rootView, id);
-      if (tokenBtn == null) {
-        break missingId;
-      }
-
-      id = R.id.token_text_view;
-      TextView tokenTextView = ViewBindings.findChildViewById(rootView, id);
-      if (tokenTextView == null) {
-        break missingId;
-      }
-
-      return new ActivityMainBinding((DrawerLayout) rootView, binding_appBarMain, codeTextView,
-          createwrapButton2, drawerLayout, navView, responseTextView, tokenBtn, tokenTextView);
+      return new ActivityMainBinding((DrawerLayout) rootView, binding_appBarMain, drawerLayout);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

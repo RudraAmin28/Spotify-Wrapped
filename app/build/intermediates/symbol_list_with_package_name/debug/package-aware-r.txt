@@ -1455,6 +1455,7 @@ color common_google_signin_btn_text_light_disabled
 color common_google_signin_btn_text_light_focused
 color common_google_signin_btn_text_light_pressed
 color common_google_signin_btn_tint
+color dark_teal
 color design_bottom_navigation_shadow_color
 color design_box_stroke_color
 color design_dark_default_color_background
@@ -1513,6 +1514,7 @@ color fui_linkColor
 color fui_transparent
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color light_teal
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -2176,7 +2178,6 @@ color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
 color purple_200
-color purple_500
 color purple_700
 color ripple_material_dark
 color ripple_material_light
@@ -2184,6 +2185,7 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color semi_transparent_black
 color spotifyBlack
 color spotifyGreen1
 color spotifyGreen2
@@ -2194,7 +2196,6 @@ color switch_thumb_material_light
 color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color teal_200
-color teal_700
 color tooltip_background_dark
 color tooltip_background_light
 color white
@@ -3097,9 +3098,11 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable app_background
 drawable avd_hide_password
 drawable avd_show_password
 drawable baseline_app_settings_alt_24
+drawable baseline_chevron_right_24
 drawable baseline_close_24
 drawable baseline_exit_to_app_24
 drawable border
@@ -3135,6 +3138,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable edit_text_border
 drawable fui_ic_anonymous_white_24dp
 drawable fui_ic_apple_white_24dp
 drawable fui_ic_check_circle_black_128dp
@@ -3159,8 +3163,8 @@ drawable fui_idp_button_background_yahoo
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable gradient
+drawable home_24px
 drawable ic_arrow_back_black_24
-drawable ic_chevron_right
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
@@ -3248,6 +3252,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable settings_24px
 drawable side_nav_bar
 drawable test_level_drawable
 drawable tooltip_frame_dark
@@ -3326,7 +3331,9 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
+id action_settingsFragment_to_wrappedFragment
 id action_text
+id action_wrappedFragment_to_settingsFragment
 id actions
 id activity_chooser_view_content
 id add
@@ -3380,7 +3387,9 @@ id buttonUpdate
 id button_continue
 id button_create
 id button_done
-id button_generate
+id button_generate_long
+id button_generate_med
+id button_generate_short
 id button_next
 id button_prev
 id button_resend_email
@@ -3408,7 +3417,6 @@ id clip_horizontal
 id clip_vertical
 id clockwise
 id closest
-id code_text_view
 id collapseActionView
 id compress
 id confirm_button
@@ -3425,7 +3433,6 @@ id cos
 id counterclockwise
 id country_list
 id cradle
-id createwrapButton2
 id cross_device_linking_body
 id currentState
 id currentYear
@@ -3434,6 +3441,7 @@ id custom
 id customPanel
 id cut
 id dark
+id darkModeSwitch
 id dashboard_card
 id dashboard_recycler_view
 id date_picker_actions
@@ -3491,11 +3499,11 @@ id enterAlways
 id enterAlwaysCollapsed
 id entryDeleteAccount
 id entrySignOut
+id entryToggleDarkMode
 id entryUpdateLogin
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
-id fab
 id fade
 id fill
 id fill_horizontal
@@ -3531,6 +3539,7 @@ id heading
 id hideable
 id home
 id homeAsUp
+id home_fab
 id honorRequest
 id horizontal
 id horizontal_only
@@ -3639,7 +3648,6 @@ id nav_host_fragment_container
 id nav_host_fragment_content_main
 id nav_login
 id nav_settings
-id nav_view
 id nav_wrapped
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
@@ -3707,7 +3715,6 @@ id rectangles
 id report_drawn
 id resend_barrier
 id resend_code
-id response_text_view
 id reverseSawtooth
 id right
 id rightToLeft
@@ -3742,6 +3749,7 @@ id selected
 id selection_type
 id send_code
 id send_sms_tos
+id settings_fab
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3825,8 +3833,7 @@ id title
 id titleDividerNoCustom
 id title_template
 id toggle
-id token_btn
-id token_text_view
+id toggleDarkModeText
 id toolbar
 id top
 id topPanel
@@ -3878,6 +3885,7 @@ id wrappedStoryTextView4
 id wrappedStoryTextView5
 id wrappedTitleTextView
 id wrapped_date
+id wrapped_timespan
 id x_left
 id x_right
 id yahoo_signin_button
@@ -4197,6 +4205,7 @@ string common_signin_button_text_long
 string copy_toast_msg
 string default_web_client_id
 string delete
+string delete_message
 string dest_title
 string email
 string error_a11y_label
@@ -4307,11 +4316,15 @@ string fui_welcome_back_idp_prompt
 string fui_welcome_back_password_prompt_body
 string gcm_defaultSenderId
 string generate
+string generate_long
+string generate_med
+string generate_short
 string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
+string home
 string icon_content_description
 string item_view_role_description
 string login
@@ -4427,6 +4440,7 @@ string navigation_drawer_close
 string navigation_drawer_open
 string password
 string password_toggle_content_description
+string past_wraps
 string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
@@ -4440,6 +4454,7 @@ string settings
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string sign_out
+string sign_out_message
 string sign_up
 string spotify_wrapped
 string status_bar_notification_info_overflow
@@ -4447,6 +4462,7 @@ string top_5_albums
 string top_5_artists
 string top_5_genres
 string top_5_songs
+string update_message
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog
