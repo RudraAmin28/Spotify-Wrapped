@@ -69,20 +69,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-//import com.spotify.android.appremote.api.ConnectionParams;
-//import com.spotify.android.appremote.api.Connector;
-//import com.spotify.android.appremote.api.SpotifyAppRemote;
 
-//import com.spotify.protocol.client.Subscription;
-//import com.spotify.protocol.types.PlayerState;
-//import com.spotify.protocol.types.Track;
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginSuccessListener, SpotifyWrappedStoryActivity.OnMusicPlayerListener {
 
     public static final String REDIRECT_URI = "spotifyapk://auth";
     private SpotifyAppRemote mSpotifyAppRemote;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    private SpotifyAppRemote mSpotifyAppRemote;
 
 
     FireStoreActivity FireStoreActivity = new FireStoreActivity();
@@ -114,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         SpotifyWrappedStoryActivity sf = SpotifyWrappedStoryActivity.newInstance(this);
         SpotifyWrappedStoryActivity.setMusicPlayerListener(this);
 
-//        setSupportActionBar(binding.appBarMain.toolbar);
 
     }
 
@@ -142,11 +134,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         mSpotifyAppRemote.getPlayerApi().play(track);
     }
 
-//    public void onMusicPause(final Runnable callback) {
-//        System.out.println("PAUSED");
-//        mSpotifyAppRemote.getPlayerApi().pause();
-//        callback.run();
-//    }
     /**
      * Get code from Spotify
      * This method will open the Spotify login activity and get the code

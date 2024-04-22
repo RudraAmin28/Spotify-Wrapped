@@ -65,14 +65,6 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
         WrappedViewModel wrappedViewModel =
                 new ViewModelProvider(this).get(WrappedViewModel.class);
 
-//        Timer timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        });
-
         binding = FragmentWrappedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -159,14 +151,6 @@ public class WrappedFragment extends Fragment implements WrappedAdapter.OnItemCl
                 NavHostFragment.findNavController(WrappedFragment.this).navigate(R.id.action_wrappedFragment_to_settingsFragment);
             }
         });
-
-
-//        SpotifyWrapData data = new SpotifyWrapData();
-//        data.artistData = null;
-//        data.trackData = null;
-//        data.date = "01-01-2024";
-//        spotifyWrapDataArrayList.add(data);
-
 
         return root;
     }

@@ -52,11 +52,6 @@ public class LoginFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         emailPasswordActivity = new EmailPasswordActivity();
-//        MainActivity mainActivity = new MainActivity();
-//        mainActivity.setLoginFragment(this);
-//        setAuthCallback(mainActivity);
-//        System.out.println(spotifyAuthCallback + " 2");
-//        System.out.println(loginSuccessListener + " 1");
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -103,41 +98,11 @@ public class LoginFragment extends Fragment {
                             .navigate(R.id.action_loginFragment_to_wrappedFragment);
 
                 });
-
-//                TextView errorMessage = root.findViewById(R.id.textViewEmailPasswordError);
-
-//                mAuth.signInWithEmailAndPassword(email, password)
-//                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                if (task.isSuccessful()) {
-//                                    // Sign in success, update UI with the signed-in user's information
-//                                    Log.d(TAG, "signInWithEmail:success");
-//                                    FirebaseUser user = mAuth.getCurrentUser();
-//                                    loginSuccessListener.onLoginSuccess();
-//                                    Navigation.findNavController(v)
-//                                            .navigate(R.id.action_loginFragment_to_wrappedFragment);
-//                                } else {
-//                                    // If sign in fails, display a message to the user.
-//                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                                    errorMessage.setText("Invalid login");
-//                                }
-//                            }
-//                        });
             }
         });
 
         return root;
     }
-
-//    public void setAuthCallback(SpotifyAuthCallback spotifyAuthCallback) {
-//        this.spotifyAuthCallback = spotifyAuthCallback;
-////        System.out.println(this.spotifyAuthCallback + " 3");
-//    }
-
-//    public LoginFragment getThis() {
-//        return this;
-//    }
 
     @Override
     public void onDestroyView() {
